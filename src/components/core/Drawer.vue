@@ -79,7 +79,12 @@
           to: '/sign-up',
           icon: 'mdi-account',
           text: 'Sign up'
-        }
+        },
+        {
+          to: '/table-list',
+          icon: 'mdi-user',
+          text: 'User list'
+        },
       ]
     }),
 
