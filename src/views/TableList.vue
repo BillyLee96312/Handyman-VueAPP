@@ -47,6 +47,8 @@
       items: []
     }),
 
+    //Vue by default call this method once this component is loaded on page. 
+    //We are fetching all users from database using /api/v1/json/users. This is defined inside server/index
     created(){
       axios.get('/api/v1/json/users').then((res) =>{
         res.data.data.forEach(user => {
