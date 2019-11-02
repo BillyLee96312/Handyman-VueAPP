@@ -76,9 +76,9 @@
           text: 'Login'
         },
         {
-          to: '/user-profile',
+          to: '/sign-up',
           icon: 'mdi-account',
-          text: 'User Profile'
+          text: 'Sign up'
         }
       ]
     }),

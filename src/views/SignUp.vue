@@ -8,7 +8,7 @@
         md="8">
         <material-card
           color="green"
-          title="Login"
+          title="Sign up"
           text=" ">
           <v-form>
             <v-container class="py-0">
@@ -19,6 +19,12 @@
                     class="purple-input"
                     label="User Name"/>
                 </v-col>
+                <v-col cols="12">
+                    <v-text-field
+                    label="Email Address"
+                    v-model="email"
+                    class="purple-input"/>
+                </v-col>
                 <v-col cols="12" >
                     <v-text-field
                     class="purple-input"
@@ -26,11 +32,17 @@
                     label="Password"
                     type="password"/>
                 </v-col>
+                <v-col cols="12" >
+                    <v-text-field
+                    class="purple-input"
+                    v-model="userType"
+                    label="User Type"/>
+                </v-col>
                 <v-col
                   cols="12"
                   class="text-right">
-                  <v-btn color="success" @click="login">
-                    Sign In
+                  <v-btn color="success" @click="createUser">
+                    Sign up
                   </v-btn>
                 </v-col>
               </v-row>
@@ -54,11 +66,13 @@ import axios from 'axios';
       }
     },
     methods:{
-      login(){
+      createUser(){
       //We are using axios to communicate with server. It has get, pust, post, delete function
        axios.post('/api/v1/json/user', {
           userName: this.userName,
-          password: this.password
+          email: this.email,
+          password: this.password,
+          userType: this.userType
         })
         .then(function (response) {
           console.log(response);

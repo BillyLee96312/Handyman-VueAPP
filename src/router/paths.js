@@ -44,5 +44,10 @@ export default [
     path: '/login',
     name: 'login',
     view: 'Login'
+  },
+  {
+    path: '/sign-up',
+    name: 'Sign up',
+    view: 'SignUp'
   }
 ]
