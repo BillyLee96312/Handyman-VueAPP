@@ -7,7 +7,7 @@ export default [
   {
     path: '',
     // Relative to /src/views
-    view: 'Dashboard'
+    view: 'Login'
   },
   {
     path: '/user-profile',
