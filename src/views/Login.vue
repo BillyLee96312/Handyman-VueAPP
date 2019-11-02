@@ -67,7 +67,6 @@ import axios from 'axios';
     },
     methods:{
       createUser(){
-        debugger
       //We are using axios to communicate with server. It has get, pust, post, delete function
        axios.post('/api/v1/json/user', {
           userName: this.userName,
