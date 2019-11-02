@@ -68,7 +68,8 @@ import axios from 'axios';
     methods:{
       createUser(){
         debugger
-       axios.post('https://4000-d3075c9f-bdd7-41c6-bf6b-97585c5d868d.ws-us1.gitpod.io/api/v1/json/user', {
+      //We are using axios to communicate with server. It has get, pust, post, delete function
+       axios.post('/api/v1/json/user', {
           userName: this.userName,
           email: this.email,
           password: this.password,
