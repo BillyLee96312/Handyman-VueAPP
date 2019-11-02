@@ -49,5 +49,15 @@ export default [
     path: '/sign-up',
     name: 'Sign up',
     view: 'SignUp'
+  },
+  {
+    path: '/sign-up-handyman',
+    name: 'Handyman sign up ',
+    view: 'SignupHandyMan'
+  },
+  {
+    path: '/sign-up-homeowner',
+    name: 'Homeowner sign up ',
+    view: 'SignupHomeOwner'
   }
 ]
