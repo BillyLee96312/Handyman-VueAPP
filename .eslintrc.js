@@ -10,5 +10,8 @@ module.exports = {
   },
   parserOptions: {
     parser: 'babel-eslint'
-  }
+  },
+  overrides: [{
+    "excludedFiles": "*.*.sql"
+  }]
 }
