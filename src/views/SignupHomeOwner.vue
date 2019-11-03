@@ -51,6 +51,11 @@
 <script>
 import axios from 'axios';
   export default {
+    metaInfo () {
+      return {
+        title: 'Register Homeowner'
+      }
+    },
     data(){
       return {
         userName: '',

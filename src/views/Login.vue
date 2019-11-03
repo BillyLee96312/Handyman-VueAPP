@@ -44,29 +44,34 @@
 
 <script>
 import axios from 'axios';
-  export default {
-    data(){
-      return {
-        userName: '',
-        email:'',
-        password:'',
-        userType:''
-      }
-    },
-    methods:{
-      login(){
-      //We are using axios to communicate with server. It has get, pust, post, delete function
-       axios.post('/api/v1/json/user', {
-          userName: this.userName,
-          password: this.password
-        })
-        .then(function (response) {
-          console.log(response);
-        })
-        .catch(function (error) {
-          console.log(error);
-        });
-      }
+export default {
+  metaInfo () {
+    return {
+      title: 'Login'
+    }
+  },
+  data(){
+    return {
+      userName: '',
+      email:'',
+      password:'',
+      userType:''
+    }
+  },
+  methods:{
+    login(){
+    //We are using axios to communicate with server. It has get, pust, post, delete function
+      axios.post('/api/v1/json/user', {
+        userName: this.userName,
+        password: this.password
+      })
+      .then(function (response) {
+        console.log(response);
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
+    }
   }
 }
 

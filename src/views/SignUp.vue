@@ -30,6 +30,11 @@
 
 <script>
   export default {
+    metaInfo () {
+      return {
+        title: 'Register'
+      }
+    },
     methods:{
       signUpHandyman(){
         this.$router.push('sign-up-handyman')
