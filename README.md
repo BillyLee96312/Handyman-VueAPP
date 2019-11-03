@@ -24,11 +24,12 @@ In the project root folder, run command `npm run dev`
 5. Before you start your work create a new beanch by running `git checkout -b <branch name>`(for example `git checkout -b feature/login` ).
 6. Make your code changes and make sure everything is working as expected. 
 7. Run `git status`. You should see files that you have changed. 
-8. Run `git add .`. This will prepare you files to be commited. 
-9. Run `git commit -m '<message>'`. This will commit chnages to your local branch.
-10. Run `git push origin <branch name>`. This will push your changes to github. 
+8. Run `git add .` This will prepare you files to be commited. 
+9. Run `git commit -m '<message>'`. This will commit chnages to your local branch.(e.g. git commit -m "login page added").
+10. Run `git push`. you will see te msessage on terminal `git push --set-upstream origin feature/add-git-process`. Simply copy that line and paste it again. Now you have pushed all the changes on Git hub.  
 11. Go to github and you should see New pull request button. Click on it and select your branch in compare dropdown. Click Create pull request. 
 12. Once Pull request is created you can assign to the team members to review from reviewers dropdown on github. 
+If you are in your local branch `feature/login` and you want to switch to an existing branch or a master branch Run `git checkout <branch>`. (e.g. `git checkout features/readme`).
 
 
 
