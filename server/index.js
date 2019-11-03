@@ -2,19 +2,19 @@ const express = require('express')
 const cors = require('cors')
 const bodyParser = require('body-parser')
 const morgan = require('morgan')
-//const database = require('./database')
+// const database = require('./database')
 
 // API
 // API for users
-var usersRouter = require('./routes/users'); 
+var usersRouter = require('./routes/users')
 // API for user_types
-var userTypesRouter = require('./routes/userTypes'); 
+var userTypesRouter = require('./routes/userTypes')
 // API for customer
-var customersRouter = require('./routes/customers'); 
+var customersRouter = require('./routes/customers')
 // API for skills
-var skillsRouter = require('./routes/skills');
-// API for handymen 
-var handymenRouter = require('./routes/handymen');
+var skillsRouter = require('./routes/skills')
+// API for handymen
+var handymenRouter = require('./routes/handymen')
 
 const app = express()
 
@@ -34,17 +34,15 @@ app.get('/', (req, res) => {
 
 // request api return from database
 // request api for user
-app.use('/api/v1/json/users', usersRouter); 
+app.use('/api/v1/json/users', usersRouter)
 // request api for user_type
-app.use('/api/v1/json/userTypes', userTypesRouter); 
+app.use('/api/v1/json/userTypes', userTypesRouter)
 // request api for customer
-app.use('/api/v1/json/customers', customersRouter);    
+app.use('/api/v1/json/customers', customersRouter)
 // request api for skill
-app.use('/api/v1/json/skills', skillsRouter);   
+app.use('/api/v1/json/skills', skillsRouter)
 // request api for handyman
-app.use('/api/v1/json/handymen', handymenRouter);  
-
-
+app.use('/api/v1/json/handymen', handymenRouter)
 
 /*
 //Create new user

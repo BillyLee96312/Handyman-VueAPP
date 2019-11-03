@@ -1,10 +1,10 @@
-var express = require('express');
-var router = express.Router();
+var express = require('express')
+var router = express.Router()
 const database = require('../database')
 
-//Create new user
-//This is a post request api. Front end will use this api to create new user.
-//Once user is inserted into database it will return newly created user to frontend
+// Create new user
+// This is a post request api. Front end will use this api to create new user.
+// Once user is inserted into database it will return newly created user to frontend
 router.post('/add', (req, res) => {
     let data = req.body
     let userName = data.userName
@@ -35,7 +35,7 @@ router.post('/add', (req, res) => {
         })
     })
   })
-  
+
   // Get all users
   // This will api will return call users from database
   router.get('/', (req, res) => {
@@ -60,18 +60,18 @@ router.post('/add', (req, res) => {
         })
     })
   })
-  
+
   // Get(Find) a user for checking Login
   // This will api will return call user from database
   router.get('/finduser', (req, res) => {
     let data = req.body
     let userName = data.userName
     let password = data.password
-    //let userName = 'ashley' //data.userName
-    //let password = 'h123' //data.password
+    // let userName = 'ashley' //data.userName
+    // let password = 'h123' //data.password
     console.log(data)
-    let query = "SELECT * FROM user where user_name = '"+`${userName}`+
-                "' and password = '"+`${password}` +"'"
+    let query = "SELECT * FROM user where user_name = '" + `${userName}` +
+                "' and password = '" + `${password}` + "'"
     console.log(query)
     database.query(query)
         .then(rows => {
@@ -95,4 +95,4 @@ router.post('/add', (req, res) => {
     })
   })
 
-  module.exports = router;
+  module.exports = router

@@ -70,7 +70,7 @@
     },
     data: () => ({
       links: [
-         {
+        {
           to: '/login',
           icon: 'mdi-login',
           text: 'Login'
@@ -84,7 +84,7 @@
           to: '/table-list',
           icon: 'mdi-user',
           text: 'User list'
-        },
+        }
       ]
     }),
 
