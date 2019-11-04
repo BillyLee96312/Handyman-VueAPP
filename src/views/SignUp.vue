@@ -1,23 +1,40 @@
 <template>
   <v-container
-    fill-height
-    fluid>
+    class="fill-height"
+    fluid
+  >
     <v-row justify="center">
       <v-col
         cols="12"
-        md="8">
+        md="8"
+      >
         <material-card
           color="green"
           title="Sign up"
-          text=" ">
+          text=" "
+        >
           <v-form>
             <v-container class="py-0">
               <v-row justify="center">
                 <v-col cols="6">
-                    <v-btn class="ma-2" outlined color="Black" @click="signUpHomeOwner" >Home Owner</v-btn>
+                  <v-btn
+                    class="ma-2"
+                    outlined
+                    color="Black"
+                    @click="signUpHomeOwner"
+                  >
+                    Home Owner
+                  </v-btn>
                 </v-col>
                 <v-col cols="6">
-                    <v-btn  class="ma-2" outlined color="Black" @click="signUpHandyman">Handy Man</v-btn>
+                  <v-btn
+                    class="ma-2"
+                    outlined
+                    color="Black"
+                    @click="signUpHandyman"
+                  >
+                    Handy Man
+                  </v-btn>
                 </v-col>
               </v-row>
             </v-container>
@@ -35,13 +52,13 @@
         title: 'Register'
       }
     },
-    methods:{
-      signUpHandyman(){
+    methods: {
+      signUpHandyman () {
         this.$router.push('sign-up-handyman')
       },
-      signUpHomeOwner(){
+      signUpHomeOwner () {
         this.$router.push('sign-up-homeowner')
       }
+    }
   }
-}
 </script>

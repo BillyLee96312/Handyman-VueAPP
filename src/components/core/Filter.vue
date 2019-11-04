@@ -29,7 +29,7 @@
               Sidebar Filters
             </div>
 
-            <v-row justify-center>
+            <v-row justify="center">
               <v-avatar
                 v-for="c in colors"
                 :key="c"

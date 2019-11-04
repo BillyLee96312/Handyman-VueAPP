@@ -1,6 +1,6 @@
 <template>
   <v-container
-    fill-height
+    class="fill-height"
     fluid
     grid-list-xl
   >
@@ -23,7 +23,7 @@
 </template>
 
 <script>
-  import axios from 'axios';
+  import axios from 'axios'
 
   export default {
     data: () => ({
@@ -47,17 +47,17 @@
       items: []
     }),
 
-    //Vue by default call this method once this component is loaded on page. 
-    //We are fetching all users from database using /api/v1/json/users. This is defined inside server/index
-    created(){
-      axios.get('/api/v1/json/users').then((res) =>{
+    // Vue by default call this method once this component is loaded on page.
+    // We are fetching all users from database using /api/v1/json/users. This is defined inside server/index
+    created () {
+      axios.get('/api/v1/json/users').then((res) => {
         res.data.data.forEach(user => {
           this.items.push({
             username: user.user_name,
             email: user.email,
             usertype: user.user_type
           })
-        });
+        })
       })
     }
   }

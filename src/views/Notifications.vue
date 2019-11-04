@@ -1,7 +1,7 @@
 <template>
   <v-container
+    class="fill-height"
     fluid
-    fill-height
   >
     <v-row
       align="center"
