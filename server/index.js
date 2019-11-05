@@ -15,6 +15,8 @@ var customersRouter = require('./routes/customers')
 var skillsRouter = require('./routes/skills')
 // API for handymen
 var handymenRouter = require('./routes/handymen')
+// API for handyman abilities
+var handymanAbilitiesRouter = require('./routes/handymanAbilities')
 
 const app = express()
 
@@ -43,6 +45,8 @@ app.use('/api/v1/json/customers', customersRouter)
 app.use('/api/v1/json/skills', skillsRouter)
 // request api for handyman
 app.use('/api/v1/json/handymen', handymenRouter)
+// request api for handyman
+app.use('/api/v1/json/handymanabilities',handymanAbilitiesRouter)
 
 /*
 //Create new user
