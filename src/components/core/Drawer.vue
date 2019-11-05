@@ -18,7 +18,7 @@
       />
     </template>
 
-    <v-list-item two-line>
+    <v-list-item two-line to="/home">
       <v-list-item-avatar color="white">
         <v-img
           src="https://cdn.vuetifyjs.com/images/logos/v.png"
