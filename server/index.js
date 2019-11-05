@@ -18,6 +18,8 @@ var handymenRouter = require('./routes/handymen')
 // API for handyman abilities
 var handymanAbilitiesRouter = require('./routes/handymanAbilities')
 
+const serviceRouter = require('./routes/services')
+
 const app = express()
 
 const port = process.env.PORT || 4000
@@ -27,12 +29,6 @@ app.listen(port, () => {
 app.use(morgan('tiny'))
 app.use(cors())
 app.use(bodyParser.json())
-
-app.get('/', (req, res) => {
-    res.json({
-        message: 'Behold The MEVN Stack!'
-    })
-})
 
 // request api return from database
 // request api for user
@@ -46,7 +42,7 @@ app.use('/api/v1/json/skills', skillsRouter)
 // request api for handyman
 app.use('/api/v1/json/handymen', handymenRouter)
 // request api for handyman
-app.use('/api/v1/json/handymanabilities',handymanAbilitiesRouter)
+app.use('/api/v1/json/handymanabilities', handymanAbilitiesRouter)
 
 /*
 //Create new user
@@ -108,3 +104,5 @@ app.get('/api/v1/json/users', (req, res) => {
   })
 })
 */
+// request api for services
+// app.use('/api/v1/json/services', serviceRouter)
