@@ -7,7 +7,12 @@ export default [
   {
     path: '',
     // Relative to /src/views
-    view: 'Login'
+    view: 'Home'
+  },
+  {
+    path: '/home',
+    // Relative to /src/views
+    view: 'Home'
   },
   {
     path: '/user-profile',
