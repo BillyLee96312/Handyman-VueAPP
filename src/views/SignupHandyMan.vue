@@ -192,7 +192,7 @@
             city : this.city,
             pcode: this.pcode,
             phone: this.phone,
-            userType: 2
+            userType: 2 //db has 2 assigned for handyman
           },
           abilities:{
             selectedSkills: this.value
