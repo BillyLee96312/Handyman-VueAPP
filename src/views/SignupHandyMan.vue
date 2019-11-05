@@ -22,7 +22,7 @@
                   <v-text-field
                     label="First Name"
                     class="purple-input"
-                    v-model="personalInfo.fname"
+                    v-model="fname"
                   />
                 </v-col>
 
@@ -33,7 +33,7 @@
                   <v-text-field
                     label="Last Name"
                     class="purple-input"
-                    v-model="personalInfo.lname"
+                    v-model="lname"
                   />
                 </v-col>
 
@@ -41,7 +41,7 @@
                   <v-text-field
                     label="Adress"
                     class="purple-input"
-                    v-model="personalInfo.address"
+                    v-model="address"
                   />
                 </v-col>
 
@@ -49,7 +49,7 @@
                   <v-text-field
                     label="Phone"
                     class="purple-input"
-                    v-model="personalInfo.phone"
+                    v-model="phone"
                   />
                 </v-col>
 
@@ -60,7 +60,7 @@
                   <v-text-field
                     label="City"
                     class="purple-input"
-                    v-model="personalInfo.city"
+                    v-model="city"
                   />
                 </v-col>
 
@@ -71,7 +71,7 @@
                   <v-text-field
                     label="Country"
                     class="purple-input"
-                    v-model="personalInfo.country"
+                    v-model="country"
                   />
                 </v-col>
 
@@ -83,15 +83,15 @@
                     class="purple-input"
                     label="Postal Code"
                     type="number"
-                    v-model="personalInfo.pcode"
+                    v-model="pcode"
                   />
                 </v-col>
-                 <v-col cols="12"> 
+                 <v-col cols="12">
                      <label class="typo__label">Skills</label>
-                    <multiselect 
-                      v-model="abilities.selectedSkills" 
-                      :options="skills" 
-                      multiple=true 
+                    <multiselect
+                      v-model="selectedSkills"
+                      :options="skills"
+                      multiple=true
                       placeholder="Select skills"
                       open-direction="bottom"
                       ></multiselect>
@@ -117,20 +117,20 @@
               <v-row>
                 <v-col cols="12" >
                     <v-text-field
-                    v-model="loginInfo.userName"
+                    v-model="userName"
                     class="purple-input"
                     label="User Name"/>
                 </v-col>
                 <v-col cols="12">
                     <v-text-field
                     label="Email Address"
-                    v-model="loginInfo.email"
+                    v-model="email"
                     class="purple-input"/>
                 </v-col>
                 <v-col cols="12" >
                     <v-text-field
                     class="purple-input"
-                    v-model="loginInfo.password"
+                    v-model="password"
                     label="Password"
                     type="password"/>
                 </v-col>
@@ -143,8 +143,8 @@
                 </v-col>
               </v-row>
             </v-container>
-          </v-form>      
-        </material-card >  
+          </v-form>
+        </material-card >
       </v-col>
     </v-row>
   </v-container>
@@ -159,30 +159,18 @@
     components: { Multiselect },
     data () {
       return {
-         fname: '',
-          lname: '',
-          address: '',
-          city : '',
-          pcode: '',
-          phone:'',
-        personalInfo:{
           fname: '',
           lname: '',
           address: '',
           city : '',
           pcode: '',
           phone:'',
-        },
-        abilities:{
           selectedSkills: null,
-        },
-        loginInfo:{
           userName,
           email,
-          pawword
-        },
-        skills: [],
-        showLoginInfo: false
+          password,
+          skills: [],
+          showLoginInfo: false
       }
     },
     created () {
@@ -195,7 +183,29 @@
 
     methods:{
       createUser(){
-        console.log(this.$data)
+        let reqBody = {
+          personalInfo:{
+            fname: this.fname,
+            lname: this.lname,
+            address: this.address,
+            city : this.city,
+            pcode: this.pcode,
+            phone: this.phone,
+            userType: 2
+          },
+          abilities:{
+            selectedSkills: this.selectedSkills
+          },
+          loginInfo:{
+            userName: this.userName,
+            email: this.email,
+            password: this.password
+          },
+        }
+
+        axios.post('/api/v1/json/user').then((res) =>{
+            console.log(res)
+        })
       },
 
       ShowLogin(){
