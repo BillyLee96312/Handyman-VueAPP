@@ -8,11 +8,10 @@
         cols="12"
         md="8"
       >
-        <material-card
+        <material-card v-if="!showLoginInfo"
           color="green"
           title="Create Profile"
-          text="Complete your profile"
-        >
+          text="Complete your profile">
           <v-form>
             <v-container class="py-0">
               <v-row>
@@ -23,7 +22,7 @@
                   <v-text-field
                     label="First Name"
                     class="purple-input"
-                    v-model="fname"
+                    v-model="personalInfo.fname"
                   />
                 </v-col>
 
@@ -34,7 +33,7 @@
                   <v-text-field
                     label="Last Name"
                     class="purple-input"
-                    v-model="lname"
+                    v-model="personalInfo.lname"
                   />
                 </v-col>
 
@@ -42,7 +41,7 @@
                   <v-text-field
                     label="Adress"
                     class="purple-input"
-                    v-model="address"
+                    v-model="personalInfo.address"
                   />
                 </v-col>
 
@@ -50,7 +49,7 @@
                   <v-text-field
                     label="Phone"
                     class="purple-input"
-                    v-model="phone"
+                    v-model="personalInfo.phone"
                   />
                 </v-col>
 
@@ -61,7 +60,7 @@
                   <v-text-field
                     label="City"
                     class="purple-input"
-                    v-model="city"
+                    v-model="personalInfo.city"
                   />
                 </v-col>
 
@@ -72,7 +71,7 @@
                   <v-text-field
                     label="Country"
                     class="purple-input"
-                    v-model="country"
+                    v-model="personalInfo.country"
                   />
                 </v-col>
 
@@ -84,13 +83,13 @@
                     class="purple-input"
                     label="Postal Code"
                     type="number"
-                    v-model="pcode"
+                    v-model="personalInfo.pcode"
                   />
                 </v-col>
                  <v-col cols="12"> 
                      <label class="typo__label">Skills</label>
                     <multiselect 
-                      v-model="value" 
+                      v-model="abilities.selectedSkills" 
                       :options="skills" 
                       multiple=true 
                       placeholder="Select skills"
@@ -99,16 +98,53 @@
                  </v-col>
                 <v-col
                   cols="12"
-                  class="text-right"
-                >
-                  <v-btn color="success" @click="createUser">
-                    Submit
+                  class="text-right">
+                  <v-btn color="success" @click="ShowLogin">
+                    Next
                   </v-btn>
                 </v-col>
               </v-row>
             </v-container>
           </v-form>
         </material-card>
+
+        <material-card v-if="showLoginInfo"
+          color="green"
+          title="Create Profile"
+          text="Select your username and password">
+          <v-form>
+            <v-container class="py-0">
+              <v-row>
+                <v-col cols="12" >
+                    <v-text-field
+                    v-model="loginInfo.userName"
+                    class="purple-input"
+                    label="User Name"/>
+                </v-col>
+                <v-col cols="12">
+                    <v-text-field
+                    label="Email Address"
+                    v-model="loginInfo.email"
+                    class="purple-input"/>
+                </v-col>
+                <v-col cols="12" >
+                    <v-text-field
+                    class="purple-input"
+                    v-model="loginInfo.password"
+                    label="Password"
+                    type="password"/>
+                </v-col>
+                 <v-col
+                  cols="12"
+                  class="text-right">
+                  <v-btn color="success" @click="createUser">
+                    Submit
+                  </v-btn>
+                </v-col>
+              </v-row>
+            </v-container>
+          </v-form>      
+        </material-card >  
       </v-col>
     </v-row>
   </v-container>
@@ -123,20 +159,34 @@
     components: { Multiselect },
     data () {
       return {
-        value: null,
+         fname: '',
+          lname: '',
+          address: '',
+          city : '',
+          pcode: '',
+          phone:'',
+        personalInfo:{
+          fname: '',
+          lname: '',
+          address: '',
+          city : '',
+          pcode: '',
+          phone:'',
+        },
+        abilities:{
+          selectedSkills: null,
+        },
+        loginInfo:{
+          userName,
+          email,
+          pawword
+        },
         skills: [],
-        fname: '',
-        lname: '',
-        address: '',
-        city : '',
-        pcode: '',
-        phone:''
+        showLoginInfo: false
       }
     },
     created () {
-      debugger
       axios.get('/api/v1/json/skills').then((data) => {
-        debugger
         data.data.data.forEach(skill => {
           this.skills.push(skill.skill_name)
         });
@@ -146,6 +196,10 @@
     methods:{
       createUser(){
         console.log(this.$data)
+      },
+
+      ShowLogin(){
+        this.showLoginInfo = true;
       }
     }
   }
