@@ -10,43 +10,125 @@
       >
         <material-card
           color="green"
-          title="Sign up"
-          text=" "
+          title="Create Profile"
+          text="Complete your profile"
         >
           <v-form>
             <v-container class="py-0">
               <v-row>
-                <v-col cols="12">
+                <!-- <v-col
+                  cols="12"
+                  md="4"
+                >
                   <v-text-field
-                    v-model="userName"
+                    label="Company (disabled)"
+                    disabled
+                  />
+                </v-col> -->
+
+                <!-- <v-col
+                  cols="12"
+                  md="6"
+                >
+                  <v-text-field
                     class="purple-input"
                     label="User Name"
                   />
                 </v-col>
-                <v-col cols="12">
+
+                <v-col
+                  cols="12"
+                  md="6"
+                >
                   <v-text-field
-                    v-model="email"
                     label="Email Address"
                     class="purple-input"
                   />
-                </v-col>
-                <v-col cols="12">
+                </v-col> -->
+
+                <v-col
+                  cols="12"
+                  md="6"
+                >
                   <v-text-field
-                    v-model="password"
+                    label="First Name"
                     class="purple-input"
-                    label="Password"
-                    type="password"
                   />
                 </v-col>
+
+                <v-col
+                  cols="12"
+                  md="6"
+                >
+                  <v-text-field
+                    label="Last Name"
+                    class="purple-input"
+                  />
+                </v-col>
+
+                <v-col cols="12">
+                  <v-text-field
+                    label="Adress"
+                    class="purple-input"
+                  />
+                </v-col>
+
+                <v-col
+                  cols="12"
+                  md="4"
+                >
+                  <v-text-field
+                    label="City"
+                    class="purple-input"
+                  />
+                </v-col>
+
+                <v-col
+                  cols="12"
+                  md="4"
+                >
+                  <v-text-field
+                    label="Country"
+                    class="purple-input"
+                  />
+                </v-col>
+
+                <v-col
+                  cols="12"
+                  md="4"
+                >
+                  <v-text-field
+                    class="purple-input"
+                    label="Postal Code"
+                    type="number"
+                  />
+                </v-col>
+                 <v-col cols="12" md="4"> 
+                     <label class="typo__label">Skills</label>
+                    <multiselect v-model="value" :options="skills" multiple=true placeholder="Select skills"></multiselect>
+                 </v-col>
+                <!-- <v-col cols="12"> -->
+                  <!-- <v-textarea
+                    class="purple-input"
+                    label="About Me"
+                    value="Lorem ipsum dolor sit amet, consectetur adipiscing elit."
+                  />
+                </v-col> -->
+
+                <!-- <v-col
+                  cols="4"
+                  class="text-right"
+                >
+                  <v-btn color="success">
+                    Update Profile
+                  </v-btn>
+                </v-col> -->
                 <v-col
                   cols="12"
                   class="text-right"
                 >
-                  <v-btn
-                    color="success"
-                    @click="createUser"
-                  >
-                    Sign up
+                  <v-btn color="success">
+                    Submit
                   </v-btn>
                 </v-col>
               </v-row>
@@ -59,37 +141,26 @@
 </template>
 
 <script>
+  import Multiselect from 'vue-multiselect';
   import axios from 'axios'
+
   export default {
-    metaInfo () {
-      return {
-        title: 'Register Handyman'
-      }
-    },
+    // OR register locally
+    components: { Multiselect },
     data () {
       return {
-        userName: '',
-        email: '',
-        password: '',
-        userType: 2
+        value: null,
+        skills: []
       }
     },
-    methods: {
-      createUser () {
-        // We are using axios to communicate with server. It has get, pust, post, delete function
-        axios.post('/api/v1/json/user/add', {
-          userName: this.userName,
-          email: this.email,
-          password: this.password,
-          userType: this.userType
-        })
-          .then(function (response) {
-            console.log(response)
-          })
-          .catch(function (error) {
-            console.log(error)
-          })
-      }
+    created () {
+      debugger
+      axios.get('/api/v1/json/skills').then((data) => {
+        debugger
+        data.data.data.forEach(skill => {
+          this.skills.push(skill.skill_name)
+        });
+      })
     }
   }
 </script>

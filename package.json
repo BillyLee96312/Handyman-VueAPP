@@ -23,6 +23,7 @@
     "vue-analytics": "^5.17.0",
     "vue-chartist": "^2.2.1",
     "vue-meta": "^2.2.1",
+    "vue-multiselect": "^2.1.6",
     "vue-router": "^3.0.3",
     "vuetify": "^2.0.0",
     "vuex": "^3.0.1",
