@@ -16,36 +16,6 @@
           <v-form>
             <v-container class="py-0">
               <v-row>
-                <!-- <v-col
-                  cols="12"
-                  md="4"
-                >
-                  <v-text-field
-                    label="Company (disabled)"
-                    disabled
-                  />
-                </v-col> -->
-
-                <!-- <v-col
-                  cols="12"
-                  md="6"
-                >
-                  <v-text-field
-                    class="purple-input"
-                    label="User Name"
-                  />
-                </v-col>
-
-                <v-col
-                  cols="12"
-                  md="6"
-                >
-                  <v-text-field
-                    label="Email Address"
-                    class="purple-input"
-                  />
-                </v-col> -->
-
                 <v-col
                   cols="12"
                   md="6"
@@ -53,6 +23,7 @@
                   <v-text-field
                     label="First Name"
                     class="purple-input"
+                    v-model="fname"
                   />
                 </v-col>
 
@@ -63,13 +34,23 @@
                   <v-text-field
                     label="Last Name"
                     class="purple-input"
+                    v-model="lname"
                   />
                 </v-col>
 
-                <v-col cols="12">
+                <v-col cols="12" md="6">
                   <v-text-field
                     label="Adress"
                     class="purple-input"
+                    v-model="address"
+                  />
+                </v-col>
+
+                <v-col cols="12" md="6">
+                  <v-text-field
+                    label="Phone"
+                    class="purple-input"
+                    v-model="phone"
                   />
                 </v-col>
 
@@ -80,6 +61,7 @@
                   <v-text-field
                     label="City"
                     class="purple-input"
+                    v-model="city"
                   />
                 </v-col>
 
@@ -90,6 +72,7 @@
                   <v-text-field
                     label="Country"
                     class="purple-input"
+                    v-model="country"
                   />
                 </v-col>
 
@@ -101,33 +84,24 @@
                     class="purple-input"
                     label="Postal Code"
                     type="number"
+                    v-model="pcode"
                   />
                 </v-col>
-                 <v-col cols="12" md="4"> 
+                 <v-col cols="12"> 
                      <label class="typo__label">Skills</label>
-                    <multiselect v-model="value" :options="skills" multiple=true placeholder="Select skills"></multiselect>
+                    <multiselect 
+                      v-model="value" 
+                      :options="skills" 
+                      multiple=true 
+                      placeholder="Select skills"
+                      open-direction="bottom"
+                      ></multiselect>
                  </v-col>
-                <!-- <v-col cols="12"> -->
-                  <!-- <v-textarea
-                    class="purple-input"
-                    label="About Me"
-                    value="Lorem ipsum dolor sit amet, consectetur adipiscing elit."
-                  />
-                </v-col> -->
-
-                <!-- <v-col
-                  cols="4"
-                  class="text-right"
-                >
-                  <v-btn color="success">
-                    Update Profile
-                  </v-btn>
-                </v-col> -->
                 <v-col
                   cols="12"
                   class="text-right"
                 >
-                  <v-btn color="success">
+                  <v-btn color="success" @click="createUser">
                     Submit
                   </v-btn>
                 </v-col>
@@ -150,7 +124,13 @@
     data () {
       return {
         value: null,
-        skills: []
+        skills: [],
+        fname: '',
+        lname: '',
+        address: '',
+        city : '',
+        pcode: '',
+        phone:''
       }
     },
     created () {
@@ -161,6 +141,13 @@
           this.skills.push(skill.skill_name)
         });
       })
+    },
+
+    methods:{
+      createUser(){
+        console.log(this.$data)
+      }
     }
   }
 </script>
+<style src="vue-multiselect/dist/vue-multiselect.min.css"></style>
