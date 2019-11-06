@@ -77,15 +77,13 @@ router.put('/edit/:id', (req, res) => {
 // Get all handymen
 // This will api will return call handymen from database
 router.get('/', (req, res) => {
-/*
   let query = 'select hm.handyman_id, sv.service_name, hm.first_name, hm.last_name, hm.phone_num, ' +
                   'ha.skill_license_no, sk.skill_name, sk.skill_desc, work_avaliable_area ' +
                 'from service sv ' +
                   'join skill sk on sv.service_id = sk.service_id ' +
                   'join handyman_ability ha on ha.ability_skill_id = sk.skill_id ' +
                   'join handyman hm on hm.handyman_id = ha.handyman_id '
-*/
-  let query = 'SELECT * FROM handyman'  
+  //let query = 'SELECT * FROM handyman'  
   console.log(query)
   database.query(query)
       .then(rows => {
