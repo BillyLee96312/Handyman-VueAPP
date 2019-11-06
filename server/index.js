@@ -11,13 +11,15 @@ var usersRouter = require('./routes/users')
 var userTypesRouter = require('./routes/userTypes')
 // API for customer
 var customersRouter = require('./routes/customers')
+// API for address
+var addressessRouter = require('./routes/addresses')
 // API for skills
 var skillsRouter = require('./routes/skills')
 // API for handymen
 var handymenRouter = require('./routes/handymen')
 // API for handyman abilities
 var handymanAbilitiesRouter = require('./routes/handymanAbilities')
-
+// API for services
 const serviceRouter = require('./routes/services')
 
 const app = express()
@@ -37,11 +39,14 @@ app.use('/api/v1/json/users', usersRouter)
 app.use('/api/v1/json/userTypes', userTypesRouter)
 // request api for customer
 app.use('/api/v1/json/customers', customersRouter)
+// request api for addresser
+app.use('/api/v1/json/addresses', addressessRouter)
 // request api for skill
 app.use('/api/v1/json/skills', skillsRouter)
 // request api for handyman
 app.use('/api/v1/json/handymen', handymenRouter)
 // request api for handyman
-app.use('/api/v1/json/handymanabilities',handymanAbilitiesRouter)
+var handymanAbilitiesRouter = require('./routes/handymanAbilities')
+app.use('/api/v1/json/handymanAbilities', handymenRouter)
 // request api for services
 app.use('/api/v1/json/services', serviceRouter)
