@@ -19,26 +19,23 @@
                 <v-col cols="12">
                   <v-text-field
                     v-model="userName"
-                    v-validate="'required'"
                     class="purple-input"
-                    label="User Name"                    
+                    label="User Name"
                   />
                 </v-col>
                 <v-col cols="12">
                   <v-text-field
-                    v-validate="'required'"
                     v-model="email"
                     label="Email Address"
-                    class="purple-input"                    
+                    class="purple-input"
                   />
                 </v-col>
                 <v-col cols="12">
                   <v-text-field
-                    v-validate="'required'"
                     v-model="password"
                     class="purple-input"
                     label="Password"
-                    type="password"                    
+                    type="password"
                   />
                 </v-col>
                 <v-col
