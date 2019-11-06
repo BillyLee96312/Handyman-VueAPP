@@ -36,6 +36,40 @@ router.post('/add', (req, res) => {
     })
   })
 
+
+// Edit a user
+// This is a Edit request api. Front end will use this api to eidt a user.
+// Once user is updated into database it will return updated user to frontend
+router.put('/edit/:id', (req, res) => {
+  //let data = req.body
+  let data = {
+    first_name : req.body.password,
+  }
+  console.log(data)
+  let query = 'UPDATE user SET ? WHERE user_id = ' + req.params.id
+  database.query(query, data)
+      .then(rows => {
+        database.close().then(() => {
+          res.json({
+            data: rows
+          })
+        })
+      })
+      .catch(err => {
+        database.close().then(() => {
+          res.json({
+            data: err
+          })
+      }).catch((error) => {
+            console.log(error)
+            res.json({
+            data: err
+          })
+      })
+  })
+})
+
+
   // Get all users
   // This will api will return call users from database
   router.get('/', (req, res) => {

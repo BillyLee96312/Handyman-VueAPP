@@ -45,8 +45,7 @@ app.use('/api/v1/json/addresses', addressessRouter)
 app.use('/api/v1/json/skills', skillsRouter)
 // request api for handyman
 app.use('/api/v1/json/handymen', handymenRouter)
-// request api for handyman
-var handymanAbilitiesRouter = require('./routes/handymanAbilities')
-app.use('/api/v1/json/handymanAbilities', handymenRouter)
+// request api for handymanAbilities
+app.use('/api/v1/json/handymanAbilities', handymanAbilitiesRouter)
 // request api for services
 app.use('/api/v1/json/services', serviceRouter)

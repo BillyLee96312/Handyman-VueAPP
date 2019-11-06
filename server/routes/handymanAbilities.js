@@ -71,6 +71,35 @@ router.put('/edit/:id', (req, res) => {
 })
 
 
+// Delete an handyman_ability
+// This is a delete request api. Front end will use this api to delete a handyman_ability.
+router.delete('/delete/:id', (req, res) => {
+  console.log(req.params.id)
+  let query = 'Delete From handyman_ability where handyman_ability_id = ' + req.params.id
+  console.log(query)
+  database.query(query)
+      .then(rows => {
+        database.close().then(() => {
+          res.json({
+            data: rows
+          })
+        })
+      })
+      .catch(err => {
+        database.close().then(() => {
+          res.json({
+            data: err
+        })
+      }).catch((error) => {
+            console.log(error)
+              res.json({
+            data: err
+          })
+      })
+    })
+  })
+
+
 // Get all handyman_abilities
 // This will api will return call handyman_ability from database
 router.get('/', (req, res) => {
