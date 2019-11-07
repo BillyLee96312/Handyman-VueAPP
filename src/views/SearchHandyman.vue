@@ -59,12 +59,16 @@
   import axios from 'axios'
 
   export default {
+    // Set title of page
     metaInfo () {
       return {
         title: 'Search Handyman'
       }
     },
+
     components: { Multiselect },
+
+    // Create initial dynamic data object
     data () {
       return {
         pcode: '',
@@ -72,6 +76,8 @@
         selectedSkills: ''
       }
     },
+
+    // On page create, get list of skills for dropdown
     created () {
       axios.get('/api/v1/json/skills').then((data) => {
         data.data.data.forEach(skill => {
@@ -79,8 +85,12 @@
         })
       })
     },
+
     methods: {
+      // OnClick search button
       searchHandyman () {
+        // Gather user input into object
+        // TODO: Use more filters
         let reqBody = {
           searchFilters: {
             pcode: this.pcode
@@ -89,8 +99,14 @@
             selectedSkills: this.selectedSkills
           }
         }
+
+        // Send data to API
         axios.post('/api/v1/json/searchHandyman', reqBody).then((res) => {
-          console.log(res)
+          // Display all results
+          // TODO: Display these results on page instead of console
+          res.data.data.forEach(user => {
+            console.log(user.user_name)
+          });
         })
       }
     }
