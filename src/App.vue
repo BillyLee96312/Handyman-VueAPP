@@ -1,8 +1,8 @@
 <template>
   <v-app>
-    <core-app-bar />
+    <core-app-bar v-if="!isHomeRoute" />
 
-    <core-drawer />
+    <core-drawer v-if="!isHomeRoute" />
 
     <core-view />
 
@@ -17,6 +17,15 @@
       CoreFooter: () => import('@/components/core/Footer'),
       CoreAppBar: () => import('@/components/core/AppBar'),
       CoreView: () => import('@/components/core/View')
+    },
+
+    computed: {
+      isHomeRoute () {
+        if (this.$route.name === 'Home' || this.$route.name === null) {
+          return true
+        }
+        return false
+      }
     }
   }
 </script>
