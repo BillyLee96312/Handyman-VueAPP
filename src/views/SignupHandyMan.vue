@@ -9,9 +9,122 @@
         md="8"
       >
         <material-card
+          v-if="!showLoginInfo"
           color="green"
-          title="Sign up"
-          text=" "
+          title="Create Profile"
+          text="Complete your profile"
+        >
+          <v-form>
+            <v-container class="py-0">
+              <v-row>
+                <v-col
+                  cols="12"
+                  md="6"
+                >
+                  <v-text-field
+                    v-model="fname"
+                    label="First Name"
+                    class="purple-input"
+                  />
+                </v-col>
+
+                <v-col
+                  cols="12"
+                  md="6"
+                >
+                  <v-text-field
+                    v-model="lname"
+                    label="Last Name"
+                    class="purple-input"
+                  />
+                </v-col>
+
+                <v-col
+                  cols="12"
+                  md="6"
+                >
+                  <v-text-field
+                    v-model="address"
+                    label="Adress"
+                    class="purple-input"
+                  />
+                </v-col>
+
+                <v-col
+                  cols="12"
+                  md="6"
+                >
+                  <v-text-field
+                    v-model="phone"
+                    label="Phone"
+                    class="purple-input"
+                  />
+                </v-col>
+
+                <v-col
+                  cols="12"
+                  md="4"
+                >
+                  <v-text-field
+                    v-model="city"
+                    label="City"
+                    class="purple-input"
+                  />
+                </v-col>
+
+                <v-col
+                  cols="12"
+                  md="4"
+                >
+                  <v-text-field
+                    v-model="country"
+                    label="Country"
+                    class="purple-input"
+                  />
+                </v-col>
+
+                <v-col
+                  cols="12"
+                  md="4"
+                >
+                  <v-text-field
+                    v-model="pcode"
+                    class="purple-input"
+                    label="Postal Code"
+                    type="number"
+                  />
+                </v-col>
+                <v-col cols="12">
+                  <label class="typo__label">Skills</label>
+                  <multiselect
+                    v-model="value"
+                    :options="skills"
+                    multiple="true"
+                    placeholder="Select skills"
+                    open-direction="bottom"
+                  />
+                </v-col>
+                <v-col
+                  cols="12"
+                  class="text-right"
+                >
+                  <v-btn
+                    color="success"
+                    @click="ShowLogin"
+                  >
+                    Next
+                  </v-btn>
+                </v-col>
+              </v-row>
+            </v-container>
+          </v-form>
+        </material-card>
+
+        <material-card
+          v-if="showLoginInfo"
+          color="green"
+          title="Create Profile"
+          text="Select your username and password"
         >
           <v-form>
             <v-container class="py-0">
@@ -46,7 +159,7 @@
                     color="success"
                     @click="createUser"
                   >
-                    Sign up
+                    Submit
                   </v-btn>
                 </v-col>
               </v-row>
@@ -59,37 +172,66 @@
 </template>
 
 <script>
+  import Multiselect from 'vue-multiselect'
   import axios from 'axios'
+
   export default {
-    metaInfo () {
-      return {
-        title: 'Register Handyman'
-      }
-    },
+    // OR register locally
+    components: { Multiselect },
     data () {
       return {
+        value: null,
+        skills: [],
+        fname: '',
+        lname: '',
+        address: '',
+        city: '',
+        pcode: '',
+        phone: '',
+        showLoginInfo: false,
         userName: '',
         email: '',
-        password: '',
-        userType: 2
+        password: ''
       }
     },
+    created () {
+      axios.get('/api/v1/json/skills').then((data) => {
+        data.data.data.forEach(skill => {
+          this.skills.push(skill.skill_name)
+        })
+      })
+    },
+
     methods: {
       createUser () {
-        // We are using axios to communicate with server. It has get, pust, post, delete function
-        axios.post('/api/v1/json/user/add', {
-          userName: this.userName,
-          email: this.email,
-          password: this.password,
-          userType: this.userType
+        let reqBody = {
+          personalInfo: {
+            fname: this.fname,
+            lname: this.lname,
+            address: this.address,
+            city: this.city,
+            pcode: this.pcode,
+            phone: this.phone,
+            userType: 2 // db has 2 assigned for handyman
+          },
+          abilities: {
+            selectedSkills: this.value
+          },
+          loginInfo: {
+            userName: this.userName,
+            email: this.email,
+            password: this.password
+          }
+        }
+        axios.post('/api/v1/json/users/add', reqBody).then((res) => {
+          console.log(res)
         })
-          .then(function (response) {
-            console.log(response)
-          })
-          .catch(function (error) {
-            console.log(error)
-          })
+      },
+
+      ShowLogin () {
+        this.showLoginInfo = true
       }
     }
   }
 </script>
+<style src="vue-multiselect/dist/vue-multiselect.min.css"></style>
