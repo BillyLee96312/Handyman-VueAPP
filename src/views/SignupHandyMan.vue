@@ -8,10 +8,12 @@
         cols="12"
         md="8"
       >
-        <material-card v-if="!showLoginInfo"
+        <material-card
+          v-if="!showLoginInfo"
           color="green"
           title="Create Profile"
-          text="Complete your profile">
+          text="Complete your profile"
+        >
           <v-form>
             <v-container class="py-0">
               <v-row>
@@ -20,9 +22,9 @@
                   md="6"
                 >
                   <v-text-field
+                    v-model="fname"
                     label="First Name"
                     class="purple-input"
-                    v-model="fname"
                   />
                 </v-col>
 
@@ -31,25 +33,31 @@
                   md="6"
                 >
                   <v-text-field
+                    v-model="lname"
                     label="Last Name"
                     class="purple-input"
-                    v-model="lname"
                   />
                 </v-col>
 
-                <v-col cols="12" md="6">
+                <v-col
+                  cols="12"
+                  md="6"
+                >
                   <v-text-field
+                    v-model="address"
                     label="Adress"
                     class="purple-input"
-                    v-model="address"
                   />
                 </v-col>
 
-                <v-col cols="12" md="6">
+                <v-col
+                  cols="12"
+                  md="6"
+                >
                   <v-text-field
+                    v-model="phone"
                     label="Phone"
                     class="purple-input"
-                    v-model="phone"
                   />
                 </v-col>
 
@@ -58,9 +66,9 @@
                   md="4"
                 >
                   <v-text-field
+                    v-model="city"
                     label="City"
                     class="purple-input"
-                    v-model="city"
                   />
                 </v-col>
 
@@ -69,9 +77,9 @@
                   md="4"
                 >
                   <v-text-field
+                    v-model="country"
                     label="Country"
                     class="purple-input"
-                    v-model="country"
                   />
                 </v-col>
 
@@ -80,27 +88,30 @@
                   md="4"
                 >
                   <v-text-field
+                    v-model="pcode"
                     class="purple-input"
                     label="Postal Code"
                     type="number"
-                    v-model="pcode"
                   />
                 </v-col>
-                 <v-col cols="12"> 
-                     <label class="typo__label">Skills</label>
-                    <multiselect 
-                      v-model="value" 
-                      :options="skills" 
-                      multiple=true 
-                      placeholder="Select skills"
-                      open-direction="bottom"
-                      ></multiselect>
-                 </v-col>
+                <v-col cols="12">
+                  <label class="typo__label">Skills</label>
+                  <multiselect
+                    v-model="value"
+                    :options="skills"
+                    multiple="true"
+                    placeholder="Select skills"
+                    open-direction="bottom"
+                  />
+                </v-col>
                 <v-col
                   cols="12"
                   class="text-right"
                 >
-                  <v-btn color="success" @click="ShowLogin">
+                  <v-btn
+                    color="success"
+                    @click="ShowLogin"
+                  >
                     Next
                   </v-btn>
                 </v-col>
@@ -109,50 +120,59 @@
           </v-form>
         </material-card>
 
-         <material-card v-if="showLoginInfo"
+        <material-card
+          v-if="showLoginInfo"
           color="green"
           title="Create Profile"
-          text="Select your username and password">
+          text="Select your username and password"
+        >
           <v-form>
             <v-container class="py-0">
               <v-row>
-                <v-col cols="12" >
-                    <v-text-field
+                <v-col cols="12">
+                  <v-text-field
                     v-model="userName"
                     class="purple-input"
-                    label="User Name"/>
+                    label="User Name"
+                  />
                 </v-col>
                 <v-col cols="12">
-                    <v-text-field
-                    label="Email Address"
+                  <v-text-field
                     v-model="email"
-                    class="purple-input"/>
-                </v-col>
-                <v-col cols="12" >
-                    <v-text-field
+                    label="Email Address"
                     class="purple-input"
-                    v-model="password"
-                    label="Password"
-                    type="password"/>
+                  />
                 </v-col>
-                 <v-col
+                <v-col cols="12">
+                  <v-text-field
+                    v-model="password"
+                    class="purple-input"
+                    label="Password"
+                    type="password"
+                  />
+                </v-col>
+                <v-col
                   cols="12"
-                  class="text-right">
-                  <v-btn color="success" @click="createUser">
+                  class="text-right"
+                >
+                  <v-btn
+                    color="success"
+                    @click="createUser"
+                  >
                     Submit
                   </v-btn>
                 </v-col>
               </v-row>
             </v-container>
           </v-form>
-        </material-card >
+        </material-card>
       </v-col>
     </v-row>
   </v-container>
 </template>
 
 <script>
-  import Multiselect from 'vue-multiselect';
+  import Multiselect from 'vue-multiselect'
   import axios from 'axios'
 
   export default {
@@ -165,50 +185,50 @@
         fname: '',
         lname: '',
         address: '',
-        city : '',
+        city: '',
         pcode: '',
-        phone:'',
+        phone: '',
         showLoginInfo: false,
         userName: '',
-        email:'',
-        password:''
+        email: '',
+        password: ''
       }
     },
     created () {
       axios.get('/api/v1/json/skills').then((data) => {
         data.data.data.forEach(skill => {
           this.skills.push(skill.skill_name)
-        });
+        })
       })
     },
 
-    methods:{
-      createUser(){
+    methods: {
+      createUser () {
         let reqBody = {
-          personalInfo:{
+          personalInfo: {
             fname: this.fname,
             lname: this.lname,
             address: this.address,
-            city : this.city,
+            city: this.city,
             pcode: this.pcode,
             phone: this.phone,
-            userType: 2 //db has 2 assigned for handyman
+            userType: 2 // db has 2 assigned for handyman
           },
-          abilities:{
+          abilities: {
             selectedSkills: this.value
           },
-          loginInfo:{
+          loginInfo: {
             userName: this.userName,
             email: this.email,
             password: this.password
-          },
+          }
         }
-        axios.post('/api/v1/json/users/add', reqBody).then((res) =>{
-            console.log(res)
+        axios.post('/api/v1/json/users/add', reqBody).then((res) => {
+          console.log(res)
         })
       },
 
-      ShowLogin(){
+      ShowLogin () {
         this.showLoginInfo = true
       }
     }
