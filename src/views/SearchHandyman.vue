@@ -102,11 +102,11 @@
 
         // Send data to API
         axios.post('/api/v1/json/searchHandyman', reqBody).then((res) => {
-          // Display all results
           // TODO: Display these results on page instead of console
+          // Display all results
           res.data.data.forEach(user => {
             console.log(user.user_name)
-          });
+          })
         })
       }
     }
