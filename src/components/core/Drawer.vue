@@ -92,6 +92,11 @@
           to: '/search-handyman',
           icon: 'mdi-user',
           text: 'Search Handyman'
+        },
+        {
+          to: '/handyman-skill',
+          icon: 'mdi-user',
+          text: 'Handyman Skill'
         }
       ]
     }),

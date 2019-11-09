@@ -23,7 +23,7 @@
             :loading="loading"
             :items="fetched_data"
             :search-input.sync="search"
-            @change="dataSelected()"
+            @change="dataSelected(name)"
             placeholder="here"
             color="black"
             class="black--text"
@@ -100,15 +100,22 @@
       axios.get('/api/v1/json/handyman').then((res) => {
         res.data.data.forEach(service => {
           this.items.push({
-            firstName: service.first_name,
+            firstName: hm.first_name,
             lastName: service.last_name,
             serviceName: service.service_name,
             skillName: service.skill_name,
             skillLicenseNo: service.skill_license_no,
-            avaliableArea: service.work_avaliable_area
+            avaliableArea: service.work_avaliable_area 
           })
         })
       })
+    },
+    watch: {
+      dataSelected(value) {
+        //console.log("item list = "+ value)
+        //value && value !== this.dataSelected && this.query
+      }
+
     }
   }
 </script>

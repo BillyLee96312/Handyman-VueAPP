@@ -70,4 +70,10 @@ export default [
     name: 'Searcing handyman',
     view: 'SearchHandyman'
   }
+  ,
+  {
+    path: '/handyman-skill',
+    name: 'Register Handyman skills',
+    view: 'Handymanskill'
+  }
 ]
