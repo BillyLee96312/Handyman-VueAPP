@@ -11,8 +11,33 @@
           title="Searching HandyMan"
           text="This is a handyman searching page for homeowner"
         >
+          <v-select
+              :items="itemList"
+              :search-input.sync="searchInput"
+              item-text="name"
+              autocomplete
+          />
 
-          <v-data-table
+          <v-autocomplete
+            v-model="selected"
+            :loading="loading"
+            :items="fetched_data"
+            :search-input.sync="search"
+            @change="dataSelected()"
+            placeholder="here"
+            color="black"
+            class="black--text"
+            flat
+            item-text="name"
+            item-value="id"
+            hide-no-data
+            outline
+            hide-details
+            label="Search"
+            return-object
+        >
+        </v-autocomplete>
+            <v-data-table
             :headers="headers"
             :items="items"
             hide-default-footer
@@ -60,6 +85,12 @@
           value: 'avaliableArea'
         }
       ],
+      itemList: [
+        {name: 'Service Name'}, 
+        {name: 'Skill Name'}, 
+        {name: 'Available Area'}
+      ],
+      searchInput: "",
       items: []
     }),
 
