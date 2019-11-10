@@ -15,6 +15,13 @@
         >
           <v-form>
             <v-container class="py-0">
+            <v-row>
+                    <v-text-field
+                      v-model="keyword"
+                      label="Search"
+                      class="purple-input"
+                    />
+                  </v-row>
               <v-row>
                 <v-col cols="3">
                   <v-row>
@@ -24,15 +31,43 @@
                       class="purple-input"
                     />
                   </v-row>
-                  <v-row>
-                    <label class="typo__label">Skills</label>
-                    <multiselect
-                      v-model="selectedSkills"
-                      :options="skills"
-                      placeholder="Select skills"
-                      open-direction="bottom"
-                    />
-                  </v-row>
+                </v-col>
+                 <v-col cols="12" sm="6" md="4">
+                  <v-menu
+                    v-model="menu2"
+                    :close-on-content-click="false"
+                    :nudge-right="40"
+                    transition="scale-transition"
+                    offset-y
+                    min-width="290px"
+                  >
+                    <template v-slot:activator="{ on }">
+                      <v-text-field
+                        v-model="timeAvaibility"
+                        label="Time Avaibility"
+                        prepend-icon=""
+                        readonly
+                        v-on="on"
+                      ></v-text-field>
+                    </template>
+                    <v-date-picker v-model="date" @input="menu2 = false"></v-date-picker>
+                  </v-menu>
+                </v-col>
+                </v-row>
+              <v-row>
+                  <v-col cols="12">
+                  <label class="typo__label">Skills</label>
+                  <multiselect
+                    v-model="selectedSkills"
+                    :options="skills"
+                    multiple="true"
+                    placeholder="Select skills"
+                    open-direction="bottom"
+                  />
+                </v-col>
+              </v-row>
+              <v-row>
+                <v-col cols="12">
                   <v-row>
                     <v-btn
                       color="success"
@@ -41,9 +76,6 @@
                       Search
                     </v-btn>
                   </v-row>
-                </v-col>
-                <v-col cols="6">
-
                 </v-col>
               </v-row>
             </v-container>
@@ -72,8 +104,10 @@
     data () {
       return {
         pcode: '',
+        selectedSkills: null,
         skills: [],
-        selectedSkills: ''
+        timeAvaibility: new Date().toISOString().substr(0, 10),
+        menu2: false,
       }
     },
 
