@@ -86,13 +86,19 @@
         }
       ],
       itemList: [
-        {name: 'Service Name'}, 
-        {name: 'Skill Name'}, 
-        {name: 'Available Area'}
+        {name: 'Service Name' },
+        {name: 'Skill Name' },
+        {name: 'Available Area' }
       ],
-      searchInput: "",
+      searchInput: ' ',
       items: []
     }),
+    watch: {
+      dataSelected (value) {
+        
+      }
+
+    },
 
     // Vue by default call this method once this component is loaded on page.
     // We are fetching all users from database using /api/v1/json/handyman. This is defined inside server/index
@@ -100,22 +106,15 @@
       axios.get('/api/v1/json/handyman').then((res) => {
         res.data.data.forEach(service => {
           this.items.push({
-            firstName: hm.first_name,
-            lastName: service.last_name,
-            serviceName: service.service_name,
+            firstName: service.hm.first_name,
+            lastName: service.hm.last_name,
+            serviceName: service.sv.service_name,
             skillName: service.skill_name,
             skillLicenseNo: service.skill_license_no,
-            avaliableArea: service.work_avaliable_area 
+            avaliableArea: service.work_avaliable_area
           })
         })
       })
-    },
-    watch: {
-      dataSelected(value) {
-        //console.log("item list = "+ value)
-        //value && value !== this.dataSelected && this.query
-      }
-
     }
   }
 </script>

@@ -16,22 +16,37 @@
             :items="items"
             hide-default-footer
           />
+          <v-btn @click="CreateHandymanSkill()"> Create </v-btn>
+          
         </material-card>
+        <Popup />
       </v-col>
     </v-row>
   </v-container>
 </template>
 
 <script>
+  //import Popup from './CreateHandymanSkill'
   import axios from 'axios'
 
   export default {
+    //component: { Popup } ,
+    methods: {
+      CreateHandymanSkill () {
+        this.$router.push('Create-Handyman-Skills')
+      }
+    },
     data: () => ({
       headers: [
         {
           sortable: false,
           text: 'Service ID',
           value: 'serviceid'
+        },
+        {
+          sortable: false,
+          text: 'Skill ID',
+          value: 'skillid'
         },
         {
           sortable: false,
@@ -54,6 +69,7 @@
         res.data.data.forEach(skill => {
           this.items.push({
             serviceid: skill.service_id,
+            skillid: skill.skill_id,
             skillname: skill.skill_name,
             skilldesc: skill.skill_desc
           })
