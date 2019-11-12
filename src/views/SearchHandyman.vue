@@ -135,7 +135,7 @@
         }
 
         // Send data to API
-        axios.post('/api/v1/json/searchHandyman', reqBody).then((res) => {
+        axios.post('/api/v1/json/users/searchpostal', reqBody).then((res) => {
           // TODO: Display these results on page instead of console
           // Display all results
           res.data.data.forEach(user => {

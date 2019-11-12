@@ -21,8 +21,6 @@ var handymenRouter = require('./routes/handymen')
 var handymanAbilitiesRouter = require('./routes/handymanAbilities')
 // API for services
 const serviceRouter = require('./routes/services')
-// API for search handyman
-const searchHandyman = require('./routes/searchHandyman')
 
 const app = express()
 
@@ -51,5 +49,3 @@ app.use('/api/v1/json/handymen', handymenRouter)
 app.use('/api/v1/json/handymanAbilities', handymanAbilitiesRouter)
 // request api for services
 app.use('/api/v1/json/services', serviceRouter)
-// request api for search handyman
-app.use('/api/v1/json/searchHandyman', searchHandyman)
