@@ -15,13 +15,13 @@
         >
           <v-form>
             <v-container class="py-0">
-            <v-row>
-                    <v-text-field
-                      v-model="keyword"
-                      label="Search"
-                      class="purple-input"
-                    />
-                  </v-row>
+              <v-row>
+                <v-text-field
+                  v-model="keyword"
+                  label="Search"
+                  class="purple-input"
+                />
+              </v-row>
               <v-row>
                 <v-col cols="3">
                   <v-row>
@@ -32,7 +32,11 @@
                     />
                   </v-row>
                 </v-col>
-                 <v-col cols="12" sm="6" md="4">
+                <v-col
+                  cols="12"
+                  sm="6"
+                  md="4"
+                >
                   <v-menu
                     v-model="menu2"
                     :close-on-content-click="false"
@@ -48,14 +52,17 @@
                         prepend-icon=""
                         readonly
                         v-on="on"
-                      ></v-text-field>
+                      />
                     </template>
-                    <v-date-picker v-model="date" @input="menu2 = false"></v-date-picker>
+                    <v-date-picker
+                      v-model="date"
+                      @input="menu2 = false"
+                    />
                   </v-menu>
                 </v-col>
-                </v-row>
+              </v-row>
               <v-row>
-                  <v-col cols="12">
+                <v-col cols="12">
                   <label class="typo__label">Skills</label>
                   <multiselect
                     v-model="selectedSkills"
@@ -107,7 +114,7 @@
         selectedSkills: null,
         skills: [],
         timeAvaibility: new Date().toISOString().substr(0, 10),
-        menu2: false,
+        menu2: false
       }
     },
 
@@ -134,13 +141,22 @@
           }
         }
 
+        let headers = {
+          headers: {
+            'Content-Type': 'application/json',
+            'token': this.$store.getters.token
+          }
+        }
+
         // Send data to API
-        axios.post('/api/v1/json/searchHandyman', reqBody).then((res) => {
+        axios.post('/api/v1/json/searchHandyman', reqBody, headers).then((res) => {
           // TODO: Display these results on page instead of console
           // Display all results
           res.data.data.forEach(user => {
             console.log(user.user_name)
           })
+        }).catch((error) => {
+          console.log(error)
         })
       }
     }

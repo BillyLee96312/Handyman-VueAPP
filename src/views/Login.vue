@@ -70,15 +70,17 @@
     methods: {
       login () {
         // We are using axios to communicate with server. It has get, pust, post, delete function
-        axios.post('/api/v1/json/user', {
+        axios.post('/api/v1/json/users/finduser', {
           userName: this.userName,
           password: this.password
         })
-          .then(function (response) {
-            console.log(response)
+          .then((response) => {
+            this.$store.dispatch('storeToekn', response.data.token)
+            this.$router.push({ path: 'search-handyman' })
           })
-          .catch(function (error) {
-            console.log(error)
+          .catch((error) => {
+            console.error(error)
+            this.$store.dispatch('storeToekn', null)
           })
       }
     }

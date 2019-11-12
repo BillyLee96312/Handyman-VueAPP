@@ -72,7 +72,19 @@
       }
     },
     data: () => ({
-      links: [
+      authenticatedLinks: [
+        {
+          to: '/login',
+          icon: 'mdi-logout',
+          text: 'Logout'
+        },
+        {
+          to: '/search-handyman',
+          icon: 'mdi-account-search-outline',
+          text: 'Search Handyman'
+        }
+      ],
+      unauthenticatedLinks: [
         {
           to: '/login',
           icon: 'mdi-login',
@@ -82,18 +94,7 @@
           to: '/sign-up',
           icon: 'mdi-account',
           text: 'Sign up'
-        },
-        {
-          to: '/table-list',
-          icon: 'mdi-user',
-          text: 'User list'
-        },
-        {
-          to: '/search-handyman',
-          icon: 'mdi-searchhandyman',
-          text: 'Search Handyman'
-        }
-      ]
+        }]
     }),
 
     computed: {
@@ -104,6 +105,13 @@
         },
         set (val) {
           this.setDrawer(val)
+        }
+      },
+      links () {
+        if (this.$store.getters.isAuthenticated === true) {
+          return this.authenticatedLinks
+        } else {
+          return this.unauthenticatedLinks
         }
       }
     },
