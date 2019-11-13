@@ -12,9 +12,12 @@ router.post('/add', (req, res) => {
   let firstName = data.firstName
   let lastName = data.lastName
   let phoneNum = data.phoneNum
+  let workLocation = req.body.workLocation
   let workArea = req.body.workArea
+  let workStartTime = req.body.workStartTime
+  let workEndTime = req.body.workEndTime
   console.log(data)
-  let query = `INSERT INTO handyman (user_id, first_name, last_name, phone_num, work_avaliable_area) VALUES ('${userID}', '${firstName}', '${lastName}', ${phoneNum}, ${workArea})`
+  let query = `INSERT INTO handyman (user_id, first_name, last_name, phone_num, work_location, work_avaliable_area, work_start_time, work_end_time) VALUES ('${userID}', '${firstName}', '${lastName}', ${phoneNum}, ${workLocation}, ${workArea}, ${workStartTime}, ${workEndTime})`
   console.log(query, data)
   database.query(query)
       .then(rows => {
@@ -47,7 +50,11 @@ router.put('/edit/:id', (req, res) => {
     first_name : req.body.firstName,
     last_name : req.body.lastName,
     phone_num : req.body.phoneNum,
-    work_avaliable_area : req.body.workArea
+    work_location : req.body.workLocation,
+    work_avaliable_area : req.body.workArea,
+    work_start_time : req.body.workStartTime,
+    work_end_time : req.body.workEndTime
+
   }
   console.log(data)
   let query = 'UPDATE handyman SET ? WHERE handyman_id = ' + req.params.id
@@ -78,7 +85,8 @@ router.put('/edit/:id', (req, res) => {
 // This will api will return call handymen from database
 router.get('/', (req, res) => {
   let query = 'select hm.handyman_id, sv.service_name, hm.first_name, hm.last_name, hm.phone_num, ' +
-                  'ha.skill_license_no, sk.skill_name, sk.skill_desc, work_avaliable_area ' +
+                  'ha.skill_license_no, sk.skill_name, sk.skill_desc, ' +
+                  'hm.work_location, hm.work_avaliable_area, hm.work_start_time, hm.work_end_time ' +
                 'from service sv ' +
                   'join skill sk on sv.service_id = sk.service_id ' +
                   'join handyman_ability ha on ha.ability_skill_id = sk.skill_id ' +
