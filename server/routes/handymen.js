@@ -14,10 +14,11 @@ router.post('/add', (req, res) => {
   let phoneNum = data.phoneNum
   let workLocation = req.body.workLocation
   let workArea = req.body.workArea
+  let workDays = req.body.workDays
   let workStartTime = req.body.workStartTime
   let workEndTime = req.body.workEndTime
   console.log(data)
-  let query = `INSERT INTO handyman (user_id, first_name, last_name, phone_num, work_location, work_avaliable_area, work_start_time, work_end_time) VALUES ('${userID}', '${firstName}', '${lastName}', ${phoneNum}, ${workLocation}, ${workArea}, ${workStartTime}, ${workEndTime})`
+  let query = `INSERT INTO handyman (user_id, first_name, last_name, phone_num, work_location, work_avaliable_area, work_available_days, work_start_time, work_end_time) VALUES ('${userID}', '${firstName}', '${lastName}', ${phoneNum}, ${workLocation}, ${workArea}, ${workDays}, ${workStartTime}, ${workEndTime})`
   console.log(query, data)
   database.query(query)
       .then(rows => {
@@ -52,9 +53,9 @@ router.put('/edit/:id', (req, res) => {
     phone_num : req.body.phoneNum,
     work_location : req.body.workLocation,
     work_avaliable_area : req.body.workArea,
+    work_available_days : req.body.workDays,
     work_start_time : req.body.workStartTime,
     work_end_time : req.body.workEndTime
-
   }
   console.log(data)
   let query = 'UPDATE handyman SET ? WHERE handyman_id = ' + req.params.id
@@ -85,8 +86,8 @@ router.put('/edit/:id', (req, res) => {
 // This will api will return call handymen from database
 router.get('/', (req, res) => {
   let query = 'select hm.handyman_id, sv.service_name, hm.first_name, hm.last_name, hm.phone_num, ' +
-                  'ha.skill_license_no, sk.skill_name, sk.skill_desc, ' +
-                  'hm.work_location, hm.work_avaliable_area, hm.work_start_time, hm.work_end_time ' +
+                  'ha.skill_license_no, sk.skill_name, sk.skill_desc, hm.work_location, ' +
+                  'hm.work_avaliable_area, hm.work_available_days, hm.work_start_time, hm.work_end_time ' +
                 'from service sv ' +
                   'join skill sk on sv.service_id = sk.service_id ' +
                   'join handyman_ability ha on ha.ability_skill_id = sk.skill_id ' +
@@ -143,6 +144,64 @@ router.get('/:id', (req, res) => {
       })
     })
   })
+
+
+// Get searched handymen list (location, skill, requestDate)
+// This will api will return call handymen from database
+router.get('/search/list', (req, res) => {
+  let data = req.body
+  let skill = req.body.skill 
+  let workLocation = req.body.workLocation
+  let requestDate = req.body.requestDate
+  /*
+  let skill = "%"  //req.body.skill 
+  let workLocation = "%" //req.body.workLocation
+  let requestDate = '2019-11-12' //req.body.requestDate
+  */
+  console.log(data)
+  let query = 'select hm.handyman_id, sv.service_name, hm.first_name, hm.last_name, hm.phone_num, ' +
+                  'ha.skill_license_no, sk.skill_name, sk.skill_desc, hm.work_location, ' +
+                  'hm.work_avaliable_area, hm.work_available_days, hm.work_start_time, hm.work_end_time ' +
+                'from service sv ' +
+                  'join skill sk on sv.service_id = sk.service_id ' +
+                  'join handyman_ability ha on ha.ability_skill_id = sk.skill_id ' +
+                  'join handyman hm on hm.handyman_id = ha.handyman_id ' +
+                'Where ha.ability_skill_id like ' + `'${skill}'` +
+                ' and hm.work_location like ' + `'${workLocation}'` +
+                ' and hm.work_available_days in (Select case ' +
+                                    ' when WEEKDAY(' + `'${requestDate}'` + ') = 0 then 1 ' +
+                                    ' when WEEKDAY(' + `'${requestDate}'` + ') = 1 then 1 ' +
+                                    ' when WEEKDAY(' + `'${requestDate}'` + ') = 2 then 1 ' +
+                                    ' when WEEKDAY(' + `'${requestDate}'` + ') = 3 then 1 ' +
+                                    ' when WEEKDAY(' + `'${requestDate}'` + ') = 4 then 1 ' +
+                                    ' when WEEKDAY(' + `'${requestDate}'` + ') = 5 then 2 ' +
+                                    ' when WEEKDAY(' + `'${requestDate}'` + ') = 6 then 2 ' +
+                                      ' end as workDays ' +
+                                    ' UNION ALL ' +
+                                    'SELECT 3 workDays' +
+                                    ') '
+  console.log(query)
+  database.query(query)
+      .then(rows => {
+        database.close().then(() => {
+          res.json({
+            data: rows
+          })
+        })
+      })
+      .catch(err => {
+        database.close().then(() => {
+          res.json({
+            data: err
+        })
+      }).catch((error) => {
+            console.log(error)
+              res.json({
+            data: err
+          })
+      })
+  })
+})
 
     
   module.exports = router
