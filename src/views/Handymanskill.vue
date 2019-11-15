@@ -14,12 +14,12 @@
           <v-data-table
             :headers="headers"
             :items="items"
-            hide-default-footer
+            hide-default-footer 
           />
           <v-btn @click="CreateHandymanSkill()"> Create </v-btn>
           
         </material-card>
-        <Popup />
+        
       </v-col>
     </v-row>
   </v-container>
