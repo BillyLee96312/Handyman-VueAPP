@@ -8,5 +8,10 @@ export default {
   },
   AUTH_ERROR: (state) => {
     state.session.status = 'error'
+  },
+
+  DESTROY_TOKEN: (state) => {
+    state.session.status = 'error'
+    state.session.token = null
   }
 }

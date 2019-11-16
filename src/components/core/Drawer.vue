@@ -53,6 +53,13 @@
 
         <v-list-item-title v-text="link.text" />
       </v-list-item>
+      <v-list-item  v-if="this.$store.getters.isAuthenticated === true"
+        active-class="primary white--text" @click.stop="" @click="logout()">
+        <v-list-item-action>
+          <v-icon>mdi-logout</v-icon>
+        </v-list-item-action>
+         <v-list-item-title>Log out</v-list-item-title>
+      </v-list-item>
     </v-list>
   </v-navigation-drawer>
 </template>
@@ -73,11 +80,6 @@
     },
     data: () => ({
       authenticatedLinks: [
-        {
-          to: '/login',
-          icon: 'mdi-logout',
-          text: 'Logout'
-        },
         {
           to: '/search-handyman',
           icon: 'mdi-account-search-outline',
@@ -117,7 +119,12 @@
     },
 
     methods: {
-      ...mapMutations('app', ['setDrawer', 'toggleDrawer'])
+      ...mapMutations('app', ['setDrawer', 'toggleDrawer']),
+
+      logout(){
+        this.$store.dispatch('destroyToken')
+        this.$router.push({ path: 'home' })
+      }
     }
   }
 </script>
