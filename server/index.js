@@ -19,10 +19,16 @@ var skillsRouter = require('./routes/skills')
 var handymenRouter = require('./routes/handymen')
 // API for handyman abilities
 var handymanAbilitiesRouter = require('./routes/handymanAbilities')
+// API for requests (booking)
+const requestsRouter = require('./routes/requests')
+// API for request details (booking)
+const requestDetailsRouter = require('./routes/requestDetails')
 // API for services
-const serviceRouter = require('./routes/services')
-// API for search handyman
-const searchHandyman = require('./routes/searchHandyman')
+const servicesRouter = require('./routes/services')
+// API for statuses
+const statusesRouter = require('./routes/statuses')
+// API for workdays
+const workdaysRouter = require('./routes/workdays')
 
 const app = express()
 
@@ -50,6 +56,12 @@ app.use('/api/v1/json/handymen', handymenRouter)
 // request api for handymanAbilities
 app.use('/api/v1/json/handymanAbilities', handymanAbilitiesRouter)
 // request api for services
-app.use('/api/v1/json/services', serviceRouter)
-// request api for search handyman
-app.use('/api/v1/json/searchHandyman', searchHandyman)
+app.use('/api/v1/json/requests', requestsRouter)
+// request api for request details (booking)
+app.use('/api/v1/json/requestDetails', requestDetailsRouter)
+// request api for services
+app.use('/api/v1/json/services', servicesRouter)
+// request api for statuses
+app.use('/api/v1/json/statuses', statusesRouter)
+// request api for statuses
+app.use('/api/v1/json/workdays', workdaysRouter)
