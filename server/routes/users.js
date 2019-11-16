@@ -98,7 +98,7 @@ router.get('/',  middleware.checkToken,(req, res) => {
 
 // Get(Find) a user for checking Login
 // This will api will return call user from database
-router.post('/finduser', middleware.checkToken, (req, res) => {
+router.post('/finduser', (req, res) => {
   let data = req.body
   let userName = data.userName
   let password = data.password
