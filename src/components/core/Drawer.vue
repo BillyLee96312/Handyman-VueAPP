@@ -53,12 +53,16 @@
 
         <v-list-item-title v-text="link.text" />
       </v-list-item>
-      <v-list-item  v-if="this.$store.getters.isAuthenticated === true"
-        active-class="primary white--text" @click.stop="" @click="logout()">
+      <v-list-item
+        v-if="this.$store.getters.isAuthenticated === true"
+        active-class="primary white--text"
+        @click.stop=""
+        @click="logout()"
+      >
         <v-list-item-action>
           <v-icon>mdi-logout</v-icon>
         </v-list-item-action>
-         <v-list-item-title>Log out</v-list-item-title>
+        <v-list-item-title>Log out</v-list-item-title>
       </v-list-item>
     </v-list>
   </v-navigation-drawer>
@@ -121,7 +125,7 @@
     methods: {
       ...mapMutations('app', ['setDrawer', 'toggleDrawer']),
 
-      logout(){
+      logout () {
         this.$store.dispatch('destroyToken')
         this.$router.push({ path: 'home' })
       }
