@@ -87,6 +87,11 @@
           to: '/table-list',
           icon: 'mdi-user',
           text: 'User list'
+        },
+        {
+          to: '/search-handyman',
+          icon: 'mdi-searchhandyman',
+          text: 'Search Handyman'
         }
       ]
     }),
