@@ -8,22 +8,45 @@ const middleware = require('../middleware');
 // Create new user
 // This is a post request api. Front end will use this api to create new user.
 // Once user is inserted into database it will return newly created user to frontend
-router.post('/add', middleware.checkToken,(req, res) => {
+router.post('/add', (req, res) => {
   let data = req.body
-  let userName = data.userName
-  let password = data.password
-  let email = data.email
-  let userType = data.userType
+  let userName = data.loginInfo.userName
+  let password = data.loginInfo.password
+  let email = data.loginInfo.email
+  let userType = data.personalInfo.userType
+  let personalInfo = data.personalInfo
+  let abilities = data.abilities.selectedSkills
+  let availableTime = data.availableTime
+
   console.log(data)
   let query = `INSERT INTO user (user_name, password, email, user_type) VALUES ('${userName}', '${password}', '${email}', ${userType})`
   console.log(query)
   database.query(query)
     .then(rows => {
-      database.close().then(() => {
-        res.json({
-          data: rows
+      let userID = rows.insertId;
+      let handyManQuery = `INSERT INTO handyman VALUES ('H0007','${userID}','${personalInfo.fname}','${personalInfo.lname}','${personalInfo.phone}', '${personalInfo.city}');`
+
+      console.log(rows)
+      database.query(handyManQuery)
+      .then((rows) => {
+        database.close().then(() => {
+          res.json({
+            data: rows
+          })
         })
       })
+    .catch(err => {
+      database.close().then(() => {
+        res.json({
+          data: err
+        })
+      }).catch((error) => {
+        console.log(error)
+        res.json({
+          data: err
+        })
+      })
+    })
     })
     .catch(err => {
       database.close().then(() => {
@@ -42,7 +65,7 @@ router.post('/add', middleware.checkToken,(req, res) => {
 // Edit a user
 // This is a Edit request api. Front end will use this api to eidt a user.
 // Once user is updated into database it will return updated user to frontend
-router.put('/edit/:id',middleware.checkToken, (req, res) => {
+router.put('/edit/:id', middleware.checkToken, (req, res) => {
   // let data = req.body
   let data = {
     first_name: req.body.password
@@ -73,7 +96,7 @@ router.put('/edit/:id',middleware.checkToken, (req, res) => {
 
 // Get all users
 // This will api will return call users from database
-router.get('/',  middleware.checkToken,(req, res) => {
+router.get('/', middleware.checkToken, (req, res) => {
   database.query('SELECT * FROM user')
     .then(rows => {
       database.close().then(() => {
