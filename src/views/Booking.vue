@@ -10,7 +10,7 @@
       >
         <material-card
           color="green"
-          title="Sign up"
+          title="Booking"
           text=" "
         >
           <v-form>
