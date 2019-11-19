@@ -244,7 +244,7 @@
               </v-row>
             </v-container>
           </v-form>
-        </material-card>
+        </material-card >
       </v-col>
     </v-row>
   </v-container>

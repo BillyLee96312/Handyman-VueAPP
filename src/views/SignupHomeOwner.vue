@@ -49,8 +49,7 @@
 
                 <v-col
                   cols="12"
-                  md="6"
-                >
+                  md="6">
                   <v-text-field
                     v-model="address"
                     label="Adress"
@@ -64,8 +63,7 @@
 
                 <v-col
                   cols="12"
-                  md="6"
-                >
+                  md="6">
                   <v-text-field
                     v-model="phone"
                     label="Phone"
@@ -79,8 +77,7 @@
 
                 <v-col
                   cols="12"
-                  md="4"
-                >
+                  md="4">
                   <v-text-field
                     v-model="city"
                     label="City"
@@ -94,8 +91,7 @@
 
                 <v-col
                   cols="12"
-                  md="4"
-                >
+                  md="4">
                   <v-text-field
                     v-model="country"
                     label="Country"
@@ -109,8 +105,7 @@
 
                 <v-col
                   cols="12"
-                  md="4"
-                >
+                  md="4">
                   <v-text-field
                     v-model="pcode"
                     class="purple-input"
