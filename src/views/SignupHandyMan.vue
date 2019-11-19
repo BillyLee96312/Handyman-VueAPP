@@ -8,8 +8,30 @@
         cols="12"
         md="8"
       >
+      <material-card
+          v-if="isRegistered"
+          color="green"
+          title="Confiramtion"
+          text="Regristration successful"
+        >
+         <v-container class="py-0">
+              <v-row>
+                <v-col
+                  cols="12"
+                  class="text-right"
+                >
+                  <v-btn
+                    color="success"
+                    @click="goToHome"
+                  >
+                    Done
+                  </v-btn>
+                </v-col>
+              </v-row>
+        </v-container>
+      </material-card>
         <material-card
-          v-if="!showLoginInfo"
+          v-if="!showLoginInfo && !isRegistered"
           color="green"
           title="Create Profile"
           text="Complete your profile"
@@ -91,8 +113,15 @@
                     v-model="pcode"
                     class="purple-input"
                     label="Postal Code"
-                    type="number"
+                    type="text"
                   />
+                </v-col>
+                <v-col class="d-flex" cols="12" sm="4">
+                  <v-select
+                    v-model="availableTime"
+                    :items="availabilities"
+                    label="Standard"
+                  ></v-select>
                 </v-col>
                 <v-col cols="12">
                   <label class="typo__label">Skills</label>
@@ -191,7 +220,10 @@
         showLoginInfo: false,
         userName: '',
         email: '',
-        password: ''
+        password: '',
+        availabilities: ['Any Day', 'Week days', 'Weekend'],
+        availableTime: '',
+        isRegistered: false
       }
     },
     created () {
@@ -224,12 +256,17 @@
           }
         }
         axios.post('/api/v1/json/users/add', reqBody).then((res) => {
-          console.log(res)
+          this.isRegistered = true;
+          this.showLoginInfo = false;
         })
       },
 
       ShowLogin () {
         this.showLoginInfo = true
+      },
+
+      goToHome(){
+
       }
     }
   }
