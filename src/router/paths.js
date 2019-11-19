@@ -64,5 +64,10 @@ export default [
     path: '/sign-up-homeowner',
     name: 'Homeowner sign up ',
     view: 'SignupHomeOwner'
+  },
+  {
+    path: '/search-handyman',
+    name: 'Search Handyman',
+    view: 'SearchHandyman'
   }
 ]
