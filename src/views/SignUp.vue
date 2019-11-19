@@ -16,21 +16,21 @@
           <v-form>
             <v-container class="py-0">
               <v-row justify="center">
-                <v-col cols="6">
+                <v-col cols="6" align="center">
                   <v-btn
-                    class="ma-2"
+                    class="ma-2" 
                     outlined
-                    color="Black"
+                    color="success"
                     @click="signUpHomeOwner"
                   >
                     Home Owner
                   </v-btn>
                 </v-col>
-                <v-col cols="6">
+                <v-col cols="6" align="center">
                   <v-btn
                     class="ma-2"
                     outlined
-                    color="Black"
+                    color="success"
                     @click="signUpHandyman"
                   >
                     Handy Man
