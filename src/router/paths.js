@@ -69,5 +69,20 @@ export default [
     path: '/search-handyman',
     name: 'Search Handyman',
     view: 'SearchHandyman'
+  },
+  {
+    path: '/handyman-skill',
+    name: 'Register Handyman skills',
+    view: 'Handymanskill'
+  },
+  {
+    path: '/Create-Handyman-Skills',
+    name: 'Create Handyman Skills',
+    view: 'CreateHandymanSkill'
+  },
+  {
+    path: '/booking',
+    name: 'Booking',
+    view: 'Booking'
   }
 ]
