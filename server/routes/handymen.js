@@ -92,7 +92,7 @@ router.get('/', (req, res) => {
                   'join skill sk on sv.service_id = sk.service_id ' +
                   'join handyman_ability ha on ha.ability_skill_id = sk.skill_id ' +
                   'join handyman hm on hm.handyman_id = ha.handyman_id '
-  //let query = 'SELECT * FROM handyman'  
+  //let query = 'SELECT * FROM handyman'
   console.log(query)
   database.query(query)
       .then(rows => {
@@ -148,13 +148,14 @@ router.get('/:id', (req, res) => {
 
 // Get searched handymen list (location, skill, requestDate)
 // This will api will return call handymen from database
-router.get('/search/list', (req, res) => {
+router.post('/search/list', (req, res) => {
+  console.log(req.body)
   let data = req.body
-  let skill = req.body.skill 
+  let skill = "%"
   let workLocation = req.body.workLocation
   let requestDate = req.body.requestDate
   /*
-  let skill = "%"  //req.body.skill 
+  let skill = "%"  //req.body.skill
   let workLocation = "%" //req.body.workLocation
   let requestDate = '2019-11-12' //req.body.requestDate
   */
@@ -203,5 +204,5 @@ router.get('/search/list', (req, res) => {
   })
 })
 
-    
+
   module.exports = router

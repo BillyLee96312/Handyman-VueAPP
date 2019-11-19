@@ -85,6 +85,38 @@
                   </v-row>
                 </v-col>
               </v-row>
+              <v-row v-if="items.length > 0">
+                          <v-data-table :headers="headers" :items="items"
+             item-key="worklocation" :search="search"
+             >
+
+
+            <template v-slot:top>
+
+
+              <v-container fluid>
+                <v-row>
+                  <v-col cols="3">
+                      <v-row class="pa-3">
+                          <!-- Filter for items name-->
+                          <v-text-field v-model="search" type="text" label="Filter results">
+                          </v-text-field>
+                      </v-row>
+                  </v-col>
+                </v-row>
+              </v-container>
+
+
+            </template>
+
+            <template v-slot:item.action="{ item }">
+              <div class="my-2">
+                <v-btn small color="primary" dark @click="request(item)">Request</v-btn>
+              </div>
+            </template>
+
+          </v-data-table>
+              </v-row>
             </v-container>
           </v-form>
         </material-card>
@@ -114,7 +146,49 @@
         selectedSkills: null,
         skills: [],
         timeAvaibility: new Date().toISOString().substr(0, 10),
-        menu2: false
+        menu2: false,
+        items: [],
+        headers: [
+        {
+          sortable: false,
+          text: 'First Name',
+          value: 'firstName'
+        },
+        {
+          sortable: false,
+          text: 'Last Name',
+          value: 'lastName'
+        },
+        {
+          sortable: false,
+          text: 'Work Location',
+          value: 'worklocation'
+        },
+        {
+          sortable: false,
+          text: 'Service Name',
+          value: 'serviceName'
+        },
+        {
+          sortable: false,
+          text: 'Skill Name',
+          value: 'skillName'
+        },
+        {
+          sortable: false,
+          text: 'Skill License No',
+          value: 'skillLicenseNo'
+        },
+        {
+          sortable: false,
+          text: 'Avaliable Area',
+          value: 'avaliableArea'
+        },{
+          sortable: false,
+          text: 'Actions',
+          value: 'action'
+        }
+      ]
       }
     },
 
@@ -133,12 +207,15 @@
         // Gather user input into object
         // TODO: Use more filters
         let reqBody = {
-          searchFilters: {
-            pcode: this.pcode
-          },
-          abilities: {
-            selectedSkills: this.selectedSkills
-          }
+          workLocation: this.pcode,
+          skill: this.selectedSkills[0],
+          requestDate: new Date().toISOString().substr(0, 10)
+          // searchFilters: {
+          //   pcode: this.pcode
+          // },
+          // abilities: {
+          //   selectedSkills: this.selectedSkills
+          // }
         }
 
         let headers = {
@@ -149,12 +226,21 @@
         }
 
         // Send data to API
-        axios.post('/api/v1/json/searchHandyman', reqBody, headers).then((res) => {
+        axios.post('/api/v1/json/handymen/search/list', reqBody, headers).then((res) => {
           // TODO: Display these results on page instead of console
           // Display all results
           res.data.data.forEach(user => {
-            console.log(user.user_name)
+            this.items.push({
+              firstName: user.first_name,
+              lastName: user.last_name,
+              worklocation: user.work_location,
+              serviceName: user.service_name,
+              skillName: user.skill_name,
+              skillLicenseNo: user.skill_license_no,
+              avaliableArea: user.work_avaliable_area
+            })
           })
+
         }).catch((error) => {
           console.log(error)
         })
