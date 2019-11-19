@@ -14,24 +14,25 @@
         
           <v-data-table :headers="headers" :items="items"
              item-key="worklocation" :search="search"
-             :custom-filter="filterOnlyLocation">
+             >
             
           
             <template v-slot:top>
 
+              
               <v-container fluid>
                 <v-row>
                   <v-col cols="3">
                       <v-row class="pa-3">
-                          <!-- Filter for dessert name-->
-                          <v-text-field v-model="search" type="text" label="Work Location">
+                          <!-- Filter for items name-->
+                          <v-text-field v-model="search" type="text" label="Type any data">
                           </v-text-field>
                       </v-row>
                   </v-col>
-
+                  <!--
                   <v-col cols="3">
                       <v-row class="pa-3">
-                          <!-- Filter for dessert name-->
+                          
                           <v-select
                               :items="skills"
                               v-model="skillsFilterValue"
@@ -42,7 +43,7 @@
 
                       </v-row>
                   </v-col>
-
+                  -->
                   <v-col cols="3">
                       <v-row class="pa-3">
                           <!-- Filter for calories -->
@@ -53,14 +54,17 @@
                   </v-col>
                 </v-row>
               </v-container>
+             
 
             </template>
 
+            <template v-slot:item.action="{ item }">
+              <div class="my-2">
+                <v-btn small color="primary" dark @click="request(item)">Request</v-btn>
+              </div>
+            </template>
 
           </v-data-table>
-
-
-
         </material-card>
       </v-col>
     </v-row>
@@ -110,10 +114,15 @@
           sortable: false,
           text: 'Avaliable Area',
           value: 'avaliableArea'
+        },{
+          sortable: false,
+          text: 'Actions',
+          value: 'action'
         }
       ],
       skills: [],
-      items: []
+      items: [],
+      editedIndex: -1
     }),
     // Vue by default call this method once this component is loaded on page.
     // We are fetching all users from database using /api/v1/json/handyman. This is defined inside server/index
@@ -168,6 +177,13 @@
           //this.push()
           // If this filter has no value we just skip the entire filter.
           
+       },
+       request (item) {
+        console.log("--- request (item) ----")
+         
+        //this.editedIndex = this.items.indexOf(item)
+        //this.editedItem = Object.assign({}, item)
+        this.card = true
        }
     }
   }

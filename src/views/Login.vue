@@ -70,7 +70,7 @@
     methods: {
       login () {
         // We are using axios to communicate with server. It has get, pust, post, delete function
-        axios.post('/api/v1/json/user', {
+        axios.post('/api/v1/json/users', {
           userName: this.userName,
           password: this.password
         })
