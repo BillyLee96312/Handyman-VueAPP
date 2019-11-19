@@ -21,14 +21,25 @@
                     v-model="userName"
                     class="purple-input"
                     label="User Name"
+                    :error-messages="userNameErrors"
+                    :counter="32"
+                    :maxLength="32"
+                    @input="$v.userName.$touch()"
+                    @blur="$v.userName.$touch()"
                   />
                 </v-col>
+                <v-col cols="12"></v-col>
                 <v-col cols="12">
                   <v-text-field
                     v-model="password"
                     class="purple-input"
                     label="Password"
                     type="password"
+                    :error-messages="passwordErrors"
+                    :counter="32"
+                    :maxLength="32"
+                    @input="$v.password.$touch()"
+                    @blur="$v.password.$touch()"
                   />
                 </v-col>
                 <v-col
@@ -53,12 +64,23 @@
 
 <script>
   import axios from 'axios'
+  import { validationMixin } from 'vuelidate'
+  import { required, minLength, maxLength, email, numeric, alpha } from 'vuelidate/lib/validators'
+
   export default {
+    mixins: [validationMixin],
+
     metaInfo () {
       return {
         title: 'Login'
       }
     },
+
+    validations: {
+      userName: { required, minLength: minLength(4), maxLength: maxLength(32) },
+      password: { required, minLength: minLength(4), maxLength: maxLength(32) } 
+    },
+
     data () {
       return {
         userName: '',
@@ -67,21 +89,47 @@
         userType: ''
       }
     },
+
+    computed: {
+      userNameErrors () {
+        const errors = []
+        if (!this.$v.userName.$dirty) return errors
+        !this.$v.userName.minLength && errors.push('Name must be more than 4 characters')
+        !this.$v.userName.maxLength && errors.push('Name must be at most 32 characters long')
+        !this.$v.userName.required && errors.push('Name is required.')
+        return errors
+      },
+      passwordErrors () {
+        const errors = []
+        if (!this.$v.password.$dirty) return errors
+        !this.$v.password.minLength && errors.push('Password be more than 4 characters')
+        !this.$v.password.maxLength && errors.push('Password be at most 32 characters long')
+        !this.$v.password.required && errors.push('Password is required.')
+        return errors
+      }
+    },
+
     methods: {
       login () {
         // We are using axios to communicate with server. It has get, pust, post, delete function
-        axios.post('/api/v1/json/users', {
+        axios.post('/api/v1/json/users/finduser', {
           userName: this.userName,
           password: this.password
         })
-          .then(function (response) {
-            console.log(response)            
+          .then((response) => {
+            
+            this.$store.dispatch('storeToekn', response.data.token)
+            this.$router.push({ path: 'search-handyman' })
           })
-          .catch(function (error) {
-            console.log(error)
+          .catch((error) => {
+            console.error(error)
+            this.$store.dispatch('storeToekn', null)
           })
+        this.$v.$touch()
       }
     }
   }
 
 </script>
+
+

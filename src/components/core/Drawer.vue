@@ -53,6 +53,17 @@
 
         <v-list-item-title v-text="link.text" />
       </v-list-item>
+      <v-list-item
+        v-if="this.$store.getters.isAuthenticated === true"
+        active-class="primary white--text"
+        @click.stop=""
+        @click="logout()"
+      >
+        <v-list-item-action>
+          <v-icon>mdi-logout</v-icon>
+        </v-list-item-action>
+        <v-list-item-title>Log out</v-list-item-title>
+      </v-list-item>
     </v-list>
   </v-navigation-drawer>
 </template>
@@ -72,7 +83,14 @@
       }
     },
     data: () => ({
-      links: [
+      authenticatedLinks: [
+        {
+          to: '/search-handyman',
+          icon: 'mdi-account-search-outline',
+          text: 'Search Handyman'
+        }
+      ],
+      unauthenticatedLinks: [
         {
           to: '/login',
           icon: 'mdi-login',
@@ -82,23 +100,7 @@
           to: '/sign-up',
           icon: 'mdi-account',
           text: 'Sign up'
-        },
-        {
-          to: '/table-list',
-          icon: 'mdi-user',
-          text: 'User list'
-        },
-        {
-          to: '/search-handyman',
-          icon: 'mdi-user',
-          text: 'Search Handyman'
-        },
-        {
-          to: '/handyman-skill',
-          icon: 'mdi-user',
-          text: 'Handyman Skill'
-        }
-      ]
+        }]
     }),
 
     computed: {
@@ -110,11 +112,23 @@
         set (val) {
           this.setDrawer(val)
         }
+      },
+      links () {
+        if (this.$store.getters.isAuthenticated === true) {
+          return this.authenticatedLinks
+        } else {
+          return this.unauthenticatedLinks
+        }
       }
     },
 
     methods: {
-      ...mapMutations('app', ['setDrawer', 'toggleDrawer'])
+      ...mapMutations('app', ['setDrawer', 'toggleDrawer']),
+
+      logout () {
+        this.$store.dispatch('destroyToken')
+        this.$router.push({ path: 'home' })
+      }
     }
   }
 </script>

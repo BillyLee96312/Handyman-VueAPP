@@ -27,6 +27,8 @@ const requestDetailsRouter = require('./routes/requestDetails')
 const servicesRouter = require('./routes/services')
 // API for statuses
 const statusesRouter = require('./routes/statuses')
+// API for workdays
+const workdaysRouter = require('./routes/workdays')
 
 const app = express()
 
@@ -61,3 +63,5 @@ app.use('/api/v1/json/requestDetails', requestDetailsRouter)
 app.use('/api/v1/json/services', servicesRouter)
 // request api for statuses
 app.use('/api/v1/json/statuses', statusesRouter)
+// request api for statuses
+app.use('/api/v1/json/workdays', workdaysRouter)

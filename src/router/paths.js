@@ -67,7 +67,7 @@ export default [
   },
   {
     path: '/search-handyman',
-    name: 'Searcing handyman',
+    name: 'Search Handyman',
     view: 'SearchHandyman'
   },
   {
