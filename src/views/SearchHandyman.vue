@@ -76,6 +76,11 @@
   import axios from 'axios'
 
   export default {
+    metaInfo () {
+      return {
+        title: 'Search Handyman'
+      }
+    },
     data: () => ({
       search: '',
       skillsFilterValue: '',
