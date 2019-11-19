@@ -8,28 +8,28 @@
         cols="12"
         md="8"
       >
-      <material-card
+        <material-card
           v-if="isRegistered"
           color="green"
           title="Confiramtion"
           text="Regristration successful"
         >
-         <v-container class="py-0">
-              <v-row>
-                <v-col
-                  cols="12"
-                  class="text-right"
+          <v-container class="py-0">
+            <v-row>
+              <v-col
+                cols="12"
+                class="text-right"
+              >
+                <v-btn
+                  color="success"
+                  @click="goToHome"
                 >
-                  <v-btn
-                    color="success"
-                    @click="goToHome"
-                  >
-                    Done
-                  </v-btn>
-                </v-col>
-              </v-row>
-        </v-container>
-      </material-card>
+                  Done
+                </v-btn>
+              </v-col>
+            </v-row>
+          </v-container>
+        </material-card>
         <material-card
           v-if="!showLoginInfo && !isRegistered"
           color="green"
@@ -144,12 +144,16 @@
                     @blur="$v.pcode.$touch()"
                   />
                 </v-col>
-                <v-col class="d-flex" cols="12" sm="4">
+                <v-col
+                  class="d-flex"
+                  cols="12"
+                  sm="4"
+                >
                   <v-select
                     v-model="availableTime"
                     :items="availabilities"
                     label="Standard"
-                  ></v-select>
+                  />
                 </v-col>
                 <v-col cols="12">
                   <label class="typo__label">Skills</label>
@@ -197,7 +201,7 @@
                     class="purple-input"
                     label="User Name"
                     :counter="32"
-                    :maxLength="32"
+                    :max-length="32"
                     :error-messages="userNameErrors"
                     @input="$v.userName.$touch()"
                     @blur="$v.userName.$touch()"
@@ -220,7 +224,7 @@
                     label="Password"
                     type="password"
                     :counter="32"
-                    :maxLength="32"
+                    :max-length="32"
                     :error-messages="passwordErrors"
                     @input="$v.password.$touch()"
                     @blur="$v.password.$touch()"
@@ -240,7 +244,7 @@
               </v-row>
             </v-container>
           </v-form>
-        </material-card>
+        </material-card >
       </v-col>
     </v-row>
   </v-container>
@@ -290,13 +294,6 @@
         availableTime: '',
         isRegistered: false
       }
-    },
-    created () {
-      axios.get('/api/v1/json/skills').then((data) => {
-        data.data.data.forEach(skill => {
-          this.skills.push(skill.skill_name)
-        })
-      })
     },
 
     computed: {
@@ -383,6 +380,13 @@
         return errors
       }
     },
+    created () {
+      axios.get('/api/v1/json/skills').then((data) => {
+        data.data.data.forEach(skill => {
+          this.skills.push(skill.skill_name)
+        })
+      })
+    },
 
     methods: {
       createUser () {
@@ -407,8 +411,8 @@
           }
         }
         axios.post('/api/v1/json/users/add', reqBody).then((res) => {
-          this.isRegistered = true;
-          this.showLoginInfo = false;
+          this.isRegistered = true
+          this.showLoginInfo = false
         })
       },
 
@@ -416,7 +420,7 @@
         this.showLoginInfo = true
       },
 
-      goToHome(){
+      goToHome () {
 
       }
     }

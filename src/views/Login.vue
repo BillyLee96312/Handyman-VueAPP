@@ -23,12 +23,12 @@
                     label="User Name"
                     :error-messages="userNameErrors"
                     :counter="32"
-                    :maxLength="32"
+                    :max-length="32"
                     @input="$v.userName.$touch()"
                     @blur="$v.userName.$touch()"
                   />
                 </v-col>
-                <v-col cols="12"></v-col>
+                <v-col cols="12" />
                 <v-col cols="12">
                   <v-text-field
                     v-model="password"
@@ -37,7 +37,7 @@
                     type="password"
                     :error-messages="passwordErrors"
                     :counter="32"
-                    :maxLength="32"
+                    :max-length="32"
                     @input="$v.password.$touch()"
                     @blur="$v.password.$touch()"
                   />
@@ -78,7 +78,7 @@
 
     validations: {
       userName: { required, minLength: minLength(4), maxLength: maxLength(32) },
-      password: { required, minLength: minLength(4), maxLength: maxLength(32) } 
+      password: { required, minLength: minLength(4), maxLength: maxLength(32) }
     },
 
     data () {
@@ -117,7 +117,6 @@
           password: this.password
         })
           .then((response) => {
-            
             this.$store.dispatch('storeToekn', response.data.token)
             this.$router.push({ path: 'search-handyman' })
           })
@@ -131,5 +130,3 @@
   }
 
 </script>
-
-
