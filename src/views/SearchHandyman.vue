@@ -60,7 +60,7 @@
 
             <template v-slot:item.action="{ item }">
               <div class="my-2">
-                <v-btn small color="primary" dark @click="request(item)">Request</v-btn>
+                <v-btn small color="primary" dark @click="booking">Request</v-btn>
               </div>
             </template>
 
@@ -183,12 +183,15 @@
           // If this filter has no value we just skip the entire filter.
           
        },
-       request (item) {
-        console.log("--- request (item) ----")
+      //  request (item) {
+      //   console.log("--- request (item) ----")
          
-        //this.editedIndex = this.items.indexOf(item)
-        //this.editedItem = Object.assign({}, item)
-        this.card = true
+      //   //this.editedIndex = this.items.indexOf(item)
+      //   //this.editedItem = Object.assign({}, item)
+      //   this.card = true
+      //  },
+       booking() {
+         this.$router.push('/booking')
        }
     }
   }

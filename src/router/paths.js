@@ -79,5 +79,10 @@ export default [
     path: '/Create-Handyman-Skills',
     name: 'Create Handyman Skills',
     view: 'CreateHandymanSkill'
+  },
+  {
+    path: '/booking',
+    name: 'Booking',
+    view: 'Booking'
   }
 ]
