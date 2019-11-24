@@ -152,9 +152,11 @@
                   <v-select
                     v-model="availableTime"
                     :items="availabilities"
-                    label="Standard"
+                    label="Available days"
+                    item-text="name"
                   />
                 </v-col>
+                  <TimePicker/>
                 <v-col cols="12">
                   <label class="typo__label">Skills</label>
                   <multiselect
@@ -255,6 +257,7 @@
   import { required, minLength, maxLength, email, numeric, alpha } from 'vuelidate/lib/validators'
   import Multiselect from 'vue-multiselect'
   import axios from 'axios'
+  import TimePicker from '../components/material/TimePicker';
 
   export default {
     mixins: [validationMixin],
@@ -273,7 +276,7 @@
       value: { required }
     },
     // OR register locally
-    components: { Multiselect },
+    components: { Multiselect , TimePicker },
     data () {
       return {
         valid: true,
@@ -290,7 +293,18 @@
         userName: '',
         email: '',
         password: '',
-        availabilities: ['Any Day', 'Week days', 'Weekend'],
+        availabilities: [{
+          name: 'All day',
+          value: '3'
+        },{
+          name: 'Weekday',
+          value: '1'
+        },
+        {
+          name: 'weekend',
+          value: '2'
+        }
+        ],
         availableTime: '',
         isRegistered: false
       }
@@ -408,11 +422,18 @@
             userName: this.userName,
             email: this.email,
             password: this.password
+          },
+          availabilities:{
+            availableTime: this.availableTime,
+            startTime: this.startTimeVal,
+            endTime: this.endTimeVal
           }
         }
         axios.post('/api/v1/json/users/add', reqBody).then((res) => {
           this.isRegistered = true
           this.showLoginInfo = false
+        }).catch((error) =>{
+          console.log(error.response.data)
         })
       },
 

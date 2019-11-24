@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "serve": " vue-cli-service serve --open",
-    "server": "nodemon server/index.js",
+    "server": "nodemon server/index.js --inspect",
     "dev": "concurrently \"npm run serve\" \"npm run server\"",
     "build": "vue-cli-service build",
     "lint": "vue-cli-service lint",
