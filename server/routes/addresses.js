@@ -15,7 +15,7 @@ router.post('/add', (req, res) => {
   let postalCode = data.postalCode
   let usedAddress = data.usedAddress    
   console.log(data)
-  let query = `INSERT INTO address (user_id, street, city, province, postal_code, used_address) VALUES (${userID}, '${street}', '${city}', '${province}', '${postalCode}', '${usedAddress}')`
+  let query = `INSERT INTO address1 (user_id, street, city, province, postal_code, used_address) VALUES (${userID}, '${street}', '${city}', '${province}', '${postalCode}', '${usedAddress}')`
   console.log(query)
   database.query(query)
       .then(rows => {
@@ -53,7 +53,7 @@ router.put('/edit/:id', (req, res) => {
     used_address : req.body.usedAddress
   }
   console.log(data)
-  let query = 'UPDATE address SET ? WHERE user_id = ' + req.params.id
+  let query = 'UPDATE address1 SET ? WHERE user_id = ' + req.params.id
   database.query(query, data)
       .then(rows => {
         database.close().then(() => {
@@ -81,7 +81,7 @@ router.put('/edit/:id', (req, res) => {
 // This is a delete request api. Front end will use this api to delete an address.
 router.delete('/delete/:id', (req, res) => {
     console.log(req.params.id)
-    let query = 'Delete From address where user_id = ' + req.params.id
+    let query = 'Delete From address1 where user_id = ' + req.params.id
     console.log(query)
     database.query(query)
         .then(rows => {
@@ -109,7 +109,7 @@ router.delete('/delete/:id', (req, res) => {
 // Get all addresses
 // This will api will return call address from database
 router.get('/', (req, res) => {
-  let query = 'SELECT * FROM address'
+  let query = 'SELECT * FROM address1'
   console.log(query)
   database.query(query)
       .then(rows => {
@@ -137,7 +137,7 @@ router.get('/', (req, res) => {
 // This will api will return call address from database
 router.get('/:id', (req, res) => {
 console.log(req.params.id)
-let query = 'SELECT * FROM address where user_id = ' + req.params.id
+let query = 'SELECT * FROM address1 where user_id = ' + req.params.id
 console.log(query)
 database.query(query)
     .then(rows => {
