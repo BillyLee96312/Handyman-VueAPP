@@ -8,8 +8,30 @@
         cols="12"
         md="8"
       >
+       <material-card
+          v-if="isRegistered"
+          color="green"
+          title="Confiramtion"
+          text="Regristration successful"
+        >
+          <v-container class="py-0">
+            <v-row>
+              <v-col
+                cols="12"
+                class="text-right"
+              >
+                <v-btn
+                  color="success"
+                  @click="goToHome"
+                >
+                  Done
+                </v-btn>
+              </v-col>
+            </v-row>
+          </v-container>
+        </material-card>
         <material-card
-          v-if="!showLoginInfo"
+          v-if="!showLoginInfo && !isRegistered"
           color="green"
           title="Create Profile"
           text="Complete your profile"
@@ -92,14 +114,14 @@
                 <v-col
                   cols="12"
                   md="4">
-                  <v-text-field
-                    v-model="country"
-                    label="Country"
-                    class="purple-input"
-                    :error-messages="countryErrors"
+                  <v-select
+                    v-model="province"
+                    :items="provinceOptions"
+                    label="Select Province"
+                    :error-messages="provinceErrors"
                     :rules="[v => !!v || '']"
-                    @input="$v.country.$touch()"
-                    @blur="$v.country.$touch()"
+                    @input="$v.province.$touch()"
+                    @blur="$v.province.$touch()"
                   />
                 </v-col>
 
@@ -201,9 +223,15 @@
   import { validationMixin } from 'vuelidate'
   import { required, minLength, maxLength, email, numeric, alpha } from 'vuelidate/lib/validators'
   import axios from 'axios'
+  import Multiselect from 'vue-multiselect'
+
 
   export default {
     mixins: [validationMixin],
+
+    components: {
+      Multiselect
+    },
 
     validations: {
       userName: { required, minLength: minLength(4), maxLength: maxLength(32) },
@@ -214,7 +242,7 @@
       address: { required },
       phone: { required, numeric },
       city: { required, alpha },
-      country: { required, alpha },
+      province: { required },
       pcode: { required, minLength: minLength(6), maxLength: maxLength(6) }
     },
 
@@ -225,13 +253,29 @@
         lname: '',
         address: '',
         city: '',
-        country: '',
+        province: '',
         pcode: '',
         phone: '',
         showLoginInfo: false,
         userName: '',
         email: '',
-        password: ''
+        password: '',
+        provinceOptions:[
+          'Alberta',
+          'British Columbia',
+          'Manitoba',
+          'New Brunswick',
+          'Newfoundland and Labrador',
+          'Northwest Territories',
+          'Nova Scotia',
+          'Nunavut',
+          'Ontario', 
+          'Prince Edward Island',
+          'Quebec',
+          'Saskatchewan',
+          'Yukon'
+        ],
+        isRegistered: false
       }
     },
 
@@ -297,11 +341,10 @@
         !this.$v.city.required && errors.push('City is required.')
         return errors
       },
-      countryErrors () {
+      provinceErrors () {
         const errors = []
-        if (!this.$v.country.$dirty) return errors
-        !this.$v.country.alpha && errors.push('Country must be only alphabet characters.')
-        !this.$v.country.required && errors.push('Country is required.')
+        if (!this.$v.province.$dirty) return errors
+        !this.$v.province.required && errors.push('Province is required.')
         return errors
       },
       pcodeErrors () {
@@ -325,6 +368,7 @@
             city: this.city,
             pcode: this.pcode,
             phone: this.phone,
+            province: this.province,
             userType: 1 // db has 2 assigned for homeowner
           },
           loginInfo: {
@@ -334,7 +378,10 @@
           }
         }
         axios.post('/api/v1/json/users/add', reqBody).then((res) => {
-          console.log(res)
+          this.isRegistered = true
+          this.showLoginInfo = false
+        }).catch((error) =>{
+          console.log(error)
         })
       },
 

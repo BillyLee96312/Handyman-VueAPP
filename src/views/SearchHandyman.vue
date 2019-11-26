@@ -12,9 +12,12 @@
           text="This is a handyman searching page for homeowner"
         >
         
-          <v-data-table :headers="headers" :items="items"
-             item-key="worklocation" :search="search"
-             >
+          <v-data-table 
+            :headers="headers" 
+            :items="items"
+            item-key="worklocation" 
+            :search="search"
+          >
             
           
             <template v-slot:top>
@@ -60,7 +63,7 @@
 
             <template v-slot:item.action="{ item }">
               <div class="my-2">
-                <v-btn small color="primary" dark @click="booking">Request</v-btn>
+                <v-btn small color="primary" dark @click="booking(item)">Request</v-btn>
               </div>
             </template>
 
@@ -190,8 +193,14 @@
       //   //this.editedItem = Object.assign({}, item)
       //   this.card = true
       //  },
-       booking() {
-         this.$router.push('/booking')
+       booking(itemToRequest) {
+         debugger
+         this.$router.push({
+           name: 'booking',
+           params:{
+             itemToRequest:itemToRequest
+           }
+         })
        }
     }
   }
