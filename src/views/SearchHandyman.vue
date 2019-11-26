@@ -11,18 +11,18 @@
           title="Searching HandyMan"
           text="This is a handyman searching page for homeowner"
         >
-        
-          <v-data-table 
-            :headers="headers" 
+
+          <v-data-table
+            :headers="headers"
             :items="items"
-            item-key="worklocation" 
+            item-key="worklocation"
             :search="search"
           >
-            
-          
+
+
             <template v-slot:top>
 
-              
+
               <v-container fluid>
                 <v-row>
                   <v-col cols="3">
@@ -35,7 +35,7 @@
                   <!--
                   <v-col cols="3">
                       <v-row class="pa-3">
-                          
+
                           <v-select
                               :items="skills"
                               v-model="skillsFilterValue"
@@ -57,7 +57,7 @@
                   </v-col>
                 </v-row>
               </v-container>
-             
+
 
             </template>
 
@@ -135,10 +135,16 @@
     // Vue by default call this method once this component is loaded on page.
     // We are fetching all users from database using /api/v1/json/handyman. This is defined inside server/index
     created () {
-      
+      let headers = {
+          headers: {
+            'Content-Type': 'application/json',
+            'token': this.$store.getters.token
+          }
+        }
+
       axios.get('/api/v1/json/handymen').then((res) => {
         res.data.data.forEach(
-        service => { 
+        service => {
           this.items.push({
             firstName: service.first_name,
             lastName: service.last_name,
@@ -146,10 +152,11 @@
             serviceName: service.service_name,
             skillName: service.skill_name,
             skillLicenseNo: service.skill_license_no,
-            avaliableArea: service.work_avaliable_area
+            avaliableArea: service.work_avaliable_area,
+            handyman_id: service.handyman_id
           })
         })
-      }) 
+      })
       axios.get('/api/v1/json/skills').then((data) => {
         data.data.data.forEach(skill => {
           this.skills.push(skill.skill_name)
@@ -184,21 +191,20 @@
           console.log("--- skillsFilter ----" + skillsFilterValue)
           //this.push()
           // If this filter has no value we just skip the entire filter.
-          
+
        },
       //  request (item) {
       //   console.log("--- request (item) ----")
-         
+
       //   //this.editedIndex = this.items.indexOf(item)
       //   //this.editedItem = Object.assign({}, item)
       //   this.card = true
       //  },
        booking(itemToRequest) {
-         debugger
          this.$router.push({
-           name: 'booking',
+           name: 'Booking',
            params:{
-             itemToRequest:itemToRequest
+             itemToRequest
            }
          })
        }
