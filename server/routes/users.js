@@ -1,65 +1,76 @@
 var express = require('express')
 var router = express.Router()
 const database = require('../database')
-const jwt = require('jsonwebtoken');
-const config = require('../config');
-const middleware = require('../middleware');
-
+const jwt = require('jsonwebtoken')
+const config = require('../config')
+const middleware = require('../middleware')
+const userService = require('../services/userService')
 // Create new user
 // This is a post request api. Front end will use this api to create new user.
 // Once user is inserted into database it will return newly created user to frontend
 router.post('/add', (req, res) => {
   let data = req.body
-  let userName = data.loginInfo.userName
-  let password = data.loginInfo.password
-  let email = data.loginInfo.email
-  let userType = data.personalInfo.userType
-  let personalInfo = data.personalInfo
-  let abilities = data.abilities.selectedSkills
-  let availableTime = data.availableTime
-
   console.log(data)
-  let query = `INSERT INTO user (user_name, password, email, user_type) VALUES ('${userName}', '${password}', '${email}', ${userType})`
-  console.log(query)
-  database.query(query)
-    .then(rows => {
-      let userID = rows.insertId;
-      let handyManQuery = `INSERT INTO handyman VALUES ('H0007','${userID}','${personalInfo.fname}','${personalInfo.lname}','${personalInfo.phone}', '${personalInfo.city}');`
+  userService.addUser(data).then((rows) => {
+    res.json({
+      data: rows
+    })
+  }).catch((err) => {
+    res.sendStatus(400).json({
+      success: false,
+      message: err
+    })
+  })
+  // let userName = data.loginInfo.userName
+  // let password = data.loginInfo.password
+  // let email = data.loginInfo.email
+  // let userType = data.personalInfo.userType
+  // let personalInfo = data.personalInfo
+  // let abilities = data.abilities.selectedSkills
+  // let availableTime = data.availableTime
 
-      console.log(rows)
-      database.query(handyManQuery)
-      .then((rows) => {
-        database.close().then(() => {
-          res.json({
-            data: rows
-          })
-        })
-      })
-    .catch(err => {
-      database.close().then(() => {
-        res.json({
-          data: err
-        })
-      }).catch((error) => {
-        console.log(error)
-        res.json({
-          data: err
-        })
-      })
-    })
-    })
-    .catch(err => {
-      database.close().then(() => {
-        res.json({
-          data: err
-        })
-      }).catch((error) => {
-        console.log(error)
-        res.json({
-          data: err
-        })
-      })
-    })
+  // console.log(data)
+  // let query = `INSERT INTO user (user_name, password, email, user_type) VALUES ('${userName}', '${password}', '${email}', ${userType})`
+  // console.log(query)
+  // database.query(query)
+  //   .then(rows => {
+  //     let userID = rows.insertId
+  //     let handyManQuery = `INSERT INTO handyman VALUES ('H0007','${userID}','${personalInfo.fname}','${personalInfo.lname}','${personalInfo.phone}', '${personalInfo.city}');`
+
+  //     console.log(rows)
+  //     database.query(handyManQuery)
+  //     .then((rows) => {
+  //       database.close().then(() => {
+  //         res.json({
+  //           data: rows
+  //         })
+  //       })
+  //     })
+  //   .catch(err => {
+  //     database.close().then(() => {
+  //       res.json({
+  //         data: err
+  //       })
+  //     }).catch((error) => {
+  //       console.log(error)
+  //       res.json({
+  //         data: err
+  //       })
+  //     })
+  //   })
+  //   })
+  //   .catch(err => {
+  //     database.close().then(() => {
+  //       res.json({
+  //         data: err
+  //       })
+  //     }).catch((error) => {
+  //       console.log(error)
+  //       res.json({
+  //         data: err
+  //       })
+  //     })
+  //   })
 })
 
 // Edit a user
@@ -130,18 +141,18 @@ router.post('/finduser', (req, res) => {
     database.query(query)
         .then(rows => {
           database.close().then(() => {
-            if(rows.length === 1){
-              let token = jwt.sign({ userName: userName }, config.secret, { expiresIn: '24h'});
+            if (rows.length === 1) {
+              let token = jwt.sign({ userName: userName }, config.secret, { expiresIn: '24h' })
               res.json({
                 success: true,
                 message: 'Authentication successful!',
                 token: token
-              });
+              })
             } else {
               res.send(400).json({
                 success: false,
                 message: 'Authentication failed! Please check the request'
-              });
+              })
             }
           })
         }).catch(err => {
@@ -161,7 +172,7 @@ router.post('/finduser', (req, res) => {
 
 // Search for Handyman
 // This API will retrun Handyman list based on selected filters
-router.post('/searchpostal',middleware.checkToken, (req, res) => {
+router.post('/searchpostal', middleware.checkToken, (req, res) => {
   let data = req.body.searchFilters
 
   // TODO: Include skills in filter search

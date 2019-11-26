@@ -32,7 +32,8 @@ const workdaysRouter = require('./routes/workdays')
 
 const app = express()
 
-const port = process.env.PORT || 4000
+console.log(process.env.PORT)
+const port = process.env.PORT || 4011
 app.listen(port, () => {
     console.log(`listening on ${port}`)
 })

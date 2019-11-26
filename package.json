@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "serve": " vue-cli-service serve --open",
-    "server": "nodemon server/index.js",
+    "server": "nodemon server/index.js --inspect",
     "dev": "concurrently \"npm run serve\" \"npm run server\"",
     "build": "vue-cli-service build",
     "lint": "vue-cli-service lint",
@@ -47,7 +47,7 @@
     "eslint-config-vuetify": "*",
     "eslint-plugin-vue": "^5.0.0",
     "node-sass": "^4.9.0",
-    "nodemon": "^1.19.4",
+    "nodemon": "^2.0.1",
     "sass": "^1.17.4",
     "sass-loader": "^7.1.0",
     "vue-cli-plugin-eslint-config-vuetify": "latest",
