@@ -156,7 +156,66 @@
                     item-text="name"
                   />
                 </v-col>
-                  <TimePicker/>
+                <v-row>
+                      <v-col class="d-flex" cols="12" md="6">
+                          <v-menu
+                              ref="startTime"
+                              v-model="startTime"
+                              :close-on-content-click="false"
+                              :nudge-right="40"
+                              :return-value.sync="startTimeVal"
+                              transition="scale-transition"
+                              offset-y
+                              max-width="290px"
+                              min-width="290px"
+                              >
+                              <template v-slot:activator="{ on }">
+                                  <v-text-field
+                                  v-model="startTimeVal"
+                                  label="Select start time"
+                                  readonly
+                                  v-on="on"
+                                  ></v-text-field>
+                              </template>
+                              <v-time-picker
+                                  v-if="startTime"
+                                  v-model="startTimeVal"
+                                  full-width
+                                  format="24hr"
+                                  @click:minute="$refs.startTime.save(startTimeVal)"
+                              ></v-time-picker>
+                          </v-menu>
+                      </v-col>
+                      <v-col class="d-flex" cols="12" md="6">
+                          <v-menu
+                              ref="endTime"
+                              v-model="endTime"
+                              :close-on-content-click="false"
+                              :nudge-right="40"
+                              :return-value.sync="endTimeVal"
+                              transition="scale-transition"
+                              offset-y
+                              max-width="290px"
+                              min-width="290px"
+                              >
+                              <template v-slot:activator="{ on }">
+                                  <v-text-field
+                                  v-model="endTimeVal"
+                                  label="Select end time"
+                                  readonly
+                                  v-on="on"
+                                  ></v-text-field>
+                              </template>
+                              <v-time-picker
+                                  v-if="endTime"
+                                  v-model="endTimeVal"
+                                  full-width
+                                  format="24hr"
+                                  @click:minute="$refs.endTime.save(endTimeVal)"
+                              ></v-time-picker>
+                          </v-menu>
+                      </v-col>
+                  </v-row>
                 <v-col cols="12">
                   <label class="typo__label">Skills</label>
                   <multiselect
@@ -169,7 +228,10 @@
                     open-direction="bottom"
                     @input="$v.value.$touch()"
                     @blur="$v.value.$touch()"
-                  />
+                     label="name" 
+                    track-by="name"                  
+                  >
+                  </multiselect>
                 </v-col>
                 <v-col
                   cols="12"
@@ -306,7 +368,11 @@
         }
         ],
         availableTime: '',
-        isRegistered: false
+        isRegistered: false,
+        startTimeVal: null,
+        startTime: false,
+        endTimeVal: null,
+        endTime: false
       }
     },
 
@@ -397,7 +463,7 @@
     created () {
       axios.get('/api/v1/json/skills').then((data) => {
         data.data.data.forEach(skill => {
-          this.skills.push(skill.skill_name)
+          this.skills.push({'name':skill.skill_name, 'id': skill.skill_id})
         })
       })
     },

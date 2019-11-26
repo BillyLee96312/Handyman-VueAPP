@@ -74,8 +74,7 @@ function addHandyman (data) {
     let email = data.loginInfo.email
     let userType = data.personalInfo.userType
     let personalInfo = data.personalInfo
-    // let abilities = data.abilities.selectedSkills
-    // let availableTime = data.availableTime
+    let abilities = data.abilities.selectedSkills
     let availabilities = data.availabilities
 
     return new Promise((resolve, reject) => {
@@ -87,8 +86,24 @@ function addHandyman (data) {
             let handyManQuery = `INSERT INTO handyman (user_id, first_name, last_name, phone_num,work_location, work_avaliable_area, work_available_days, work_start_time, work_end_time) 
             VALUES ('${userID}','${personalInfo.fname}','${personalInfo.lname}','${personalInfo.phone}', '${personalInfo.city}', null, '${availabilities.availableTime}', '${availabilities.startTime}', '${availabilities.endTime}');`
 
-            database.query(handyManQuery).then((rows) => {
-                resolve(rows)
+            database.query(handyManQuery).then((handyManRows) => {
+                console.log(abilities)
+                let handymanId = handyManRows.insertId
+                console.log(handyManRows)
+
+                let promises = []
+                abilities.forEach((ability) => {
+                    let abilityQuery = `INSERT INTO handyman_ability (handyman_id, ability_skill_id, skill_license_no, license_issued_date)
+                    VALUES ('${handymanId}', '${ability.id}', null, null)`
+                    promises.push(database.query(abilityQuery))
+                })
+                Promise.all(promises).then((skillsRows) => {
+                    console.log(skillsRows)
+                    resolve(skillsRows)
+                }).catch((error) => {
+                    console.log(error)
+                    reject(error)
+                })
             }).catch((error) => {
                 reject(error)
             })
