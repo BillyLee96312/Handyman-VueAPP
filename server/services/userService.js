@@ -87,21 +87,24 @@ function addHandyman (data) {
             VALUES ('${userID}','${personalInfo.fname}','${personalInfo.lname}','${personalInfo.phone}', '${personalInfo.city}', null, '${availabilities.availableTime}', '${availabilities.startTime}', '${availabilities.endTime}');`
 
             database.query(handyManQuery).then((handyManRows) => {
-                console.log(abilities)
-                let handymanId = handyManRows.insertId
-                console.log(handyManRows)
+                let getHandyManIDquery = `SELECT * from handyman where user_id = '${userID}'`
 
-                let promises = []
-                abilities.forEach((ability) => {
-                    let abilityQuery = `INSERT INTO handyman_ability (handyman_id, ability_skill_id, skill_license_no, license_issued_date)
-                    VALUES ('${handymanId}', '${ability.id}', null, null)`
-                    promises.push(database.query(abilityQuery))
-                })
-                Promise.all(promises).then((skillsRows) => {
-                    console.log(skillsRows)
-                    resolve(skillsRows)
+                database.query(getHandyManIDquery).then((results) => {
+                    let handymanId = results[0].handyman_id
+                    let promises = []
+                    abilities.forEach((ability) => {
+                        let abilityQuery = `INSERT INTO handyman_ability (handyman_id, ability_skill_id, skill_license_no, license_issued_date)
+                        VALUES ('${handymanId}', '${ability.id}', null, null)`
+                        promises.push(database.query(abilityQuery))
+                    })
+                    Promise.all(promises).then((skillsRows) => {
+                        console.log(skillsRows)
+                        resolve(skillsRows)
+                    }).catch((error) => {
+                        console.log(error)
+                        reject(error)
+                    })
                 }).catch((error) => {
-                    console.log(error)
                     reject(error)
                 })
             }).catch((error) => {
