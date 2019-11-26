@@ -50,15 +50,15 @@ function addHomeowner (data) {
             let customerQuery = `INSERT INTO customer (user_id, first_name, last_name, phone_num)
              VALUES ('${userID}','${fname}','${lname}','${phone}');`
 
-            // let addressQuery = `INSERT INTO address (user_id, street, city, province, postal_code, used_address)
-            // VALUES ('${userID}', '${street}', '${city}', '${province}', '${pcode}', 'Y');`
+            let addressQuery = `INSERT INTO address1 (user_id, street, city, province, postal_code, used_address)
+            VALUES ('${userID}', '${street}', '${city}', '${province}', '${pcode}', 'Y');`
             database.query(customerQuery).then((rows) => {
                 resolve(rows)
-                // database.query(addressQuery).then((rows) => {
-                //     resolve(rows)
-                // }).catch((error) => {
-                //     reject(error)
-                // })
+                database.query(addressQuery).then((rows) => {
+                    resolve(rows)
+                }).catch((error) => {
+                    reject(error)
+                })
             }).catch((error) => {
                 reject(error)
             })
