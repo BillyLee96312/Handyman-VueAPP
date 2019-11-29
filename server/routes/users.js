@@ -202,4 +202,32 @@ router.post('/searchpostal', middleware.checkToken, (req, res) => {
     })
 })
 
+router.get('/profile', middleware.getUserName, (req, res) => {
+  let data = req.body
+  let userName = req.userName
+
+  database.query(`SELECT * FROM user WHERE user_name = '${userName}'`)
+  .then(rows => {
+    console.log(rows)
+    delete rows[0].password
+    database.close().then(() => {
+      res.json({
+        data: rows
+      })
+    })
+  })
+  .catch(err => {
+    database.close().then(() => {
+      res.json({
+        data: err
+      })
+    }).catch((error) => {
+      console.log(error)
+      res.json({
+        data: err
+      })
+    })
+  })
+})
+
 module.exports = router

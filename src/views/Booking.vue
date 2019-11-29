@@ -20,7 +20,7 @@
                   class="align"
                   cols="12"
                 >
-                <h2>Booking Details</h2>
+                <h2>Handyman Details</h2>
                 </v-col>
                 <v-col cols="12" sm="6">
                   <v-text-field
@@ -37,13 +37,71 @@
                   ></v-text-field>
                 </v-col>
 
-                <v-col cols="12" sm="6">
+                <v-col cols="12" sm="12">
                   <v-text-field
                     :value="itemToRequest.serviceName"
                     label="Service"
                     disabled
                   ></v-text-field>
                 </v-col>
+              </v-row>
+              <v-row justify="center">
+                <v-col
+                  class="align"
+                  cols="12"
+                >
+                <h2>Appoinment date and time</h2>
+                </v-col>
+                 <v-col cols="12" sm="6">
+                    <v-menu
+                      v-model="menu2"
+                      :close-on-content-click="false"
+                      :nudge-right="40"
+                      transition="scale-transition"
+                      offset-y
+                      min-width="290px"
+                    >
+                      <template v-slot:activator="{ on }">
+                        <v-text-field
+                          v-model="appointmentDate"
+                          label="Please select date"
+                          readonly
+                          v-on="on"
+                        ></v-text-field>
+                      </template>
+                      <v-date-picker v-model="appointmentDate" @input="menu2 = false"></v-date-picker>
+                    </v-menu>
+                  </v-col>
+                <v-col class="d-flex" cols="12" md="6">
+                  <v-menu
+                      ref="bookingTime"
+                      v-model="bookingTime"
+                      :close-on-content-click="false"
+                      :nudge-right="40"
+                      :return-value.sync="bookingTimeVal"
+                      transition="scale-transition"
+                      offset-y
+                      max-width="290px"
+                      min-width="290px"
+                      >
+                      <template v-slot:activator="{ on }">
+                          <v-text-field
+                          v-model="bookingTimeVal"
+                          label="Select time"
+                          readonly
+                          v-on="on"
+                          ></v-text-field>
+                      </template>
+                      <v-time-picker
+                          v-if="bookingTime"
+                          v-model="bookingTimeVal"
+                          full-width
+                          @click:minute="$refs.bookingTime.save(bookingTimeVal)"
+                      ></v-time-picker>
+                  </v-menu>
+                </v-col>
+              </v-row>
+              <v-row>
                 <v-col cols="12">
                     <v-btn small color="primary" dark @click="confrimBooking()">Confirm</v-btn>
                 </v-col>
@@ -67,10 +125,17 @@
 </template>
 
 <script>
+  import axios from 'axios';
+
   export default {
     data(){
       return{
-        bookingConfirmed: false
+        bookingConfirmed: false,
+        bookingTimeVal: null,
+        bookingTime: false,
+        menu2: false,
+        appointmentDate: new Date().toISOString().substr(0, 10),
+        userProfile: null
       }
     },
     metaInfo () {
@@ -78,14 +143,50 @@
         title: 'Booking'
       }
     },
+
+    created(){
+      let headers = {
+          headers: {
+            'Content-Type': 'application/json',
+            'token': this.$store.getters.token
+          }
+      }
+      axios.get('/api/v1/json/users/profile',headers).then((res) =>{
+        this.userProfile = res.data.data[0];
+      })
+    },
     methods: {
       confrimBooking(){
-        this.bookingConfirmed = true;
+        let reqBody = {
+          requestDate: Date.now(),
+          appointmentDate: this.appointmentDate,
+          appointmentTime: this.bookingTime,
+          handymanId: this.handymanId,
+          serviceId: '',
+          addressID:'',
+          totalCost: null,
+          requestStatus: 'R'
+        }
+
+         let headers = {
+          headers: {
+            'Content-Type': 'application/json',
+            'token': this.$store.getters.token
+          }
+        }
+
+         axios.post('/api/v1/json/requests/add', reqBody, headers).then((res) => {
+            this.bookingConfirmed = true;
+         })
       }
     },
     computed:{
       itemToRequest(){
         return this.$route.params.itemToRequest;
+      },
+
+      handymanId(){
+        return this.$route.params.itemToRequest.handymanId;
       }
     }
   }
