@@ -66,3 +66,9 @@ app.use('/api/v1/json/services', servicesRouter)
 app.use('/api/v1/json/statuses', statusesRouter)
 // request api for statuses
 app.use('/api/v1/json/workdays', workdaysRouter)
+
+process.on('SIGINT', function() {
+    console.log( "\nGracefully shutting down from SIGINT (Ctrl-C)" );
+    // some other closing procedures go here
+    process.exit(1);
+})

@@ -206,7 +206,10 @@ router.get('/profile', middleware.getUserName, (req, res) => {
   let data = req.body
   let userName = req.userName
 
-  database.query(`SELECT * FROM user WHERE user_name = '${userName}'`)
+  database.query(`SELECT * FROM user 
+  LEFT JOIN address1 ON user.user_id = address1.user_id
+  LEFT JOIN customer ON user.user_id = customer.user_id
+  WHERE user.user_name = '${userName}'`)
   .then(rows => {
     console.log(rows)
     delete rows[0].password

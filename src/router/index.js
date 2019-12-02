@@ -11,6 +11,7 @@ import Vue from 'vue'
 import VueAnalytics from 'vue-analytics'
 import Router from 'vue-router'
 import Meta from 'vue-meta'
+import store from '../store'
 
 // Routes
 import paths from './paths'
@@ -43,6 +44,14 @@ const router = new Router({
     return { x: 0, y: 0 }
   }
 })
+
+// router.beforeEach((to, from, next) => {
+//   let token = sessionStorage.getItem('token')
+//   if (token !== null) {
+//     store.dispatch('storeToekn', token)
+//   }
+//   next()
+// })
 
 Vue.use(Meta)
 

@@ -45,12 +45,27 @@
                   ></v-text-field>
                 </v-col>
               </v-row>
+               <v-row justify="left">
+                <v-col
+                  class="align"
+                  cols="12"
+                >
+                <h2>Address</h2>
+                </v-col>
+                <v-col cols="12" sm="12">
+                  <v-text-field
+                    :value="address"
+                    label="Address"
+                    disabled
+                  ></v-text-field>
+                </v-col>
+              </v-row>
               <v-row justify="center">
                 <v-col
                   class="align"
                   cols="12"
                 >
-                <h2>Appoinment date and time</h2>
+                <h2>Date and time</h2>
                 </v-col>
                  <v-col cols="12" sm="6">
                     <v-menu
@@ -160,15 +175,16 @@
         let reqBody = {
           requestDate: Date.now(),
           appointmentDate: this.appointmentDate,
-          appointmentTime: this.bookingTime,
-          handymanId: this.handymanId,
-          serviceId: '',
-          addressID:'',
+          appointmentTime: this.bookingTimeVal,
+          handymanId: this.itemToRequest.handyman_id,
+          serviceId: this.itemToRequest.service_id,
+          addressID: this.userProfile.address_id,
+          customerID: this.userProfile.customer_id,
           totalCost: null,
           requestStatus: 'R'
         }
 
-         let headers = {
+        let headers = {
           headers: {
             'Content-Type': 'application/json',
             'token': this.$store.getters.token
@@ -187,6 +203,12 @@
 
       handymanId(){
         return this.$route.params.itemToRequest.handymanId;
+      },
+
+      address(){
+        if(this.userProfile){
+            return this.userProfile.street + ' ' + this.userProfile.city + ' ' + this.userProfile.province + ' ' + this.userProfile.postal_code;
+        }
       }
     }
   }

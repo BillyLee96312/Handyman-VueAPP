@@ -13,16 +13,27 @@ router.post('/add', middleware.checkToken, (req, res) => {
   let addressID = data.addressID
   let totalCost = data.totalCost
   let requestStatus = data.requestStatus
-  console.log(data)
-  let query = `INSERT INTO request (customer_id, request_date, address_id, total_cost, request_status) VALUES (${customerID}, ${requestDate}, ${addressID}, ${totalCost}, '${requestStatus}')`
-  console.log(query)
+  let serviceId = data.serviceId
+  let handymanId = data.handymanId
+  let appointmentDate = data.appointmentDate
+  let appointmentTime = data.appointmentTime
+  let query = `INSERT INTO request (customer_id, request_date, address_id, total_cost, request_status) VALUES ('${customerID}', ${requestDate}, ${addressID}, ${totalCost}, '${requestStatus}')`
   database.query(query)
       .then(rows => {
-        database.close().then(() => {
-          res.json({
-            data: rows
+        let requestId = rows.insertId
+        let detailsQuery = `INSERT INTO request_detail (request_id, service_id, cost, handyman_id, request_status_id, expected_work_date, expected_work_time, fixed_date) VALUES (${requestId}, ${serviceId}, null, '${handymanId}', null, '${appointmentDate}', '${appointmentTime}', '${appointmentDate}')`
+        database.query(detailsQuery)
+          .then((detailsRows) => {
+            database.close().then(() => {
+              res.json({
+                data: detailsRows
+              })
+            })
+          }).catch((err) => {
+            res.json({
+              data: err
+            })
           })
-        })
       })
       .catch(err => {
         database.close().then(() => {

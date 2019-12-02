@@ -153,7 +153,8 @@
             skillName: service.skill_name,
             skillLicenseNo: service.skill_license_no,
             avaliableArea: service.work_avaliable_area,
-            handyman_id: service.handyman_id
+            handyman_id: service.handyman_id,
+            service_id:service.service_id
           })
         })
       })
