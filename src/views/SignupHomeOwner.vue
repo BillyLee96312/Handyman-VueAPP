@@ -8,7 +8,7 @@
         cols="12"
         md="8"
       >
-       <material-card
+        <material-card
           v-if="isRegistered"
           color="green"
           title="Confiramtion"
@@ -71,7 +71,8 @@
 
                 <v-col
                   cols="12"
-                  md="6">
+                  md="6"
+                >
                   <v-text-field
                     v-model="address"
                     label="Adress"
@@ -85,7 +86,8 @@
 
                 <v-col
                   cols="12"
-                  md="6">
+                  md="6"
+                >
                   <v-text-field
                     v-model="phone"
                     label="Phone"
@@ -99,7 +101,8 @@
 
                 <v-col
                   cols="12"
-                  md="4">
+                  md="4"
+                >
                   <v-text-field
                     v-model="city"
                     label="City"
@@ -113,7 +116,8 @@
 
                 <v-col
                   cols="12"
-                  md="4">
+                  md="4"
+                >
                   <v-select
                     v-model="province"
                     :items="provinceOptions"
@@ -127,7 +131,8 @@
 
                 <v-col
                   cols="12"
-                  md="4">
+                  md="4"
+                >
                   <v-text-field
                     v-model="pcode"
                     class="purple-input"
@@ -223,15 +228,8 @@
   import { validationMixin } from 'vuelidate'
   import { required, minLength, maxLength, email, numeric, alpha } from 'vuelidate/lib/validators'
   import axios from 'axios'
-  import Multiselect from 'vue-multiselect'
-
-
   export default {
     mixins: [validationMixin],
-
-    components: {
-      Multiselect
-    },
 
     validations: {
       userName: { required, minLength: minLength(4), maxLength: maxLength(32) },
@@ -260,7 +258,7 @@
         userName: '',
         email: '',
         password: '',
-        provinceOptions:[
+        provinceOptions: [
           'Alberta',
           'British Columbia',
           'Manitoba',
@@ -269,7 +267,7 @@
           'Northwest Territories',
           'Nova Scotia',
           'Nunavut',
-          'Ontario', 
+          'Ontario',
           'Prince Edward Island',
           'Quebec',
           'Saskatchewan',
@@ -380,7 +378,7 @@
         axios.post('/api/v1/json/users/add', reqBody).then((res) => {
           this.isRegistered = true
           this.showLoginInfo = false
-        }).catch((error) =>{
+        }).catch((error) => {
           console.log(error)
         })
       },
@@ -391,5 +389,3 @@
     }
   }
 </script>
-
-<style src="vue-multiselect/dist/vue-multiselect.min.css"></style>

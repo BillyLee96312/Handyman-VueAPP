@@ -8,7 +8,8 @@
         cols="12"
         md="8"
       >
-        <material-card v-if="!bookingConfirmed"
+        <material-card
+          v-if="!bookingConfirmed"
           color="green"
           title="Verify booking details"
           text=" "
@@ -20,44 +21,56 @@
                   class="align"
                   cols="12"
                 >
-                <h2>Handyman Details</h2>
+                  <h2>Handyman Details</h2>
                 </v-col>
-                <v-col cols="12" sm="6">
+                <v-col
+                  cols="12"
+                  sm="6"
+                >
                   <v-text-field
                     :value="itemToRequest.firstName"
                     label="First name"
                     disabled
-                  ></v-text-field>
+                  />
                 </v-col>
-                <v-col cols="12" sm="6">
+                <v-col
+                  cols="12"
+                  sm="6"
+                >
                   <v-text-field
                     :value="itemToRequest.lastName"
                     label="Last name"
                     disabled
-                  ></v-text-field>
+                  />
                 </v-col>
 
-                <v-col cols="12" sm="12">
+                <v-col
+                  cols="12"
+                  sm="12"
+                >
                   <v-text-field
                     :value="itemToRequest.serviceName"
                     label="Service"
                     disabled
-                  ></v-text-field>
+                  />
                 </v-col>
               </v-row>
-               <v-row justify="left">
+              <v-row justify="left">
                 <v-col
                   class="align"
                   cols="12"
                 >
-                <h2>Address</h2>
+                  <h2>Address</h2>
                 </v-col>
-                <v-col cols="12" sm="12">
+                <v-col
+                  cols="12"
+                  sm="12"
+                >
                   <v-text-field
                     :value="address"
                     label="Address"
                     disabled
-                  ></v-text-field>
+                  />
                 </v-col>
               </v-row>
               <v-row justify="center">
@@ -65,79 +78,105 @@
                   class="align"
                   cols="12"
                 >
-                <h2>Date and time</h2>
+                  <h2>Date and time</h2>
                 </v-col>
-                 <v-col cols="12" sm="6">
-                    <v-menu
-                      v-model="menu2"
-                      :close-on-content-click="false"
-                      :nudge-right="40"
-                      transition="scale-transition"
-                      offset-y
-                      min-width="290px"
-                    >
-                      <template v-slot:activator="{ on }">
-                        <v-text-field
-                          v-model="appointmentDate"
-                          label="Please select date"
-                          readonly
-                          v-on="on"
-                        ></v-text-field>
-                      </template>
-                      <v-date-picker v-model="appointmentDate" @input="menu2 = false"></v-date-picker>
-                    </v-menu>
-                  </v-col>
-                <v-col class="d-flex" cols="12" md="6">
+                <v-col
+                  cols="12"
+                  sm="6"
+                >
                   <v-menu
-                      ref="bookingTime"
-                      v-model="bookingTime"
-                      :close-on-content-click="false"
-                      :nudge-right="40"
-                      :return-value.sync="bookingTimeVal"
-                      transition="scale-transition"
-                      offset-y
-                      max-width="290px"
-                      min-width="290px"
-                      >
-                      <template v-slot:activator="{ on }">
-                          <v-text-field
-                          v-model="bookingTimeVal"
-                          label="Select time"
-                          readonly
-                          v-on="on"
-                          ></v-text-field>
-                      </template>
-                      <v-time-picker
-                          v-if="bookingTime"
-                          v-model="bookingTimeVal"
-                          full-width
-                          @click:minute="$refs.bookingTime.save(bookingTimeVal)"
-                      ></v-time-picker>
+                    v-model="menu2"
+                    :close-on-content-click="false"
+                    :nudge-right="40"
+                    transition="scale-transition"
+                    offset-y
+                    min-width="290px"
+                  >
+                    <template v-slot:activator="{ on }">
+                      <v-text-field
+                        v-model="appointmentDate"
+                        label="Please select date"
+                        readonly
+                        v-on="on"
+                      />
+                    </template>
+                    <v-date-picker
+                      v-model="appointmentDate"
+                      @input="menu2 = false"
+                    />
+                  </v-menu>
+                </v-col>
+                <v-col
+                  class="d-flex"
+                  cols="12"
+                  md="6"
+                >
+                  <v-menu
+                    ref="bookingTime"
+                    v-model="bookingTime"
+                    :close-on-content-click="false"
+                    :nudge-right="40"
+                    :return-value.sync="bookingTimeVal"
+                    transition="scale-transition"
+                    offset-y
+                    max-width="290px"
+                    min-width="290px"
+                  >
+                    <template v-slot:activator="{ on }">
+                      <v-text-field
+                        v-model="bookingTimeVal"
+                        label="Select time"
+                        readonly
+                        v-on="on"
+                      />
+                    </template>
+                    <v-time-picker
+                      v-if="bookingTime"
+                      v-model="bookingTimeVal"
+                      full-width
+                      @click:minute="$refs.bookingTime.save(bookingTimeVal)"
+                    />
                   </v-menu>
                 </v-col>
               </v-row>
               <v-row>
                 <v-col cols="12">
-                    <v-btn small color="primary" dark @click="confrimBooking()">Confirm</v-btn>
+                  <v-btn
+                    small
+                    color="primary"
+                    dark
+                    @click="confrimBooking()"
+                  >
+                    Confirm
+                  </v-btn>
                 </v-col>
               </v-row>
             </v-container>
           </v-form>
         </material-card>
-        <material-card v-if="bookingConfirmed"
+        <material-card
+          v-if="bookingConfirmed"
           color="green"
           title="Booking confimed"
-          text=" ">
+          text=" "
+        >
           <v-row>
             <v-col cols="12">
               <h2>Your booking has been confirmed!</h2>
             </v-col>
-           </v-row>
-           <v-row>
-                <v-col cols="12">
-                    <v-btn small color="primary" dark @click="goToDashboard()">Dashboard</v-btn>
-                </v-col>
-            </v-row>
+          </v-row>
+          <v-row>
+            <v-col cols="12">
+              <v-btn
+                small
+                color="primary"
+                dark
+                @click="goToDashboard()"
+              >
+                Dashboard
+              </v-btn>
+            </v-col>
+          </v-row>
         </material-card>
       </v-col>
     </v-row>
@@ -145,11 +184,11 @@
 </template>
 
 <script>
-  import axios from 'axios';
+  import axios from 'axios'
 
   export default {
-    data(){
-      return{
+    data () {
+      return {
         bookingConfirmed: false,
         bookingTimeVal: null,
         bookingTime: false,
@@ -163,20 +202,37 @@
         title: 'Booking'
       }
     },
+    computed: {
+      itemToRequest () {
+        return this.$route.params.itemToRequest
+      },
 
-    created(){
-      let headers = {
-          headers: {
-            'Content-Type': 'application/json',
-            'token': this.$store.getters.token
-          }
+      handymanId () {
+        return this.$route.params.itemToRequest.handymanId
+      },
+
+      address () {
+        if (this.userProfile) {
+          return this.userProfile.street + ' ' + this.userProfile.city + ' ' + this.userProfile.province + ' ' + this.userProfile.postal_code
+        } else {
+          return ''
+        }
       }
-      axios.get('/api/v1/json/users/profile',headers).then((res) =>{
-        this.userProfile = res.data.data[0];
+    },
+
+    created () {
+      let headers = {
+        headers: {
+          'Content-Type': 'application/json',
+          'token': this.$store.getters.token
+        }
+      }
+      axios.get('/api/v1/json/users/profile', headers).then((res) => {
+        this.userProfile = res.data.data[0]
       })
     },
     methods: {
-      confrimBooking(){
+      confrimBooking () {
         let reqBody = {
           requestDate: Date.now(),
           appointmentDate: this.appointmentDate,
@@ -196,27 +252,12 @@
           }
         }
 
-         axios.post('/api/v1/json/requests/add', reqBody, headers).then((res) => {
-            this.bookingConfirmed = true;
-         })
+        axios.post('/api/v1/json/requests/add', reqBody, headers).then((res) => {
+          this.bookingConfirmed = true
+        })
       },
-      goToDashboard(){
-        this.$router.push('Dashboard') 
-      }
-    },
-    computed:{
-      itemToRequest(){
-        return this.$route.params.itemToRequest;
-      },
-
-      handymanId(){
-        return this.$route.params.itemToRequest.handymanId;
-      },
-
-      address(){
-        if(this.userProfile){
-            return this.userProfile.street + ' ' + this.userProfile.city + ' ' + this.userProfile.province + ' ' + this.userProfile.postal_code;
-        }
+      goToDashboard () {
+        this.$router.push('Dashboard')
       }
     }
   }

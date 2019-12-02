@@ -59,35 +59,33 @@
 </template>
 
 <script>
-import axios from 'axios'
+  import axios from 'axios'
 
-export default{
-    data() {
-        return {
-            skillId: '',
-            skillName: '',
-            skillDesc: ''
-        }
+  export default {
+    data () {
+      return {
+        skillId: '',
+        skillName: '',
+        skillDesc: ''
+      }
     },
     methods: {
-        submit(){
-            console.log(this.skillId, this.skillName, this.skillDesc)
-            axios.post('/api/v1/json/skills/add', {
-                skillId: this.skillId,
-                skillName: this.skillName,
-                skillDesc: this.skillDesc
-            })
-            
-            .then(function (response) {
-                console.log(response)  
-                //this.$router.push('handyman-skill')          
-            })
-            .catch(function (error) {
+      submit () {
+        console.log(this.skillId, this.skillName, this.skillDesc)
+        axios.post('/api/v1/json/skills/add', {
+          skillId: this.skillId,
+          skillName: this.skillName,
+          skillDesc: this.skillDesc
+        })
 
-                console.log(error)
-                
-            })
-        }
+          .then(function (response) {
+            console.log(response)
+            // this.$router.push('handyman-skill')
+          })
+          .catch(function (error) {
+            console.log(error)
+          })
+      }
     }
-}
+  }
 </script>

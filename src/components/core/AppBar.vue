@@ -24,10 +24,12 @@
     <v-toolbar-items v-if="isAuthenticated">
       <v-row
         align="center"
-        class="mx-0">
+        class="mx-0"
+      >
         <v-btn
           to="/user-profile"
-          icon>
+          icon
+        >
           <v-icon color="tertiary">
             mdi-account
           </v-icon>
@@ -47,6 +49,12 @@
       responsive: false
     }),
 
+    computed: {
+      isAuthenticated () {
+        return this.$store.getters.isAuthenticated
+      }
+    },
+
     watch: {
       '$route' (val) {
         this.title = val.name
@@ -59,12 +67,6 @@
     },
     beforeDestroy () {
       window.removeEventListener('resize', this.onResponsiveInverted)
-    },
-
-    computed: {
-      isAuthenticated (){
-        return this.$store.getters.isAuthenticated;
-      }
     },
 
     methods: {

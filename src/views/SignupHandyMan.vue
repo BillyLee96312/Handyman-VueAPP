@@ -157,65 +157,73 @@
                   />
                 </v-col>
                 <v-row>
-                      <v-col class="d-flex" cols="12" md="6">
-                          <v-menu
-                              ref="startTime"
-                              v-model="startTime"
-                              :close-on-content-click="false"
-                              :nudge-right="40"
-                              :return-value.sync="startTimeVal"
-                              transition="scale-transition"
-                              offset-y
-                              max-width="290px"
-                              min-width="290px"
-                              >
-                              <template v-slot:activator="{ on }">
-                                  <v-text-field
-                                  v-model="startTimeVal"
-                                  label="Select start time"
-                                  readonly
-                                  v-on="on"
-                                  ></v-text-field>
-                              </template>
-                              <v-time-picker
-                                  v-if="startTime"
-                                  v-model="startTimeVal"
-                                  full-width
-                                  format="24hr"
-                                  @click:minute="$refs.startTime.save(startTimeVal)"
-                              ></v-time-picker>
-                          </v-menu>
-                      </v-col>
-                      <v-col class="d-flex" cols="12" md="6">
-                          <v-menu
-                              ref="endTime"
-                              v-model="endTime"
-                              :close-on-content-click="false"
-                              :nudge-right="40"
-                              :return-value.sync="endTimeVal"
-                              transition="scale-transition"
-                              offset-y
-                              max-width="290px"
-                              min-width="290px"
-                              >
-                              <template v-slot:activator="{ on }">
-                                  <v-text-field
-                                  v-model="endTimeVal"
-                                  label="Select end time"
-                                  readonly
-                                  v-on="on"
-                                  ></v-text-field>
-                              </template>
-                              <v-time-picker
-                                  v-if="endTime"
-                                  v-model="endTimeVal"
-                                  full-width
-                                  format="24hr"
-                                  @click:minute="$refs.endTime.save(endTimeVal)"
-                              ></v-time-picker>
-                          </v-menu>
-                      </v-col>
-                  </v-row>
+                  <v-col
+                    class="d-flex"
+                    cols="12"
+                    md="6"
+                  >
+                    <v-menu
+                      ref="startTime"
+                      v-model="startTime"
+                      :close-on-content-click="false"
+                      :nudge-right="40"
+                      :return-value.sync="startTimeVal"
+                      transition="scale-transition"
+                      offset-y
+                      max-width="290px"
+                      min-width="290px"
+                    >
+                      <template v-slot:activator="{ on }">
+                        <v-text-field
+                          v-model="startTimeVal"
+                          label="Select start time"
+                          readonly
+                          v-on="on"
+                        />
+                      </template>
+                      <v-time-picker
+                        v-if="startTime"
+                        v-model="startTimeVal"
+                        full-width
+                        format="24hr"
+                        @click:minute="$refs.startTime.save(startTimeVal)"
+                      />
+                    </v-menu>
+                  </v-col>
+                  <v-col
+                    class="d-flex"
+                    cols="12"
+                    md="6"
+                  >
+                    <v-menu
+                      ref="endTime"
+                      v-model="endTime"
+                      :close-on-content-click="false"
+                      :nudge-right="40"
+                      :return-value.sync="endTimeVal"
+                      transition="scale-transition"
+                      offset-y
+                      max-width="290px"
+                      min-width="290px"
+                    >
+                      <template v-slot:activator="{ on }">
+                        <v-text-field
+                          v-model="endTimeVal"
+                          label="Select end time"
+                          readonly
+                          v-on="on"
+                        />
+                      </template>
+                      <v-time-picker
+                        v-if="endTime"
+                        v-model="endTimeVal"
+                        full-width
+                        format="24hr"
+                        @click:minute="$refs.endTime.save(endTimeVal)"
+                      />
+                    </v-menu>
+                  </v-col>
+                </v-row>
                 <v-col cols="12">
                   <label class="typo__label">Skills</label>
                   <multiselect
@@ -226,12 +234,11 @@
                     multiple="true"
                     placeholder="Select skills"
                     open-direction="bottom"
+                    label="name"
+                    track-by="name"
                     @input="$v.value.$touch()"
                     @blur="$v.value.$touch()"
-                     label="name" 
-                    track-by="name"                  
-                  >
-                  </multiselect>
+                  />
                 </v-col>
                 <v-col
                   cols="12"
@@ -308,7 +315,7 @@
               </v-row>
             </v-container>
           </v-form>
-        </material-card >
+        </material-card>
       </v-col>
     </v-row>
   </v-container>
@@ -319,9 +326,9 @@
   import { required, minLength, maxLength, email, numeric, alpha } from 'vuelidate/lib/validators'
   import Multiselect from 'vue-multiselect'
   import axios from 'axios'
-  import TimePicker from '../components/material/TimePicker';
 
   export default {
+    components: { Multiselect },
     mixins: [validationMixin],
 
     validations: {
@@ -338,7 +345,7 @@
       value: { required }
     },
     // OR register locally
-    components: { Multiselect , TimePicker },
+
     data () {
       return {
         valid: true,
@@ -356,16 +363,16 @@
         email: '',
         password: '',
         availabilities: [{
-          name: 'All day',
-          value: '3'
-        },{
-          name: 'Weekday',
-          value: '1'
-        },
-        {
-          name: 'weekend',
-          value: '2'
-        }
+                           name: 'All day',
+                           value: '3'
+                         }, {
+                           name: 'Weekday',
+                           value: '1'
+                         },
+                         {
+                           name: 'weekend',
+                           value: '2'
+                         }
         ],
         availableTime: '',
         isRegistered: false,
@@ -463,7 +470,7 @@
     created () {
       axios.get('/api/v1/json/skills').then((data) => {
         data.data.data.forEach(skill => {
-          this.skills.push({'name':skill.skill_name, 'id': skill.skill_id})
+          this.skills.push({ 'name': skill.skill_name, 'id': skill.skill_id })
         })
       })
     },
@@ -489,7 +496,7 @@
             email: this.email,
             password: this.password
           },
-          availabilities:{
+          availabilities: {
             availableTime: this.availableTime,
             startTime: this.startTimeVal,
             endTime: this.endTimeVal
@@ -498,7 +505,7 @@
         axios.post('/api/v1/json/users/add', reqBody).then((res) => {
           this.isRegistered = true
           this.showLoginInfo = false
-        }).catch((error) =>{
+        }).catch((error) => {
           console.log(error.response.data)
         })
       },
