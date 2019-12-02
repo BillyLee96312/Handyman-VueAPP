@@ -203,32 +203,48 @@ router.post('/searchpostal', middleware.checkToken, (req, res) => {
 })
 
 router.get('/profile', middleware.getUserName, (req, res) => {
+  debugger
   let data = req.body
   let userName = req.userName
 
-  database.query(`SELECT * FROM user 
-  INNER JOIN address1 ON user.user_id = address1.user_id
-  INNER JOIN customer ON user.user_id = customer.user_id
-  WHERE user.user_name = '${userName}'`)
-  .then(rows => {
-    console.log(rows)
-    delete rows[0].password
-    database.close().then(() => {
-      res.json({
-        data: rows
+  userService.findUser(userName).then((user) => {
+    let query = ''
+    if (user[0].user_type === 2) {
+      query = `SELECT * FROM user 
+      INNER JOIN address1 ON user.user_id = address1.user_id
+      INNER JOIN handyman ON user.user_id = handyman.user_id
+      WHERE user.user_name = '${userName}'`
+    } else {
+      query = `SELECT * FROM user 
+      INNER JOIN address1 ON user.user_id = address1.user_id
+      INNER JOIN customer ON user.user_id = customer.user_id
+      WHERE user.user_name = '${userName}'`
+    }
+    database.query(query)
+    .then(rows => {
+      console.log(rows)
+      delete rows[0].password
+      database.close().then(() => {
+        res.json({
+          data: rows
+        })
       })
     })
-  })
-  .catch(err => {
-    database.close().then(() => {
-      res.json({
-        data: err
+    .catch(err => {
+      database.close().then(() => {
+        res.json({
+          data: err
+        })
+      }).catch((error) => {
+        console.log(error)
+        res.json({
+          data: err
+        })
       })
-    }).catch((error) => {
-      console.log(error)
-      res.json({
-        data: err
-      })
+    })
+  }).catch((e) => {
+    res.send(400).json({
+      data: e
     })
   })
 })
