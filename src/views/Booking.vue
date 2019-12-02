@@ -133,6 +133,11 @@
               <h2>Your booking has been confirmed!</h2>
             </v-col>
            </v-row>
+           <v-row>
+                <v-col cols="12">
+                    <v-btn small color="primary" dark @click="goToDashboard()">Dashboard</v-btn>
+                </v-col>
+            </v-row>
         </material-card>
       </v-col>
     </v-row>
@@ -194,6 +199,9 @@
          axios.post('/api/v1/json/requests/add', reqBody, headers).then((res) => {
             this.bookingConfirmed = true;
          })
+      },
+      goToDashboard(){
+        this.$router.push('Dashboard') 
       }
     },
     computed:{

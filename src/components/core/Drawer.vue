@@ -85,6 +85,11 @@
     data: () => ({
       authenticatedLinks: [
         {
+          to: '/dashboard',
+          icon: 'mdi-view-dashboard',
+          text: 'Dashboard'
+        },
+        {
           to: '/search-handyman',
           icon: 'mdi-account-search-outline',
           text: 'Search Handyman'

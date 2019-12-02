@@ -122,6 +122,16 @@ function findUserName (userName) {
     return database.query(query)
 }
 
+function findCustomer (userName) {
+    return findUserName(userName).then((user) => {
+        let query = `SELECT * from customer where user_id = '${user[0].user_id}'`
+
+        return database.query(query)
+    })
+}
+
 module.exports = {
-    addUser
+    addUser,
+    findUserName,
+    findCustomer
 }

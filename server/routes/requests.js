@@ -2,6 +2,7 @@ var express = require('express')
 var router = express.Router()
 const database = require('../database')
 const middleware = require('../middleware')
+const userService = require('../services/userService')
 
 // Create new request (booking)
 // This is a post request api. Front end will use this api to create new request (booking).
@@ -113,29 +114,41 @@ router.delete('/delete/:id', (req, res) => {
 
 // Get all requests (booking)
 // This will api will return call request (booking) from database
-router.get('/', (req, res) => {
-  let query = 'SELECT * FROM request'
-  console.log(query)
-  database.query(query)
-      .then(rows => {
-        database.close().then(() => {
-          res.json({
-            data: rows
+router.get('/', middleware.getUserName, (req, res) => {
+  let userName = req.userName
+  userService.findCustomer(userName).then((customer) => {
+    let query = `SELECT * FROM request 
+      INNER JOIN request_detail ON request.request_id = request_detail.request_id
+      INNER JOIN service ON request_detail.service_id = service.service_id
+      INNER JOIN handyman ON request_detail.handyman_id = handyman.handyman_id
+      WHERE request.customer_id = '${customer[0].customer_id}'`
+
+    console.log(query)
+    database.query(query)
+        .then(rows => {
+          database.close().then(() => {
+            res.json({
+              data: rows
+            })
           })
         })
-      })
-      .catch(err => {
-        database.close().then(() => {
-          res.json({
-            data: err
-        })
-      }).catch((error) => {
-            console.log(error)
-              res.json({
-            data: err
+        .catch(err => {
+          database.close().then(() => {
+            res.json({
+              data: err
           })
+        }).catch((error) => {
+              console.log(error)
+                res.json({
+              data: err
+            })
+        })
       })
-    })
+  }).catch((error) => {
+      res.json({
+        data: error
+      })
+  })
 })
 
 // Get a request (booking)

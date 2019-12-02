@@ -84,5 +84,10 @@ export default [
     path: '/booking',
     name: 'Booking',
     view: 'Booking'
+  },
+  {
+    path: '/dashboard',
+    name: 'Dashboard',
+    view: 'Dashboard'
   }
 ]

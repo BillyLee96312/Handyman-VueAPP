@@ -207,8 +207,8 @@ router.get('/profile', middleware.getUserName, (req, res) => {
   let userName = req.userName
 
   database.query(`SELECT * FROM user 
-  LEFT JOIN address1 ON user.user_id = address1.user_id
-  LEFT JOIN customer ON user.user_id = customer.user_id
+  INNER JOIN address1 ON user.user_id = address1.user_id
+  INNER JOIN customer ON user.user_id = customer.user_id
   WHERE user.user_name = '${userName}'`)
   .then(rows => {
     console.log(rows)

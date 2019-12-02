@@ -4,5 +4,13 @@ export default {
   session: {
     token: null,
     status: ''
+  },
+
+  userProfile: {
+    data: null
+  },
+
+  cutomersRequests: {
+    data: null
   }
 }
