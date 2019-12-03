@@ -211,7 +211,6 @@ router.get('/profile', middleware.getUserName, (req, res) => {
     let query = ''
     if (user[0].user_type === 2) {
       query = `SELECT * FROM user 
-      INNER JOIN address1 ON user.user_id = address1.user_id
       INNER JOIN handyman ON user.user_id = handyman.user_id
       WHERE user.user_name = '${userName}'`
     } else {

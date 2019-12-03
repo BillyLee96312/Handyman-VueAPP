@@ -117,7 +117,15 @@
         })
           .then((response) => {
             this.$store.dispatch('storeToekn', response.data.token)
-            this.$router.push({ path: 'search-handyman' })
+            let headers = {
+                headers: {
+                  'Content-Type': 'application/json',
+                  'token': this.$store.getters.token
+                }
+            }
+            this.$store.dispatch('fetchUserProfile', headers).then(()=>{
+              this.$router.push({path: 'dashboard'})
+            })
           })
           .catch((error) => {
             console.error(error)
