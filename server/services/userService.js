@@ -137,9 +137,16 @@ function findHandyman (userName) {
         return database.query(query)
     })
 }
+
+function findHandymanById (id) {
+    let query = `SELECT * from handyman where handyman_id = '${id}'`
+
+    return database.query(query)
+}
 module.exports = {
     addUser,
     findUser,
     findCustomer,
-    findHandyman
+    findHandyman,
+    findHandymanById
 }
