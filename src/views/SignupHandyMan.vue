@@ -383,6 +383,12 @@
       }
     },
 
+    metaInfo () {
+      return {
+        title: 'Signup Handyman'
+      }
+    },
+
     computed: {
       userNameErrors () {
         const errors = []
