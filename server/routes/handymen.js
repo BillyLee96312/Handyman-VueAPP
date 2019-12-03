@@ -84,7 +84,7 @@ router.put('/edit/:id', (req, res) => {
 router.get('/', (req, res) => {
   let query = 'select hm.handyman_id, sv.service_id, sv.service_name, hm.first_name, hm.last_name, hm.phone_num, ' +
                   'ha.skill_license_no, sk.skill_name, sk.skill_desc, hm.work_location, ' +
-                  'hm.work_avaliable_area, hm.work_available_days, hm.work_start_time, hm.work_end_time ' +
+                  'hm.work_avaliable_area, hm.work_available_days, hm.work_start_time, hm.work_end_time, ha.hourly_rate ' +
                 'from service sv ' +
                   'join skill sk on sv.service_id = sk.service_id ' +
                   'join handyman_ability ha on ha.ability_skill_id = sk.skill_id ' +
@@ -143,7 +143,7 @@ router.get('/:id', (req, res) => {
 
 // Get searched handymen list (location, skill, requestDate)
 // This will api will return call handymen from database
-router.post('/search/list', (req, res) => {
+router.get('/search/list', (req, res) => {
   console.log(req.body)
   let data = req.body
   let skill = '%'
@@ -157,7 +157,7 @@ router.post('/search/list', (req, res) => {
   console.log(data)
   let query = 'select hm.handyman_id, sv.service_name, hm.first_name, hm.last_name, hm.phone_num, ' +
                   'ha.skill_license_no, sk.skill_name, sk.skill_desc, hm.work_location, ' +
-                  'hm.work_avaliable_area, hm.work_available_days, hm.work_start_time, hm.work_end_time ' +
+                  'hm.work_avaliable_area, hm.work_available_days, hm.work_start_time, hm.work_end_time, ha.hourly_rate ' +
                 'from service sv ' +
                   'join skill sk on sv.service_id = sk.service_id ' +
                   'join handyman_ability ha on ha.ability_skill_id = sk.skill_id ' +

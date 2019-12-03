@@ -10,10 +10,11 @@ router.post('/add', (req, res) => {
   let data = req.body
   let handymanID = data.handymanID
   let skillID = data.skillID
-  let skill_licenseNo = data.skill_licenseNo
-  let issuedDate = req.body.issuedDate
+  let skillLicenseNo = data.skillLicenseNo
+  let issuedDate = data.issuedDate
+  let hourlyRate = data.hourlyRate
   console.log(data)
-  let query = `INSERT INTO handyman_ability (handyman_id, ability_skill_id, skill_license_no, license_issued_date) VALUES (${handymanID}, ${skillID}, '${skill_licenseNo}', ${issuedDate})`
+  let query = `INSERT INTO handyman_ability (handyman_id, ability_skill_id, skill_license_no, license_issued_date, hourly_rate) VALUES (${handymanID}, ${skillID}, '${skillLicenseNo}', ${issuedDate}, ${hourlyRate})`
   console.log(query, data)
   database.query(query)
       .then(rows => {

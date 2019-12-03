@@ -93,8 +93,8 @@ function addHandyman (data) {
                     let handymanId = results[0].handyman_id
                     let promises = []
                     abilities.forEach((ability) => {
-                        let abilityQuery = `INSERT INTO handyman_ability (handyman_id, ability_skill_id, skill_license_no, license_issued_date)
-                        VALUES ('${handymanId}', '${ability.id}', null, null)`
+                        let abilityQuery = `INSERT INTO handyman_ability (handyman_id, ability_skill_id, skill_license_no, license_issued_date, hourly_rate)
+                        VALUES ('${handymanId}', '${ability.id}', null, null, null)`
                         promises.push(database.query(abilityQuery))
                     })
                     Promise.all(promises).then((skillsRows) => {
