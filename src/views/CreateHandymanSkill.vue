@@ -69,6 +69,11 @@
         skillDesc: ''
       }
     },
+    metaInfo () {
+      return {
+        title: 'Handyman Skill'
+      }
+    },
     methods: {
       submit () {
         console.log(this.skillId, this.skillName, this.skillDesc)

@@ -92,7 +92,11 @@
         ]
       }
     },
-
+    metaInfo () {
+      return {
+        title: 'Dashboard'
+      }
+    },
     computed: mapState({
       userProfile: state => state.userProfile.data,
       cutomersRequests: state => state.cutomersRequests.data

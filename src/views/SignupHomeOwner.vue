@@ -277,6 +277,12 @@
       }
     },
 
+    metaInfo () {
+      return {
+        title: 'Signup Homeowner'
+      }
+    },
+
     computed: {
       userNameErrors () {
         const errors = []
