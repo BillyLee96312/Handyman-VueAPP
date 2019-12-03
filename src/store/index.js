@@ -16,6 +16,7 @@ import getters from './getters'
 import modules from './modules'
 import mutations from './mutations'
 import state from './state'
+import createPersistedState from 'vuex-persistedstate'
 
 Vue.use(Vuex)
 
@@ -25,7 +26,8 @@ const store = new Vuex.Store({
   getters,
   modules,
   mutations,
-  state
+  state,
+  plugins: [createPersistedState()]
 })
 
 export default store

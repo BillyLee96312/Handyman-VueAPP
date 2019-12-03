@@ -28,7 +28,6 @@
                     @blur="$v.userName.$touch()"
                   />
                 </v-col>
-                <v-col cols="12" />
                 <v-col cols="12">
                   <v-text-field
                     v-model="password"
@@ -65,7 +64,7 @@
 <script>
   import axios from 'axios'
   import { validationMixin } from 'vuelidate'
-  import { required, minLength, maxLength, email, numeric, alpha } from 'vuelidate/lib/validators'
+  import { required, minLength, maxLength } from 'vuelidate/lib/validators'
 
   export default {
     mixins: [validationMixin],
@@ -118,7 +117,15 @@
         })
           .then((response) => {
             this.$store.dispatch('storeToekn', response.data.token)
-            this.$router.push({ path: 'search-handyman' })
+            let headers = {
+                headers: {
+                  'Content-Type': 'application/json',
+                  'token': this.$store.getters.token
+                }
+            }
+            this.$store.dispatch('fetchUserProfile', headers).then(()=>{
+              this.$router.push({path: 'dashboard'})
+            })
           })
           .catch((error) => {
             console.error(error)

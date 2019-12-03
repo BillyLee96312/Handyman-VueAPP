@@ -1,10 +1,10 @@
-const jwt = require('jsonwebtoken');
-const config = require('./config');
+const jwt = require('jsonwebtoken')
+const config = require('./config')
 
 let checkToken = (req, res, next) => {
-  let token = req.headers['token'] || req.headers['authorization'];
+  let token = req.headers['token'] || req.headers['authorization']
   if (token && token.startsWith('Bearer ')) {
-    token = token.slice(7, token.length);
+    token = token.slice(7, token.length)
   }
 
   if (token) {
@@ -13,19 +13,47 @@ let checkToken = (req, res, next) => {
         return res.json({
           success: false,
           message: 'Token is not valid'
-        });
+        })
       } else {
-        req.decoded = decoded;
-        next();
+        req.decoded = decoded
+        next()
       }
-    });
+    })
   } else {
     return res.send(401).json({
       success: false,
       message: 'Auth token is not provided'
-    });
+    })
   }
-};
+}
+
+let getUserName = (req, res, next) => {
+  let token = req.headers['token'] || req.headers['authorization']
+  if (token && token.startsWith('Bearer ')) {
+    token = token.slice(7, token.length)
+  }
+
+  if (token) {
+    let payload = jwt.decode(token, config.secret)
+
+    if (payload) {
+      req.userName = payload.userName
+      next()
+    } else {
+      return res.json({
+        success: false,
+        message: 'Token is not valid'
+      })
+    }
+  } else {
+    return res.send(401).json({
+      success: false,
+      message: 'Auth token is not provided'
+    })
+  }
+}
+
 module.exports = {
-  checkToken
-};
+  checkToken,
+  getUserName
+}

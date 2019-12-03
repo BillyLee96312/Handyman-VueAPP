@@ -13,5 +13,14 @@ export default {
   DESTROY_TOKEN: (state) => {
     state.session.status = 'error'
     state.session.token = null
+  },
+
+  SETUSER_PROFILE: (state, payload) => {
+    state.userProfile.data = payload
+  },
+
+  SETCUSTOMERS_REQUESTS: (state, payload) => {
+    state.cutomersRequests.data = payload
   }
+
 }

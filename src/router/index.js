@@ -44,6 +44,14 @@ const router = new Router({
   }
 })
 
+// router.beforeEach((to, from, next) => {
+//   let token = sessionStorage.getItem('token')
+//   if (token !== null) {
+//     store.dispatch('storeToekn', token)
+//   }
+//   next()
+// })
+
 Vue.use(Meta)
 
 // Bootstrap Analytics

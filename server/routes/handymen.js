@@ -82,7 +82,7 @@ router.put('/edit/:id', (req, res) => {
 // Get all handymen
 // This will api will return call handymen from database
 router.get('/', (req, res) => {
-  let query = 'select hm.handyman_id, sv.service_name, hm.first_name, hm.last_name, hm.phone_num, ' +
+  let query = 'select hm.handyman_id, sv.service_id, sv.service_name, hm.first_name, hm.last_name, hm.phone_num, ' +
                   'ha.skill_license_no, sk.skill_name, sk.skill_desc, hm.work_location, ' +
                   'hm.work_avaliable_area, hm.work_available_days, hm.work_start_time, hm.work_end_time ' +
                 'from service sv ' +

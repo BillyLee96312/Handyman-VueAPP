@@ -2,7 +2,7 @@ const database = require('../database')
 
 let addUser = function (data) {
     return new Promise((resolve, reject) => {
-        findUserName(data.loginInfo.userName).then((rows) => {
+        findUser(data.loginInfo.userName).then((rows) => {
             if (rows.length >= 1) {
                 reject(new Error({ error: 'User Name is taken' }))
             } else {
@@ -116,12 +116,37 @@ function addHandyman (data) {
     })
 }
 
-function findUserName (userName) {
+function findUser (userName) {
     let query = `SELECT * from user where user_name = '${userName}'`
 
     return database.query(query)
 }
 
+function findCustomer (userName) {
+    return findUser(userName).then((user) => {
+        let query = `SELECT * from customer where user_id = '${user[0].user_id}'`
+
+        return database.query(query)
+    })
+}
+
+function findHandyman (userName) {
+    return findUser(userName).then((user) => {
+        let query = `SELECT * from handyman where user_id = '${user[0].user_id}'`
+
+        return database.query(query)
+    })
+}
+
+function findHandymanById (id) {
+    let query = `SELECT * from handyman where handyman_id = '${id}'`
+
+    return database.query(query)
+}
 module.exports = {
-    addUser
+    addUser,
+    findUser,
+    findCustomer,
+    findHandyman,
+    findHandymanById
 }

@@ -86,36 +86,42 @@
                 </v-col>
               </v-row>
               <v-row v-if="items.length > 0">
-                          <v-data-table :headers="headers" :items="items"
-             item-key="worklocation" :search="search"
-             >
-
-
-            <template v-slot:top>
-
-
-              <v-container fluid>
-                <v-row>
-                  <v-col cols="3">
-                      <v-row class="pa-3">
-                          <!-- Filter for items name-->
-                          <v-text-field v-model="search" type="text" label="Filter results">
-                          </v-text-field>
+                <v-data-table
+                  :headers="headers"
+                  :items="items"
+                  item-key="worklocation"
+                  :search="search"
+                >
+                  <template v-slot:top>
+                    <v-container fluid>
+                      <v-row>
+                        <v-col cols="3">
+                          <v-row class="pa-3">
+                            <!-- Filter for items name-->
+                            <v-text-field
+                              v-model="search"
+                              type="text"
+                              label="Filter results"
+                            />
+                          </v-row>
+                        </v-col>
                       </v-row>
-                  </v-col>
-                </v-row>
-              </v-container>
+                    </v-container>
+                  </template>
 
-
-            </template>
-
-            <template v-slot:item.action="{ item }">
-              <div class="my-2">
-                <v-btn small color="primary" dark @click="request(item)">Request</v-btn>
-              </div>
-            </template>
-
-          </v-data-table>
+                  <template v-slot:item.action="{ item }">
+                    <div class="my-2">
+                      <v-btn
+                        small
+                        color="primary"
+                        dark
+                        @click="request(item)"
+                      >
+                        Request
+                      </v-btn>
+                    </div>
+                  </template>
+                </v-data-table>
               </v-row>
             </v-container>
           </v-form>
@@ -149,46 +155,46 @@
         menu2: false,
         items: [],
         headers: [
-        {
-          sortable: false,
-          text: 'First Name',
-          value: 'firstName'
-        },
-        {
-          sortable: false,
-          text: 'Last Name',
-          value: 'lastName'
-        },
-        {
-          sortable: false,
-          text: 'Work Location',
-          value: 'worklocation'
-        },
-        {
-          sortable: false,
-          text: 'Service Name',
-          value: 'serviceName'
-        },
-        {
-          sortable: false,
-          text: 'Skill Name',
-          value: 'skillName'
-        },
-        {
-          sortable: false,
-          text: 'Skill License No',
-          value: 'skillLicenseNo'
-        },
-        {
-          sortable: false,
-          text: 'Avaliable Area',
-          value: 'avaliableArea'
-        },{
-          sortable: false,
-          text: 'Actions',
-          value: 'action'
-        }
-      ]
+          {
+            sortable: false,
+            text: 'First Name',
+            value: 'firstName'
+          },
+          {
+            sortable: false,
+            text: 'Last Name',
+            value: 'lastName'
+          },
+          {
+            sortable: false,
+            text: 'Work Location',
+            value: 'worklocation'
+          },
+          {
+            sortable: false,
+            text: 'Service Name',
+            value: 'serviceName'
+          },
+          {
+            sortable: false,
+            text: 'Skill Name',
+            value: 'skillName'
+          },
+          {
+            sortable: false,
+            text: 'Skill License No',
+            value: 'skillLicenseNo'
+          },
+          {
+            sortable: false,
+            text: 'Avaliable Area',
+            value: 'avaliableArea'
+          }, {
+            sortable: false,
+            text: 'Actions',
+            value: 'action'
+          }
+        ]
       }
     },
 
@@ -240,7 +246,6 @@
               avaliableArea: user.work_avaliable_area
             })
           })
-
         }).catch((error) => {
           console.log(error)
         })

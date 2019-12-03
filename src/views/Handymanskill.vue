@@ -14,28 +14,22 @@
           <v-data-table
             :headers="headers"
             :items="items"
-            hide-default-footer 
+            hide-default-footer
           />
-          <v-btn @click="CreateHandymanSkill()"> Create </v-btn>
-          
+          <v-btn @click="CreateHandymanSkill()">
+            Create
+          </v-btn>
         </material-card>
-        
       </v-col>
     </v-row>
   </v-container>
 </template>
 
 <script>
-  //import Popup from './CreateHandymanSkill'
+  // import Popup from './CreateHandymanSkill'
   import axios from 'axios'
 
   export default {
-    //component: { Popup } ,
-    methods: {
-      CreateHandymanSkill () {
-        this.$router.push('Create-Handyman-Skills')
-      }
-    },
     data: () => ({
       headers: [
         {
@@ -75,6 +69,12 @@
           })
         })
       })
+    },
+    // component: { Popup } ,
+    methods: {
+      CreateHandymanSkill () {
+        this.$router.push('Create-Handyman-Skills')
+      }
     }
   }
 </script>
