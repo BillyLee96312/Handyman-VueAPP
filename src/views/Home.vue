@@ -2,9 +2,12 @@
   <v-app light>
     <v-content>
       <v-toolbar class="white">
-        <v-toolbar-title
-          class="mx-0"
-          v-text="title"
+        <v-img
+          src="@/assets/logo.jpg"
+          height="65"
+          contain
+          aspect-ratio="1"
+          position="left"
         />
         <v-spacer />
         <v-toolbar-items>
