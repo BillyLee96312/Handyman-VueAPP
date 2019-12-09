@@ -24,7 +24,7 @@
     >
       <v-list-item-avatar color="white">
         <v-img
-          src="https://cdn.vuetifyjs.com/images/logos/v.png"
+          src="@/assets/logo.jpg"
           height="34"
           contain
         />
