@@ -75,7 +75,7 @@
                 >
                   <v-text-field
                     v-model="address"
-                    label="Adress"
+                    label="Address"
                     class="purple-input"
                     :error-messages="addressErrors"
                     :rules="[v => !!v || '']"
