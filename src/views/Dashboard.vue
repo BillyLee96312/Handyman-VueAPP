@@ -25,7 +25,7 @@
                       <v-text-field
                         v-model="search"
                         type="text"
-                        label="Type any data"
+                        label="Search request"
                       />
                     </v-row>
                   </v-col>
@@ -55,8 +55,12 @@
   import { mapState } from 'vuex'
 
   export default {
+    /**
+    * data object to hold initial data of the component.
+    */
     data () {
       return {
+        search: '',
         tabs: 0,
         list: {
           0: false,
@@ -92,16 +96,26 @@
         ]
       }
     },
+     /**
+    * metaInfo object to hold page metadata.
+    */
     metaInfo () {
       return {
         title: 'Dashboard'
       }
     },
+
+    /**
+    * computed properties for the component.
+    */
     computed: mapState({
       userProfile: state => state.userProfile.data,
       cutomersRequests: state => state.cutomersRequests.data
     }),
 
+    /**
+    *
+    */
     created () {
       let headers = {
         headers: {
@@ -114,6 +128,9 @@
     },
 
     methods: {
+      /**
+       *
+       */
       complete (index) {
         this.list[index] = !this.list[index]
       }

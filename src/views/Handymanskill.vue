@@ -26,10 +26,12 @@
 </template>
 
 <script>
-  // import Popup from './CreateHandymanSkill'
   import axios from 'axios'
 
   export default {
+    /**
+    * data object to hold initial data of the component.
+    */
     data: () => ({
       headers: [
         {
@@ -55,6 +57,10 @@
       ],
       items: []
     }),
+
+    /**
+    * metaInfo object to hold page metadata.
+    */
     metaInfo () {
       return {
         title: 'Handyman Skill'
@@ -74,8 +80,14 @@
         })
       })
     },
-    // component: { Popup } ,
+
     methods: {
+      /**
+      * Transition to Create-Handyman-Skills page
+      *
+      * @method CreateHandymanSkill
+      * @return {void}
+      */
       CreateHandymanSkill () {
         this.$router.push('Create-Handyman-Skills')
       }

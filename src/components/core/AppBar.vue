@@ -30,9 +30,11 @@
           to="/user-profile"
           icon
         >
-          <v-icon color="tertiary">
-            mdi-account
-          </v-icon>
+          <div class="my-2">
+              <v-btn color="success" fab dark>
+                <v-icon>mdi-account-circle</v-icon>
+              </v-btn>
+            </div>
         </v-btn>
       </v-row>
     </v-toolbar-items>

@@ -187,6 +187,9 @@
   import axios from 'axios'
 
   export default {
+    /**
+    * data object to hold initial data of the component.
+    */
     data () {
       return {
         bookingConfirmed: false,
@@ -197,11 +200,18 @@
         userProfile: null
       }
     },
+     /**
+    * metaInfo object to hold page metadata.
+    */
     metaInfo () {
       return {
         title: 'Booking'
       }
     },
+
+    /**
+    * computed properties for the component.
+    */
     computed: {
       itemToRequest () {
         return this.$route.params.itemToRequest
