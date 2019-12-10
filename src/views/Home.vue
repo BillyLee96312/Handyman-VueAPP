@@ -27,25 +27,24 @@
           </v-btn>
         </v-toolbar-items>
       </v-toolbar>
-      <section>
-        <v-parallax
-          src="../../public/banner1.jpg"
-          max-height="500px"
+      <v-parallax
+          dark
+          src="https://s3-eu-west-1.amazonaws.com/businessautomation/Template_BG_Images/Zakk-Templates_handymanheader_7134.jpg"
         >
-          <v-layout
+        <v-layout
             column
             align-center
             justify-center
-            class="white--text"
+            class=""
           >
-            <h1 class="white--text mb-2 display-2 text-center heroHeading">
+            <h1 class=" mb-2 display-2 text-center heroHeading">
               One stop to find all your home services.
             </h1>
-            <div class="white--text subheading mb-3 text-center">
+            <div class=" subheading mb-3 text-center">
               Be worry free
             </div>
             <v-btn
-              class="blue lighten-2 mt-5"
+              class="success mt-5"
               dark
               large
               @click="signup"
@@ -53,8 +52,7 @@
               Get Started
             </v-btn>
           </v-layout>
-        </v-parallax>
-      </section>
+      </v-parallax>
       <v-container>
         <v-row
           align="center"
@@ -178,15 +176,13 @@
 </script>
 
 <style scoped>
-.subheading{
-  font-weight: 900;
-  text-shadow: 2px 2px #000000;
-  font-size:20px;
-}
-
-.heroHeading{
-  font-weight: 900;
-  text-shadow: 3px 2px #000000
+.heroHeading, .subheading{
+  font-family: 'Work Sans', sans-serif !important;
+  font-size: 2.4em !important;
+  font-weight: 300 !important;
+  letter-spacing: -0.02em !important;
+  line-height: 1.1em !important;
+  color:black;
 }
 .service-row{
   margin-top: 40px;
