@@ -54,7 +54,7 @@
       * We are fetching all users from database using /api/v1/json/users. This is defined inside server/index
       *
       * @method created
-      * @return void
+      * @return {void}
       */
     created () {
       axios.get('/api/v1/json/users').then((res) => {

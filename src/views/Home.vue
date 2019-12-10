@@ -137,7 +137,7 @@
     * Created hook.
     *
     * @lifecycle created
-    * @return void
+    * @return {void}
     */
     created () {
       axios.get('/api/v1/json/services').then((data) => {
@@ -158,7 +158,7 @@
       * Transition to sign-up page
       *
       * @method signup
-      * @return void
+      * @return {void}
       */
       signup () {
         this.$router.push('sign-up')
@@ -168,7 +168,7 @@
       * Transition to login page
       *
       * @method login
-      * @return void
+      * @return {void}
       */
       login () {
         this.$router.push('login')

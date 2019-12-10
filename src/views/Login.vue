@@ -122,7 +122,7 @@
       * Transition to login page
       *
       * @method login
-      * @return void
+      * @return {void}
       */
       login () {
         // We are using axios to communicate with server. It has get, pust, post, delete function

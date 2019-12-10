@@ -378,7 +378,7 @@
       /** create new user with user type 1(homeowner)
       *
       * @method createUser
-      * @return void
+      * @return {void}
       */
       createUser () {
         this.$v.$touch()
@@ -410,7 +410,7 @@
        /** Toggle ShowLoginInfo to true
       *
       * @method next
-      * @return void
+      * @return {void}
       */
       next () {
         this.showLoginInfo = true

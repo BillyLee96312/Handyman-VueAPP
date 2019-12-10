@@ -66,7 +66,7 @@
       * Transition to sign-up-handyman page
       *
       * @method signUpHandyman
-      * @return void
+      * @return {void}
       */
       signUpHandyman () {
         this.$router.push('sign-up-handyman')
@@ -76,7 +76,7 @@
       * Transition to sign-up-homeowner page
       *
       * @method signUpHomeOwner
-      * @return void
+      * @return {void}
       */
       signUpHomeOwner () {
         this.$router.push('sign-up-homeowner')

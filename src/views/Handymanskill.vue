@@ -86,7 +86,7 @@
       * Transition to Create-Handyman-Skills page
       *
       * @method CreateHandymanSkill
-      * @return void
+      * @return {void}
       */
       CreateHandymanSkill () {
         this.$router.push('Create-Handyman-Skills')
