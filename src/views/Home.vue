@@ -71,30 +71,37 @@
           align="center"
           justify="center"
           wrap
-          align-center
-        >
+          align-center>
           <!-- Iterate each services using for loop with v-for directive -->
           <v-col
             v-for="service in services"
             :key="service.service_id"
-            cols="4"
-          >
-            <v-card class="elevation-4 transparent">
-              <v-card-title
-                primary-title
-                class="layout justify-center"
-              >
-                <div class="headline text-center">
-                  {{ service.service_name }}
+            cols="6">
+            <v-card class="elevation-4 transparent text-center pa-5">
+              <div class="d-flex flex-no-wrap justify-space-between">
+                <div>
+                  <v-card-title
+                    class="headline"
+                    v-text="service.service_name"
+                  ></v-card-title>
+                  <v-card-text class="text-left">
+                      Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+                  </v-card-text>
                 </div>
-              </v-card-title>
+
+                <v-avatar
+                  class="ma-3"
+                  size="125"
+                  tile>
+                  <v-img :src="serviceImage[service.service_name] || 'https://tottenham-handyman.co.uk/wp-content/uploads/2016/05/icon7.png'"></v-img>
+                </v-avatar>
+              </div>
               <v-card-actions>
-                <v-btn
-                  text
-                  color="deep-purple accent-4"
-                >
+                <v-spacer></v-spacer>
+                <v-btn color="success" @click="login()">
                   Hire now
                 </v-btn>
+                <v-spacer></v-spacer>
               </v-card-actions>
             </v-card>
           </v-col>
@@ -109,28 +116,60 @@
 
   export default {
     name: 'Home',
+    /**
+    * data object to hold initial data of the component.
+    */
     data: function () {
       return {
         title: 'Handy Man',
-        services: []
+        services: [],
+        serviceImage:{
+          'Electronics': 'https://tottenham-handyman.co.uk/wp-content/uploads/2016/05/icon2.png',
+          'Plumbing':'https://tottenham-handyman.co.uk/wp-content/uploads/2016/05/icon1.png',
+          'Carpentry':'https://tottenham-handyman.co.uk/wp-content/uploads/2016/05/icon6.png',
+          'Painter':'https://tottenham-handyman.co.uk/wp-content/uploads/2016/05/icon4.png',
+          'Civil Construction':'https://tottenham-handyman.co.uk/wp-content/uploads/2016/05/icon7.png',
+          'Heating and Cooling':'https://tottenham-handyman.co.uk/wp-content/uploads/2016/05/icon5.png'
+        }
       }
     },
+    /**
+    * Created hook.
+    *
+    * @lifecycle created
+    * @return void
+    */
     created () {
-      debugger
       axios.get('/api/v1/json/services').then((data) => {
         this.services = data.data.data
       })
     },
+
+    /**
+    * metaInfo object to hold page metadata.
+    */
     metaInfo () {
       return {
         title: 'Home'
       }
     },
     methods: {
+      /**
+      * Transition to sign-up page
+      *
+      * @method signup
+      * @return void
+      */
       signup () {
         this.$router.push('sign-up')
       },
 
+      /**
+      * Transition to login page
+      *
+      * @method login
+      * @return void
+      */
       login () {
         this.$router.push('login')
       }

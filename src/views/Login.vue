@@ -69,6 +69,9 @@
   export default {
     mixins: [validationMixin],
 
+    /**
+    * metaInfo object to hold page metadata.
+    */
     metaInfo () {
       return {
         title: 'Login'
@@ -80,6 +83,9 @@
       password: { required, minLength: minLength(4), maxLength: maxLength(32) }
     },
 
+    /**
+    * data object to hold initial data of the component.
+    */
     data () {
       return {
         userName: '',
@@ -89,6 +95,9 @@
       }
     },
 
+    /**
+    * computed properties for component.
+    */
     computed: {
       userNameErrors () {
         const errors = []
@@ -109,6 +118,12 @@
     },
 
     methods: {
+      /**
+      * Transition to login page
+      *
+      * @method login
+      * @return void
+      */
       login () {
         // We are using axios to communicate with server. It has get, pust, post, delete function
         axios.post('/api/v1/json/users/finduser', {

@@ -30,26 +30,8 @@
                       />
                     </v-row>
                   </v-col>
-                  <!--
-                  <v-col cols="3">
-                      <v-row class="pa-3">
-
-                          <v-select
-                              :items="skills"
-                              v-model="skillsFilterValue"
-                              v-on:change="skillsFilter(skillsFilterValue)"
-                              label="Skills"
-                          >
-                          </v-select>
-
-                      </v-row>
-                  </v-col>
-                  -->
                   <v-col cols="3">
                     <v-row class="pa-3">
-                      <!-- Filter for calories -->
-
-                      <!--  <v-text-field v-model="catalogueFilterValue" type="text" label="Skill"></v-text-field> -->
                     </v-row>
                   </v-col>
                 </v-row>
@@ -79,11 +61,18 @@
   import axios from 'axios'
 
   export default {
+     /**
+    * metaInfo object to hold page metadata.
+    */
     metaInfo () {
       return {
         title: 'Search Handyman'
       }
     },
+
+    /**
+    * data object to hold initial data of the component.
+    */
     data: () => ({
       search: '',
       headers: [
@@ -134,13 +123,6 @@
     // Vue by default call this method once this component is loaded on page.
     // We are fetching all users from database using /api/v1/json/handyman. This is defined inside server/index
     created () {
-      // let headers = {
-      //   headers: {
-      //     'Content-Type': 'application/json',
-      //     'token': this.$store.getters.token
-      //   }
-      // }
-
       axios.get('/api/v1/json/handymen').then((res) => {
         res.data.data.forEach(
           service => {
@@ -186,18 +168,6 @@
         // partially contains the searched word.
         return value.toLowerCase().includes(this.dessertFilterValue.toLowerCase())
       },
-      // skillsFilter () {
-      //   console.log('--- skillsFilter ----' + skillsFilterValue)
-      //   // this.push()
-      //   // If this filter has no value we just skip the entire filter.
-      // },
-      //  request (item) {
-      //   console.log("--- request (item) ----")
-
-      //   //this.editedIndex = this.items.indexOf(item)
-      //   //this.editedItem = Object.assign({}, item)
-      //   this.card = true
-      //  },
       booking (itemToRequest) {
         this.$router.push({
           name: 'Booking',
