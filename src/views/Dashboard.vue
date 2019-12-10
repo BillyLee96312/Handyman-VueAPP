@@ -25,7 +25,7 @@
                       <v-text-field
                         v-model="search"
                         type="text"
-                        label="Type any data"
+                        label="Search request"
                       />
                     </v-row>
                   </v-col>
@@ -60,6 +60,7 @@
     */
     data () {
       return {
+        search: '',
         tabs: 0,
         list: {
           0: false,
