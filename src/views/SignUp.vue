@@ -53,15 +53,31 @@
 
 <script>
   export default {
+    /**
+    * metaInfo object to hold page metadata.
+    */
     metaInfo () {
       return {
         title: 'Register'
       }
     },
     methods: {
+      /**
+      * Transition to sign-up-handyman page
+      *
+      * @method signUpHandyman
+      * @return void
+      */
       signUpHandyman () {
         this.$router.push('sign-up-handyman')
       },
+
+      /**
+      * Transition to sign-up-homeowner page
+      *
+      * @method signUpHomeOwner
+      * @return void
+      */
       signUpHomeOwner () {
         this.$router.push('sign-up-homeowner')
       }
