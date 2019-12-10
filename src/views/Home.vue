@@ -72,7 +72,8 @@
           <v-col
             v-for="service in services"
             :key="service.service_id"
-            cols="6">
+            cols="12"
+            md="6" >
             <v-card class="elevation-4 transparent text-center pa-5">
               <div class="d-flex flex-no-wrap justify-space-between">
                 <div>
