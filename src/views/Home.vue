@@ -4,7 +4,7 @@
       <v-toolbar class="white">
         <v-img
           src="@/assets/logo.jpg"
-          height="65"
+          height="95"
           contain
           aspect-ratio="1"
           position="left"
@@ -13,18 +13,16 @@
         <v-toolbar-items>
           <v-btn
             text
-            class="lighten-3"
+            class="ma-1 signup"
             @click="signup"
           >
             Sign up
+            <v-icon class="pa-1">mdi-account-plus</v-icon>
           </v-btn>
-          <v-btn
-            text
-            class="grey lighten-1"
-            @click="login"
-          >
-            Sign In
-          </v-btn>
+          <v-btn text class="ma-1" @click="login">
+            Sign in
+            <v-icon>mdi-login</v-icon>
+           </v-btn>
         </v-toolbar-items>
       </v-toolbar>
       <v-parallax
