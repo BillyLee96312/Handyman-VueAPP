@@ -331,6 +331,9 @@
     components: { Multiselect },
     mixins: [validationMixin],
 
+    /**
+    * validation rules for the component.
+    */
     validations: {
       userName: { required, minLength: minLength(4), maxLength: maxLength(32) },
       email: { required, email },
@@ -344,8 +347,10 @@
       pcode: { required, minLength: minLength(6), maxLength: maxLength(6) },
       value: { required }
     },
-    // OR register locally
 
+    /**
+    * data object to hold initial data of the component.
+    */
     data () {
       return {
         valid: true,
@@ -383,12 +388,18 @@
       }
     },
 
+     /**
+    * metaInfo object to hold page metadata.
+    */
     metaInfo () {
       return {
         title: 'Signup Handyman'
       }
     },
 
+    /**
+    * computed properties for the component.
+    */
     computed: {
       userNameErrors () {
         const errors = []
@@ -482,6 +493,11 @@
     },
 
     methods: {
+       /** create new user with user type 2(handyman)
+      *
+      * @method createUser
+      * @return void
+      */
       createUser () {
         this.$v.$touch()
         let reqBody = {
@@ -516,6 +532,11 @@
         })
       },
 
+      /** Toggle ShowLoginInfo to true
+      *
+      * @method next
+      * @return void
+      */
       next () {
         this.showLoginInfo = true
       },

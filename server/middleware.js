@@ -1,6 +1,13 @@
 const jwt = require('jsonwebtoken')
 const config = require('./config')
 
+/**
+ * Verify token sent by client. Allow next if token is found else return 401 with error
+ *
+ * @param {*} req
+ * @param {*} res
+ * @param {*} next
+ */
 let checkToken = (req, res, next) => {
   let token = req.headers['token'] || req.headers['authorization']
   if (token && token.startsWith('Bearer ')) {
@@ -27,6 +34,13 @@ let checkToken = (req, res, next) => {
   }
 }
 
+/**
+ * Decode username from the token sent by client. If token is valid allow next else return 401 with error
+ *
+ * @param {*} req
+ * @param {*} res
+ * @param {*} next
+ */
 let getUserName = (req, res, next) => {
   let token = req.headers['token'] || req.headers['authorization']
   if (token && token.startsWith('Bearer ')) {

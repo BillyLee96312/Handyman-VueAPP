@@ -26,6 +26,9 @@
   import axios from 'axios'
 
   export default {
+    /**
+    * data object to hold initial data of the component.
+    */
     data: () => ({
       headers: [
         {
@@ -47,8 +50,12 @@
       items: []
     }),
 
-    // Vue by default call this method once this component is loaded on page.
-    // We are fetching all users from database using /api/v1/json/users. This is defined inside server/index
+     /** Vue by default call this method once this component is loaded on page.
+      * We are fetching all users from database using /api/v1/json/users. This is defined inside server/index
+      *
+      * @method created
+      * @return void
+      */
     created () {
       axios.get('/api/v1/json/users').then((res) => {
         res.data.data.forEach(user => {

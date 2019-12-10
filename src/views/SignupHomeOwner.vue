@@ -231,6 +231,9 @@
   export default {
     mixins: [validationMixin],
 
+    /**
+    * validation rules for the component.
+    */
     validations: {
       userName: { required, minLength: minLength(4), maxLength: maxLength(32) },
       email: { required, email },
@@ -244,6 +247,9 @@
       pcode: { required, minLength: minLength(6), maxLength: maxLength(6) }
     },
 
+    /**
+    * data object to hold initial data of the component.
+    */
     data () {
       return {
         valid: true,
@@ -277,12 +283,18 @@
       }
     },
 
+    /**
+    * metaInfo object to hold page metadata.
+    */
     metaInfo () {
       return {
         title: 'Signup Homeowner'
       }
     },
 
+    /**
+    * computed properties of the component.
+    */
     computed: {
       userNameErrors () {
         const errors = []
@@ -362,6 +374,12 @@
     },
 
     methods: {
+
+      /** create new user with user type 1(homeowner)
+      *
+      * @method createUser
+      * @return void
+      */
       createUser () {
         this.$v.$touch()
         let reqBody = {
@@ -373,7 +391,7 @@
             pcode: this.pcode,
             phone: this.phone,
             province: this.province,
-            userType: 1 // db has 2 assigned for homeowner
+            userType: 1 // db has 1 assigned for homeowner
           },
           loginInfo: {
             userName: this.userName,
@@ -389,6 +407,11 @@
         })
       },
 
+       /** Toggle ShowLoginInfo to true
+      *
+      * @method next
+      * @return void
+      */
       next () {
         this.showLoginInfo = true
       }

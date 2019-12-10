@@ -168,6 +168,13 @@
         // partially contains the searched word.
         return value.toLowerCase().includes(this.dessertFilterValue.toLowerCase())
       },
+
+      /**
+       * Transition to booking flow.
+       * @param itemToRequest Selected request object.
+       * @method booking
+       * @returns {void}
+       */
       booking (itemToRequest) {
         this.$router.push({
           name: 'Booking',

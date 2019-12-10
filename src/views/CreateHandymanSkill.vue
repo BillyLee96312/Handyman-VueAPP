@@ -62,6 +62,9 @@
   import axios from 'axios'
 
   export default {
+    /**
+    * data object to hold initial data of the component.
+    */
     data () {
       return {
         skillId: '',
@@ -69,6 +72,10 @@
         skillDesc: ''
       }
     },
+
+     /**
+    * metaInfo object to hold page metadata.
+    */
     metaInfo () {
       return {
         title: 'Handyman Skill'

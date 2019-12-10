@@ -55,6 +55,9 @@
   import { mapState } from 'vuex'
 
   export default {
+    /**
+    * data object to hold initial data of the component.
+    */
     data () {
       return {
         tabs: 0,
@@ -92,16 +95,26 @@
         ]
       }
     },
+     /**
+    * metaInfo object to hold page metadata.
+    */
     metaInfo () {
       return {
         title: 'Dashboard'
       }
     },
+
+    /**
+    * computed properties for the component.
+    */
     computed: mapState({
       userProfile: state => state.userProfile.data,
       cutomersRequests: state => state.cutomersRequests.data
     }),
 
+    /**
+    *
+    */
     created () {
       let headers = {
         headers: {
@@ -114,6 +127,9 @@
     },
 
     methods: {
+      /**
+       *
+       */
       complete (index) {
         this.list[index] = !this.list[index]
       }

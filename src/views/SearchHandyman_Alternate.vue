@@ -136,7 +136,9 @@
   import axios from 'axios'
 
   export default {
-    // Set title of page
+     /**
+    * metaInfo object to hold page metadata.
+    */
     metaInfo () {
       return {
         title: 'Search Handyman'
@@ -145,7 +147,9 @@
 
     components: { Multiselect },
 
-    // Create initial dynamic data object
+    /**
+    * data object to hold initial data of the component.
+    */
     data () {
       return {
         pcode: '',
